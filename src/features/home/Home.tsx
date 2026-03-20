@@ -1,64 +1,85 @@
-// 홈 화면: 히어로 + 학습 여정 맵 + 예정 과 + 설정 FAB
-import { useState, useEffect } from 'react'
+// 홈 화면 — 프리미엄 허브 (과 목록 없음, 히어로 중심)
+import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LESSONS } from '../grammar/lessons'
 
-// 과별 악센트 색상 배열
-const ACCENT_COLORS = [
-  '#D4760A', '#2E7D32', '#1565C0', '#7B1FA2', '#C62828',
-]
-
-// 오늘의 명언 목록
+// ── 설정 상수 ──
 const QUOTES = [
-  'Dhammaṃ care sucaritaṃ — 법을 잘 실천하라',
-  'Appamādo amatapadaṃ — 방일하지 않음이 불사의 길',
-  'Attā hi attano nātho — 자기 자신이 자신의 의지처',
-  'Sabbe saṅkhārā aniccā — 모든 형성된 것은 무상하다',
-  'Khanti paramaṃ tapo — 인내는 최상의 고행이다',
+  { pali: 'Dhammaṃ care sucaritaṃ', ko: '법을 잘 실천하라' },
+  { pali: 'Appamādo amatapadaṃ', ko: '방일하지 않음이 불사의 길' },
+  { pali: 'Attā hi attano nātho', ko: '자기 자신이 자신의 의지처' },
+  { pali: 'Sabbe saṅkhārā aniccā', ko: '모든 형성된 것은 무상하다' },
+  { pali: 'Khanti paramaṃ tapo', ko: '인내는 최상의 고행이다' },
+  { pali: 'Manosetṭhā manomayā', ko: '마음이 앞서고, 마음이 만든다' },
+  { pali: 'Saddhā dutiyā purisassa hoti', ko: '믿음은 사람의 동반자이다' },
 ]
 
-// 원형 진도 SVG 컴포넌트
-function CircleProgress({ pct, size = 44, stroke = 3.5, color }: {
-  pct: number; size?: number; stroke?: number; color: string
-}) {
+// 시간대별 인사
+function getGreeting(): string {
+  const h = new Date().getHours()
+  if (h < 6) return '고요한 새벽이에요'
+  if (h < 12) return '좋은 아침이에요'
+  if (h < 18) return '좋은 오후에요'
+  return '편안한 저녁이에요'
+}
+
+// 과별 진행도 조회
+function getProgress(id: string, total: number) {
+  return Math.min(Number(localStorage.getItem(`pali-primer-${id}`) || '0'), total)
+}
+
+// ── 연꽃 장식 (CSS 전용) ──
+function LotusDecoration() {
+  return (
+    <div className="absolute right-4 bottom-8 opacity-[0.06] pointer-events-none"
+      aria-hidden="true">
+      <svg width="180" height="180" viewBox="0 0 200 200" fill="white">
+        {/* 중앙 꽃잎 */}
+        <ellipse cx="100" cy="80" rx="18" ry="50"
+          transform="rotate(0, 100, 100)" />
+        {/* 좌우 꽃잎들 */}
+        {[-40, -20, 20, 40].map(angle => (
+          <ellipse key={angle} cx="100" cy="80" rx="16" ry="48"
+            transform={`rotate(${angle}, 100, 100)`} />
+        ))}
+        {/* 외곽 꽃잎들 */}
+        {[-60, -30, 30, 60].map(angle => (
+          <ellipse key={`o${angle}`} cx="100" cy="85" rx="14" ry="40"
+            transform={`rotate(${angle}, 100, 100)`} opacity="0.6" />
+        ))}
+        {/* 받침대 */}
+        <ellipse cx="100" cy="145" rx="50" ry="12" opacity="0.4" />
+        <ellipse cx="100" cy="152" rx="60" ry="10" opacity="0.25" />
+      </svg>
+    </div>
+  )
+}
+
+// ── 원형 프로그레스 링 (큰 사이즈) ──
+function ProgressRing({ pct, size = 120 }: { pct: number; size?: number }) {
+  const stroke = 8
   const r = (size - stroke) / 2
   const circ = 2 * Math.PI * r
   const offset = circ - (pct / 100) * circ
 
   return (
-    <svg width={size} height={size} className="shrink-0 -rotate-90">
-      {/* 배경 원 */}
-      <circle cx={size / 2} cy={size / 2} r={r}
-        fill="none" stroke="var(--color-border)" strokeWidth={stroke} />
-      {/* 진도 원 */}
-      <circle cx={size / 2} cy={size / 2} r={r}
-        fill="none" stroke={color} strokeWidth={stroke}
-        strokeLinecap="round" strokeDasharray={circ} strokeDashoffset={offset}
-        className="transition-all duration-700" />
-    </svg>
-  )
-}
-
-// 법륜 장식 요소 (CSS 전용)
-function DharmaWheel() {
-  return (
-    <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-10 pointer-events-none"
-      aria-hidden="true">
-      <div className="relative w-20 h-20">
-        {/* 외곽 원 */}
-        <div className="absolute inset-0 rounded-full border-2"
-          style={{ borderColor: 'var(--color-surface)' }} />
-        {/* 내부 원 */}
-        <div className="absolute inset-[30%] rounded-full border-2"
-          style={{ borderColor: 'var(--color-surface)' }} />
-        {/* 8개 바큇살 */}
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="absolute left-1/2 top-0 h-full w-[2px] origin-center"
-            style={{
-              backgroundColor: 'var(--color-surface)',
-              transform: `translateX(-50%) rotate(${i * 22.5}deg)`,
-            }} />
-        ))}
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="-rotate-90">
+        {/* 배경 트랙 */}
+        <circle cx={size / 2} cy={size / 2} r={r}
+          fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth={stroke} />
+        {/* 진행 아크 */}
+        <circle cx={size / 2} cy={size / 2} r={r}
+          fill="none" stroke="white" strokeWidth={stroke}
+          strokeLinecap="round"
+          strokeDasharray={circ} strokeDashoffset={offset}
+          className="transition-all duration-1000"
+          style={{ filter: 'drop-shadow(0 0 6px rgba(255,255,255,0.3))' }} />
+      </svg>
+      {/* 중앙 퍼센트 */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-3xl font-bold text-white leading-none">{pct}%</span>
+        <span className="text-[10px] text-white/60 mt-1">진행률</span>
       </div>
     </div>
   )
@@ -66,10 +87,10 @@ function DharmaWheel() {
 
 export default function Home() {
   const nav = useNavigate()
-  const [showUpcoming, setShowUpcoming] = useState(false)
   const [streak, setStreak] = useState(0)
+  const [todayMinutes, setTodayMinutes] = useState(0)
 
-  // 학습 연속일수 계산
+  // 연속 학습일수 계산
   useEffect(() => {
     const today = new Date().toISOString().slice(0, 10)
     const lastDate = localStorage.getItem('pali-study-last-date')
@@ -82,14 +103,17 @@ export default function Home() {
       if (lastDate === yesterday) {
         setStreak(savedStreak)
       } else if (lastDate) {
-        // 연속 끊김 — 리셋
         setStreak(0)
         localStorage.setItem('pali-study-streak', '0')
       }
     }
+
+    // 오늘 학습 시간 (분)
+    const mins = Number(localStorage.getItem(`pali-study-minutes-${today}`) || '0')
+    setTodayMinutes(mins)
   }, [])
 
-  // 오늘의 학습 기록 갱신 함수 (과 진입 시 호출용으로 export 가능)
+  // 학습 기록 갱신
   const recordStudy = () => {
     const today = new Date().toISOString().slice(0, 10)
     const lastDate = localStorage.getItem('pali-study-last-date')
@@ -103,321 +127,308 @@ export default function Home() {
     }
   }
 
-  const getProgress = (id: string, total: number) => {
-    return Math.min(Number(localStorage.getItem(`pali-primer-${id}`) || '0'), total)
-  }
+  // ── 전체 통계 ──
+  const stats = useMemo(() => {
+    let totalSteps = 0, doneSteps = 0, completedLessons = 0
+    LESSONS.forEach(lesson => {
+      const prog = getProgress(lesson.id, lesson.steps.length)
+      totalSteps += lesson.steps.length
+      doneSteps += prog
+      if (prog >= lesson.steps.length) completedLessons++
+    })
+    return {
+      totalLessons: LESSONS.length,
+      completedLessons,
+      overallPct: totalSteps > 0 ? Math.round((doneSteps / totalSteps) * 100) : 0,
+    }
+  }, [])
 
-  // 오늘의 명언 (날짜 기반 고정)
-  const todayQuote = QUOTES[new Date().getDate() % QUOTES.length]
-
-  // 현재 진행 중인 과 인덱스 찾기
+  // 현재 진행 중인 과
   const currentLessonIdx = LESSONS.findIndex((lesson, idx) => {
     const prog = getProgress(lesson.id, lesson.steps.length)
     return prog < lesson.steps.length && (idx === 0 ||
       getProgress(LESSONS[idx - 1].id, LESSONS[idx - 1].steps.length) >= LESSONS[idx - 1].steps.length)
   })
+  const currentLesson = currentLessonIdx >= 0 ? LESSONS[currentLessonIdx] : null
+  const allCompleted = currentLessonIdx === -1 && stats.completedLessons === stats.totalLessons
 
-  // 예정 과 목록
-  const upcomingLessons: { title: string; subtitle: string }[] = []
+  const currentPct = currentLesson
+    ? Math.round((getProgress(currentLesson.id, currentLesson.steps.length) / currentLesson.steps.length) * 100)
+    : 0
+
+  // 오늘의 명언
+  const todayQuote = QUOTES[new Date().getDate() % QUOTES.length]
+
+  // CTA 클릭
+  const handleCTA = () => {
+    if (allCompleted) {
+      nav('/courses')
+    } else if (currentLesson) {
+      recordStudy()
+      nav(`/learn/${currentLesson.id}`)
+    } else {
+      recordStudy()
+      nav(`/learn/${LESSONS[0].id}`)
+    }
+  }
 
   return (
-    <div className="min-h-screen pb-[env(safe-area-inset-bottom)]"
+    <div className="min-h-screen pb-24"
       style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}>
 
-      {/* ── 히어로 섹션 ── */}
-      <div className="relative overflow-hidden rounded-b-3xl"
-        style={{
-          background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%)',
-        }}>
-        <DharmaWheel />
-        <div className="relative px-6 pt-[max(env(safe-area-inset-top),24px)] pb-6">
-          {/* 앱 제목 */}
-          <h1 className="text-2xl font-bold text-white tracking-tight">
-            빠알리 프라이머
-          </h1>
-          <p className="text-white/70 text-sm mt-1">
-            De Silva의 Pāli Primer 기반 문법 학습
+      {/* ═══ 1. 상단 인사 + 프로필 ═══ */}
+      <div className="px-5 pt-[max(env(safe-area-inset-top),16px)] pb-3 flex items-center justify-between animate-fadeIn">
+        <div>
+          <p className="text-sm font-medium" style={{ color: 'var(--color-text-secondary)' }}>
+            {getGreeting()}
           </p>
+          <p className="text-[13px] mt-0.5" style={{ color: 'var(--color-text-tertiary)' }}>
+            오늘도 빠알리어와 함께
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          {/* 연속 학습 불꽃 뱃지 */}
+          {streak > 0 && (
+            <div className="flex items-center gap-1.5 rounded-full px-3 py-1.5
+              transition-all duration-300"
+              style={{
+                backgroundColor: 'color-mix(in srgb, var(--color-primary) 8%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--color-primary) 20%, transparent)',
+              }}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--color-primary)">
+                <path d="M12 23c-3.6 0-8-2.4-8-7.7C4 10 8 4.3 11 1.4c.2-.2.5-.2.7-.1.2.1.3.4.3.6 0 2 .6 4.6 2.2 6.3C16 9.8 20 12.5 20 15.3 20 20.6 15.6 23 12 23z" />
+              </svg>
+              <span className="text-xs font-bold" style={{ color: 'var(--color-primary)' }}>
+                {streak}
+              </span>
+            </div>
+          )}
+          {/* 프로필 아바타 → 설정 */}
+          <button
+            onClick={() => nav('/profile')}
+            className="w-10 h-10 rounded-full flex items-center justify-center
+              transition-all duration-200 active:scale-95"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              border: '2px solid var(--color-border)',
+            }}
+            aria-label="프로필">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="var(--color-text-secondary)" strokeWidth="2"
+              strokeLinecap="round" strokeLinejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </button>
+        </div>
+      </div>
 
-          {/* 연속 학습 + 명언 */}
-          <div className="mt-5 flex items-center gap-4">
-            {/* 연속일수 뱃지 */}
-            <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-xl px-3 py-2">
-              <span className="text-lg">🔥</span>
-              <div>
-                <p className="text-white text-xs font-medium leading-none">
-                  연속 학습
-                </p>
-                <p className="text-white text-lg font-bold leading-tight">
-                  {streak}<span className="text-sm font-normal ml-0.5">일</span>
+      {/* ═══ 2. 히어로 섹션 — 대형 카드 ═══ */}
+      <div className="px-5 pt-2 animate-slideUp">
+        <div className="relative overflow-hidden rounded-3xl"
+          style={{
+            background: 'linear-gradient(145deg, #8F4F08 0%, #C06B0A 30%, #D4820E 60%, #E8993A 100%)',
+            minHeight: '340px',
+          }}>
+
+          {/* 장식: 연꽃 */}
+          <LotusDecoration />
+
+          {/* 미묘한 광택 효과 */}
+          <div className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.08) 0%, transparent 60%)',
+            }} />
+
+          <div className="relative px-6 pt-8 pb-7 flex flex-col justify-between"
+            style={{ minHeight: '340px' }}>
+
+            {allCompleted ? (
+              /* 전 과정 완료 */
+              <div className="flex-1 flex flex-col items-center justify-center text-center">
+                <div className="w-20 h-20 rounded-full bg-white/15 flex items-center justify-center mb-4">
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none"
+                    stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">
+                  축하합니다!
+                </h2>
+                <p className="text-white/70 text-sm">
+                  전 과정 {stats.totalLessons}과를 모두 완료했습니다
                 </p>
               </div>
-            </div>
+            ) : currentLesson ? (
+              /* 학습 이어가기 */
+              <>
+                <div>
+                  <span className="inline-block text-[10px] font-bold tracking-widest uppercase
+                    text-white/50 mb-3">
+                    학습 이어가기
+                  </span>
+                  <h2 className="text-xl font-bold text-white leading-snug mb-1">
+                    {currentLesson.title}
+                  </h2>
+                  <p className="text-white/60 text-sm">
+                    {currentLesson.subtitle}
+                  </p>
+                </div>
 
-            {/* 명언 */}
-            <p className="text-white/60 text-xs leading-relaxed flex-1 italic"
-              style={{ fontFamily: 'var(--font-pali)' }}>
-              {todayQuote}
+                {/* 중앙: 프로그레스 링 */}
+                <div className="flex justify-center py-4">
+                  <ProgressRing pct={currentPct} size={120} />
+                </div>
+              </>
+            ) : (
+              /* 새 사용자 */
+              <div className="flex-1 flex flex-col justify-center">
+                <h2 className="text-2xl font-bold text-white leading-snug mb-3">
+                  빠알리어의 세계로<br />
+                  오신 것을 환영합니다
+                </h2>
+                <p className="text-white/60 text-sm leading-relaxed">
+                  De Silva's Pali Primer 교재를 기반으로<br />
+                  경전 실례와 함께 체계적으로 학습합니다
+                </p>
+              </div>
+            )}
+
+            {/* CTA 버튼 — 항상 하단 */}
+            <button
+              onClick={handleCTA}
+              className="w-full py-4 rounded-2xl text-base font-bold
+                transition-all duration-300
+                active:scale-[0.97]"
+              style={{
+                backgroundColor: 'white',
+                color: '#8F4F08',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.15), 0 0 40px rgba(255,255,255,0.1)',
+                marginTop: 'auto',
+              }}>
+              {allCompleted ? '복습 시작하기' :
+               currentLesson ? '이어서 학습하기' : '학습 시작하기'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 3. 빠른 통계 카드 3개 ═══ */}
+      <div className="px-5 pt-5 animate-slideUp delay-2">
+        <div className="grid grid-cols-3 gap-3">
+          {/* 완료 과목 */}
+          <div className="rounded-2xl p-4 text-center card-shadow"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              border: '1.5px solid var(--color-border)',
+            }}>
+            <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center"
+              style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 8%, transparent)' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="var(--color-primary)" strokeWidth="2"
+                strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+              </svg>
+            </div>
+            <p className="text-lg font-bold" style={{ color: 'var(--color-text)' }}>
+              {stats.completedLessons}<span className="text-xs font-normal text-[var(--color-text-tertiary)]">/{stats.totalLessons}</span>
+            </p>
+            <p className="text-[10px] font-medium mt-0.5"
+              style={{ color: 'var(--color-text-secondary)' }}>
+              완료 과목
+            </p>
+          </div>
+
+          {/* 연속 학습 */}
+          <div className="rounded-2xl p-4 text-center card-shadow"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              border: '1.5px solid var(--color-border)',
+            }}>
+            <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center"
+              style={{ backgroundColor: 'color-mix(in srgb, #E8993A 8%, transparent)' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#E8993A">
+                <path d="M12 23c-3.6 0-8-2.4-8-7.7C4 10 8 4.3 11 1.4c.2-.2.5-.2.7-.1.2.1.3.4.3.6 0 2 .6 4.6 2.2 6.3C16 9.8 20 12.5 20 15.3 20 20.6 15.6 23 12 23z" />
+              </svg>
+            </div>
+            <p className="text-lg font-bold" style={{ color: 'var(--color-text)' }}>
+              {streak}<span className="text-xs font-normal text-[var(--color-text-tertiary)]">일</span>
+            </p>
+            <p className="text-[10px] font-medium mt-0.5"
+              style={{ color: 'var(--color-text-secondary)' }}>
+              연속 학습
+            </p>
+          </div>
+
+          {/* 오늘 학습 */}
+          <div className="rounded-2xl p-4 text-center card-shadow"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              border: '1.5px solid var(--color-border)',
+            }}>
+            <div className="w-10 h-10 rounded-xl mx-auto mb-2 flex items-center justify-center"
+              style={{ backgroundColor: 'color-mix(in srgb, var(--color-accent) 8%, transparent)' }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="var(--color-accent)" strokeWidth="2"
+                strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+            <p className="text-lg font-bold" style={{ color: 'var(--color-text)' }}>
+              {todayMinutes > 0 ? `${todayMinutes}` : '-'}
+              <span className="text-xs font-normal text-[var(--color-text-tertiary)]">
+                {todayMinutes > 0 ? '분' : ''}
+              </span>
+            </p>
+            <p className="text-[10px] font-medium mt-0.5"
+              style={{ color: 'var(--color-text-secondary)' }}>
+              {todayMinutes > 0 ? '오늘 학습' : '시작해보세요'}
             </p>
           </div>
         </div>
       </div>
 
-      {/* ── 학습 여정 ── */}
-      <div className="px-5 pt-6 pb-4">
-        <h2 className="text-sm font-bold mb-1" style={{ color: 'var(--color-text-secondary)' }}>
-          학습 여정
-        </h2>
-      </div>
-
-      {/* ── 과 카드 목록 (연결 경로 포함) ── */}
-      <div className="relative px-5 pb-6">
-        {/* 세로 연결선 */}
-        <div className="absolute left-[27px] top-0 bottom-0 w-[2px] rounded-full"
-          style={{ backgroundColor: 'var(--color-border)' }} />
-
-        <div className="space-y-4 relative">
-          {LESSONS.map((lesson, idx) => {
-            const prog = getProgress(lesson.id, lesson.steps.length)
-            const pct = Math.round((prog / lesson.steps.length) * 100)
-            const isCompleted = prog >= lesson.steps.length
-            const isLocked = idx > 0 &&
-              getProgress(LESSONS[idx - 1].id, LESSONS[idx - 1].steps.length) < LESSONS[idx - 1].steps.length
-            const isCurrent = idx === currentLessonIdx
-            const accentColor = ACCENT_COLORS[idx % ACCENT_COLORS.length]
-
-            return (
-              <div key={lesson.id} className="relative flex items-start gap-4">
-                {/* 연결선 위의 노드 */}
-                <div className="relative z-10 shrink-0 mt-4">
-                  {/* 진행 중 펄스 애니메이션 */}
-                  {isCurrent && (
-                    <span className="absolute inset-0 rounded-full animate-ping opacity-30"
-                      style={{ backgroundColor: accentColor }} />
-                  )}
-                  <div className="w-3 h-3 rounded-full border-2 transition-all duration-300"
-                    style={{
-                      borderColor: isLocked ? 'var(--color-border)' : accentColor,
-                      backgroundColor: isCompleted ? accentColor
-                        : isCurrent ? accentColor : 'var(--color-bg)',
-                    }} />
-                </div>
-
-                {/* 카드 본체 */}
-                <button
-                  onClick={() => {
-                    if (!isLocked) {
-                      recordStudy()
-                      nav(`/learn/${lesson.id}`)
-                    }
-                  }}
-                  disabled={isLocked}
-                  className="flex-1 rounded-2xl overflow-hidden text-left
-                    transition-all duration-300
-                    hover:shadow-lg hover:-translate-y-0.5
-                    active:scale-[0.98] active:shadow-md"
-                  style={{
-                    backgroundColor: 'var(--color-surface)',
-                    border: isCompleted
-                      ? '2px solid var(--color-accent)'
-                      : isCurrent
-                        ? `2px solid ${accentColor}`
-                        : '1.5px solid var(--color-border)',
-                    opacity: isLocked ? 0.45 : 1,
-                    boxShadow: isCurrent
-                      ? `0 0 20px ${accentColor}22` : undefined,
-                  }}
-                >
-                  <div className="flex">
-                    {/* 좌측 색상 악센트 바 */}
-                    <div className="w-1.5 shrink-0 transition-colors duration-300"
-                      style={{
-                        backgroundColor: isLocked ? 'var(--color-border)' : accentColor,
-                      }} />
-
-                    <div className="flex-1 p-4 flex items-center gap-3">
-                      {/* 원형 진도 표시 */}
-                      <div className="relative">
-                        <CircleProgress
-                          pct={isLocked ? 0 : pct}
-                          color={isCompleted ? 'var(--color-accent)' : accentColor}
-                        />
-                        {/* 중앙 아이콘 / 상태 */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          {isLocked ? (
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                              stroke="var(--color-text-secondary)" strokeWidth="2.5"
-                              strokeLinecap="round" strokeLinejoin="round">
-                              <rect x="3" y="11" width="18" height="11" rx="2" />
-                              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                            </svg>
-                          ) : isCompleted ? (
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                              stroke="var(--color-accent)" strokeWidth="3"
-                              strokeLinecap="round" strokeLinejoin="round">
-                              <polyline points="20 6 9 17 4 12" />
-                            </svg>
-                          ) : (
-                            <span className="text-xs font-bold"
-                              style={{ color: accentColor }}>
-                              {pct}%
-                            </span>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* 과 정보 */}
-                      <div className="flex-1 min-w-0">
-                        <p className="font-bold text-sm leading-snug truncate">
-                          {lesson.title}
-                        </p>
-                        <p className="text-xs mt-0.5 truncate"
-                          style={{ color: 'var(--color-text-secondary)' }}>
-                          {lesson.subtitle}
-                        </p>
-                      </div>
-
-                      {/* 스텝 수 뱃지 */}
-                      <div className="shrink-0 rounded-lg px-2 py-1 text-center"
-                        style={{
-                          backgroundColor: isCompleted
-                            ? 'color-mix(in srgb, var(--color-accent) 12%, transparent)'
-                            : `${accentColor}14`,
-                        }}>
-                        <span className="text-[10px] font-bold block leading-none"
-                          style={{
-                            color: isCompleted ? 'var(--color-accent)' : accentColor,
-                          }}>
-                          {lesson.steps.length}
-                        </span>
-                        <span className="text-[9px] block mt-0.5 leading-none"
-                          style={{ color: 'var(--color-text-secondary)' }}>
-                          스텝
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* ── 예정 과 (접이식) ── */}
-      <div className="px-5 pb-6">
-        <button
-          onClick={() => setShowUpcoming(v => !v)}
-          className="w-full flex items-center justify-between py-3 px-4 rounded-xl
-            transition-all duration-300 active:scale-[0.98]"
+      {/* ═══ 4. 오늘의 빠알리 명언 ═══ */}
+      <div className="px-5 pt-5 animate-slideUp delay-3">
+        <div className="rounded-2xl p-5 card-shadow relative overflow-hidden"
           style={{
             backgroundColor: 'var(--color-surface)',
             border: '1.5px solid var(--color-border)',
-          }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-bold"
-              style={{ color: 'var(--color-text-secondary)' }}>
-              예정 과목
-            </span>
-            <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-              style={{
-                backgroundColor: 'var(--color-border)',
-                color: 'var(--color-text-secondary)',
-              }}>
-              {upcomingLessons.length}
-            </span>
-          </div>
-          <svg
-            width="16" height="16" viewBox="0 0 24 24"
-            fill="none" stroke="var(--color-text-secondary)"
-            strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-            className="transition-transform duration-300"
-            style={{ transform: showUpcoming ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-
-        {/* 접이식 내용 */}
-        <div className="overflow-hidden transition-all duration-500"
-          style={{
-            maxHeight: showUpcoming ? `${upcomingLessons.length * 80}px` : '0px',
-            opacity: showUpcoming ? 1 : 0,
           }}>
-          <div className="space-y-2 pt-3">
-            {upcomingLessons.map((item, idx) => (
-              <div key={idx}
-                className="rounded-xl p-3 flex items-center gap-3 opacity-60"
-                style={{
-                  backgroundColor: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                }}>
-                {/* 번호 원 */}
-                <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0
-                  text-xs font-bold"
-                  style={{
-                    backgroundColor: 'var(--color-border)',
-                    color: 'var(--color-text-secondary)',
-                  }}>
-                  {idx + 27}
-                </div>
-                <div className="min-w-0">
-                  <p className="font-bold text-sm truncate">{item.title}</p>
-                  <p className="text-xs truncate"
-                    style={{ color: 'var(--color-text-secondary)' }}>
-                    {item.subtitle}
-                  </p>
-                </div>
-              </div>
-            ))}
+          {/* 미묘한 배경 장식 */}
+          <div className="absolute right-3 top-3 opacity-[0.04] pointer-events-none" aria-hidden="true">
+            <svg width="60" height="60" viewBox="0 0 100 100" fill="var(--color-primary)">
+              <ellipse cx="50" cy="40" rx="10" ry="30" />
+              {[-25, 25].map(a => (
+                <ellipse key={a} cx="50" cy="40" rx="9" ry="28"
+                  transform={`rotate(${a}, 50, 50)`} />
+              ))}
+            </svg>
           </div>
+
+          <p className="text-[10px] font-bold tracking-widest uppercase mb-3"
+            style={{ color: 'var(--color-text-tertiary)' }}>
+            오늘의 게송
+          </p>
+          <p className="text-lg leading-relaxed mb-2 pali-text"
+            style={{ color: 'var(--color-primary-dark)' }}>
+            {todayQuote.pali}
+          </p>
+          <p className="text-sm"
+            style={{ color: 'var(--color-text-secondary)' }}>
+            {todayQuote.ko}
+          </p>
         </div>
       </div>
 
-      {/* ── 푸터 ── */}
-      <div className="px-5 pb-8 text-center">
-        <p className="text-[10px]" style={{ color: 'var(--color-text-secondary)' }}>
-          v2.0 · De Silva's Pāli Primer 기반
+      {/* ═══ 5. 푸터 ═══ */}
+      <div className="px-5 pt-6 pb-4 text-center">
+        <p className="text-[10px]" style={{ color: 'var(--color-text-tertiary)' }}>
+          v2.0 · De Silva's Pali Primer 기반
         </p>
-        <p className="text-[10px] mt-0.5" style={{ color: 'var(--color-text-secondary)' }}>
-          교재 순서 + 경전 실례 학습
-        </p>
-      </div>
-
-      {/* ── 설정 FAB (backdrop blur) ── */}
-      <div className="fixed bottom-6 right-5 pb-[env(safe-area-inset-bottom)]">
-        <button
-          onClick={() => nav('/settings')}
-          className="w-12 h-12 rounded-2xl flex items-center justify-center
-            shadow-xl backdrop-blur-md
-            transition-all duration-300
-            hover:scale-105 active:scale-95"
-          style={{
-            backgroundColor: 'color-mix(in srgb, var(--color-surface) 80%, transparent)',
-            border: '1px solid var(--color-border)',
-          }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-            stroke="var(--color-text-secondary)" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1
-              0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33
-              1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65
-              1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0
-              1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68
-              15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1
-              2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2
-              2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0
-              9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1
-              2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0
-              1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0
-              2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0
-              1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0
-              0 0-1.51 1z" />
-          </svg>
-        </button>
       </div>
     </div>
   )
