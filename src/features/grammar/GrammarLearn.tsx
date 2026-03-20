@@ -5,6 +5,7 @@ import { speakPali } from '../../utils/pali-tts'
 import WritingCanvas from '../../components/WritingCanvas'
 import { getLessonById } from './lessons'
 import type { StepType } from './types'
+import { debouncedPush, isSyncLoggedIn } from '../../utils/sync'
 
 // 스텝 전환 상태
 type TransitionPhase = 'enter' | 'stable' | 'exit'
@@ -26,6 +27,8 @@ export default function GrammarLearn() {
     setStepIdxRaw(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater
       localStorage.setItem(`pali-primer-${lid}`, String(next))
+      // 로그인 상태면 클라우드 동기화 (디바운스)
+      if (isSyncLoggedIn()) debouncedPush()
       return next
     })
   }

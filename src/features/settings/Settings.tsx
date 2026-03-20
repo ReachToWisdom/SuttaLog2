@@ -1,6 +1,7 @@
-// 설정 화면 — 그룹 섹션, 애니메이션 토글, 아이콘, About, 위험 구역
-import { useState } from 'react'
+// 설정 화면 — 그룹 섹션, 애니메이션 토글, 아이콘, About, 위험 구역, 동기화
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { isSyncConfigured, isSyncLoggedIn, getSyncUser, initSync, syncLogin, syncLogout, pushToCloud, pullFromCloud } from '../../utils/sync'
 
 /** 애니메이션 토글 스위치 */
 function Toggle({ value, onChange }: { value: boolean; onChange: () => void }) {
@@ -92,6 +93,18 @@ export default function Settings() {
   const nav = useNavigate()
   const [writing, setWriting] = useState(localStorage.getItem('pali-primer-writing') !== 'off')
   const [sound, setSound] = useState(localStorage.getItem('suttalog2-sound') !== 'off')
+  const [syncLoggedIn, setSyncLoggedIn] = useState(isSyncLoggedIn())
+  const [syncLoading, setSyncLoading] = useState(false)
+  const [syncMessage, setSyncMessage] = useState('')
+  const syncUser = getSyncUser()
+  const syncAvailable = isSyncConfigured()
+
+  // 동기화 초기화
+  useEffect(() => {
+    if (syncAvailable) {
+      initSync((loggedIn) => setSyncLoggedIn(loggedIn))
+    }
+  }, [syncAvailable])
 
   const toggleWriting = () => {
     const next = !writing
@@ -105,12 +118,47 @@ export default function Settings() {
     localStorage.setItem('suttalog2-sound', next ? 'on' : 'off')
   }
 
+  // 동기화 로그인/로그아웃
+  const handleSyncLogin = async () => {
+    setSyncLoading(true)
+    const ok = await syncLogin()
+    setSyncLoading(false)
+    if (ok) setSyncMessage('로그인 성공! 진도를 동기화합니다.')
+    else setSyncMessage('로그인 실패. 다시 시도해주세요.')
+    setTimeout(() => setSyncMessage(''), 3000)
+  }
+
+  const handleSyncLogout = async () => {
+    await syncLogout()
+    setSyncLoggedIn(false)
+    setSyncMessage('로그아웃되었습니다.')
+    setTimeout(() => setSyncMessage(''), 3000)
+  }
+
+  // 수동 동기화
+  const handlePush = async () => {
+    setSyncLoading(true)
+    const ok = await pushToCloud()
+    setSyncLoading(false)
+    setSyncMessage(ok ? '클라우드에 저장 완료!' : '저장 실패')
+    setTimeout(() => setSyncMessage(''), 3000)
+  }
+
+  const handlePull = async () => {
+    setSyncLoading(true)
+    const ok = await pullFromCloud()
+    setSyncLoading(false)
+    setSyncMessage(ok ? '클라우드에서 가져오기 완료!' : '가져오기 실패')
+    if (ok) setTimeout(() => window.location.reload(), 1000)
+    else setTimeout(() => setSyncMessage(''), 3000)
+  }
+
   const resetProgress = () => {
     if (!confirm('모든 진도를 초기화하시겠습니까?')) return
     const keysToRemove: string[] = []
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)
-      if (key?.startsWith('pali-primer-lesson-')) {
+      if (key?.startsWith('pali-primer-')) {
         keysToRemove.push(key)
       }
     }
@@ -159,6 +207,67 @@ export default function Settings() {
               right={<Toggle value={sound} onChange={toggleSound} />}
             />
           </div>
+        </section>
+
+        {/* ── 클라우드 동기화 ── */}
+        <section>
+          <SectionHeader>클라우드 동기화</SectionHeader>
+          {!syncAvailable ? (
+            <div className="p-4 rounded-2xl text-center text-xs" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-text-secondary)' }}>
+              Firebase 설정이 필요합니다.
+              <br />sync.ts에 FIREBASE_CONFIG를 입력하세요.
+            </div>
+          ) : !syncLoggedIn ? (
+            <SettingRow
+              icon={<span>☁️</span>}
+              title="Google 로그인"
+              desc="기기간 진도 동기화를 위해 로그인하세요"
+              onClick={handleSyncLogin}
+              right={syncLoading ? <span className="animate-spin text-sm">⏳</span> : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-text-tertiary, var(--color-text-secondary))' }}>
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              )}
+            />
+          ) : (
+            <div className="space-y-3">
+              {/* 사용자 정보 */}
+              <div className="flex items-center gap-3 p-4 rounded-2xl" style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-accent)' }}>
+                {syncUser?.photoURL ? (
+                  <img src={syncUser.photoURL} alt="" className="w-9 h-9 rounded-full" />
+                ) : (
+                  <span className="flex items-center justify-center w-9 h-9 rounded-full text-base" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>👤</span>
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-sm truncate">{syncUser?.displayName || syncUser?.email}</p>
+                  <p className="text-xs truncate" style={{ color: 'var(--color-text-secondary)' }}>{syncUser?.email}</p>
+                </div>
+                <span className="badge badge-success">연결됨</span>
+              </div>
+              {/* 동기화 버튼 */}
+              <div className="flex gap-2">
+                <button onClick={handlePush} disabled={syncLoading}
+                  className="flex-1 py-3 rounded-xl text-sm font-bold transition-all active:scale-[0.98]"
+                  style={{ backgroundColor: 'var(--color-surface)', border: '1.5px solid var(--color-border)' }}>
+                  {syncLoading ? '⏳' : '⬆️'} 업로드
+                </button>
+                <button onClick={handlePull} disabled={syncLoading}
+                  className="flex-1 py-3 rounded-xl text-sm font-bold transition-all active:scale-[0.98]"
+                  style={{ backgroundColor: 'var(--color-surface)', border: '1.5px solid var(--color-border)' }}>
+                  {syncLoading ? '⏳' : '⬇️'} 다운로드
+                </button>
+              </div>
+              {/* 로그아웃 */}
+              <SettingRow icon={<span>🚪</span>} title="로그아웃" desc="동기화 연결 해제" onClick={handleSyncLogout} />
+            </div>
+          )}
+          {/* 동기화 메시지 */}
+          {syncMessage && (
+            <div className="mt-2 p-3 rounded-xl text-center text-xs font-medium animate-fadeIn"
+              style={{ backgroundColor: syncMessage.includes('실패') ? 'rgba(198,40,40,0.08)' : 'rgba(46,125,50,0.08)', color: syncMessage.includes('실패') ? 'var(--color-error)' : 'var(--color-accent)' }}>
+              {syncMessage}
+            </div>
+          )}
         </section>
 
         {/* ── 데이터 ── */}
