@@ -80,7 +80,7 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     }
   }, [drawGrid])
 
-  // 캔버스 초기화 + DPR 대응
+  // 캔버스 크기 초기화 (크기 변경 시에만)
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -92,7 +92,18 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     if (!ctx) return
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     redraw(ctx, strokes, showGrid, width, height)
-  }, [width, height, showGrid, strokes, redraw])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, height])
+
+  // 스트로크/그리드 변경 시 다시 그리기 (캔버스 크기 재설정 없이)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+    // transform은 이미 설정됨, clearRect + redraw만 수행
+    redraw(ctx, strokes, showGrid, width, height)
+  }, [strokes, showGrid, redraw, width, height])
 
   // 좌표 계산 (DPR 무관하게 CSS 좌표 사용)
   const getPos = (e: React.TouchEvent | React.MouseEvent) => {
