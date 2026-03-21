@@ -1,15 +1,14 @@
 // Firebase 동기화 모듈
 // Google 로그인 + Firestore로 기기간 학습 진도 동기화
 
-// TODO: Firebase 콘솔에서 프로젝트 생성 후 설정값 입력
-// https://console.firebase.google.com/ → 프로젝트 설정 → 웹 앱 추가
+// panditarama-video Firebase 프로젝트 공유 (컬렉션만 분리)
 const FIREBASE_CONFIG = {
-  apiKey: '',
-  authDomain: '',
-  projectId: '',
-  storageBucket: '',
-  messagingSenderId: '',
-  appId: '',
+  apiKey: 'AIzaSyDDNRL69ugkKb6mJPnJb2kQud0_3b97viA',
+  authDomain: 'panditarama-video.firebaseapp.com',
+  projectId: 'panditarama-video',
+  storageBucket: 'panditarama-video.firebasestorage.app',
+  messagingSenderId: '504794613271',
+  appId: '1:504794613271:web:ac565d6c6e82d9b72c7e52',
 }
 
 // 동기화 대상 localStorage 키 접두사
