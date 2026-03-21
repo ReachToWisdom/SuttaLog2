@@ -24,12 +24,14 @@ function getCSSColor(varName: string, fallback: string): string {
 
 export default function WritingCanvas({ width: propWidth, height: propHeight }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [drawing, setDrawing] = useState(false)
   const [penSize, setPenSize] = useState<number>(PEN_SIZES[1])
   const [showGrid, setShowGrid] = useState(false)
   const [strokes, setStrokes] = useState<Stroke[]>([])
+  // 드로잉 상태를 ref로 관리 (이벤트 핸들러에서 최신 값 접근)
+  const drawingRef = useRef(false)
   const currentStroke = useRef<Stroke | null>(null)
-  const dprRef = useRef(1)
+  const penSizeRef = useRef(penSize)
+  penSizeRef.current = penSize
 
   const width = propWidth ?? 340
   const height = propHeight ?? 160
@@ -66,7 +68,7 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     if (grid) drawGrid(ctx, w, h)
     const primaryColor = getCSSColor('--color-primary', '#C06B0A')
     for (const s of strokeList) {
-      if (s.points.length < 2) continue
+      if (!s || s.points.length < 2) continue
       ctx.beginPath()
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
@@ -85,7 +87,6 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     const canvas = canvasRef.current
     if (!canvas) return
     const dpr = window.devicePixelRatio || 1
-    dprRef.current = dpr
     canvas.width = width * dpr
     canvas.height = height * dpr
     const ctx = canvas.getContext('2d')
@@ -101,68 +102,116 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     if (!canvas) return
     const ctx = canvas.getContext('2d')
     if (!ctx) return
-    // transform은 이미 설정됨, clearRect + redraw만 수행
     redraw(ctx, strokes, showGrid, width, height)
   }, [strokes, showGrid, redraw, width, height])
 
-  // 좌표 계산 (DPR 무관하게 CSS 좌표 사용)
-  const getPos = (e: React.TouchEvent | React.MouseEvent) => {
+  // 좌표 계산 (CSS 좌표 → 캔버스 논리 좌표)
+  const getPos = useCallback((clientX: number, clientY: number) => {
     const canvas = canvasRef.current
     if (!canvas) return { x: 0, y: 0 }
     const rect = canvas.getBoundingClientRect()
-    const scaleX = width / rect.width
-    const scaleY = height / rect.height
-    if ('touches' in e && e.touches.length > 0) {
-      return {
-        x: (e.touches[0].clientX - rect.left) * scaleX,
-        y: (e.touches[0].clientY - rect.top) * scaleY,
+    return {
+      x: (clientX - rect.left) * (width / rect.width),
+      y: (clientY - rect.top) * (height / rect.height),
+    }
+  }, [width, height])
+
+  // 네이티브 이벤트 리스너 등록 ({ passive: false }로 preventDefault 가능)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const startDrawing = (clientX: number, clientY: number) => {
+      drawingRef.current = true
+      const { x, y } = getPos(clientX, clientY)
+      currentStroke.current = { points: [{ x, y }], lineWidth: penSizeRef.current }
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+      const primaryColor = getCSSColor('--color-primary', '#C06B0A')
+      ctx.beginPath()
+      ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
+      ctx.lineWidth = penSizeRef.current
+      ctx.strokeStyle = primaryColor
+      ctx.moveTo(x, y)
+    }
+
+    const moveDrawing = (clientX: number, clientY: number) => {
+      if (!drawingRef.current) return
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+      const { x, y } = getPos(clientX, clientY)
+      currentStroke.current?.points.push({ x, y })
+      ctx.lineTo(x, y)
+      ctx.stroke()
+    }
+
+    const stopDrawing = () => {
+      if (!drawingRef.current) return
+      drawingRef.current = false
+      const finished = currentStroke.current
+      currentStroke.current = null
+      if (finished && finished.points.length > 1) {
+        setStrokes(prev => {
+          const next = [...prev, finished]
+          return next.length > MAX_UNDO ? next.slice(-MAX_UNDO) : next
+        })
       }
     }
-    const me = e as React.MouseEvent
-    return {
-      x: (me.clientX - rect.left) * scaleX,
-      y: (me.clientY - rect.top) * scaleY,
+
+    // 마우스 이벤트
+    const onMouseDown = (e: MouseEvent) => {
+      e.preventDefault()
+      startDrawing(e.clientX, e.clientY)
     }
-  }
-
-  const start = (e: React.TouchEvent | React.MouseEvent) => {
-    e.preventDefault()
-    setDrawing(true)
-    const { x, y } = getPos(e)
-    currentStroke.current = { points: [{ x, y }], lineWidth: penSize }
-    const ctx = canvasRef.current?.getContext('2d')
-    if (!ctx) return
-    const primaryColor = getCSSColor('--color-primary', '#C06B0A')
-    ctx.beginPath()
-    ctx.lineCap = 'round'
-    ctx.lineJoin = 'round'
-    ctx.lineWidth = penSize
-    ctx.strokeStyle = primaryColor
-    ctx.moveTo(x, y)
-  }
-
-  const draw = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!drawing) return
-    e.preventDefault()
-    const ctx = canvasRef.current?.getContext('2d')
-    if (!ctx) return
-    const { x, y } = getPos(e)
-    currentStroke.current?.points.push({ x, y })
-    ctx.lineTo(x, y)
-    ctx.stroke()
-  }
-
-  const stop = () => {
-    if (!drawing) return
-    setDrawing(false)
-    if (currentStroke.current && currentStroke.current.points.length > 1) {
-      setStrokes(prev => {
-        const next = [...prev, currentStroke.current!]
-        return next.length > MAX_UNDO ? next.slice(-MAX_UNDO) : next
-      })
+    const onMouseMove = (e: MouseEvent) => {
+      if (!drawingRef.current) return
+      e.preventDefault()
+      moveDrawing(e.clientX, e.clientY)
     }
-    currentStroke.current = null
-  }
+    const onMouseUp = (e: MouseEvent) => {
+      e.preventDefault()
+      stopDrawing()
+    }
+    const onMouseLeave = () => stopDrawing()
+
+    // 터치 이벤트 (passive: false 필수)
+    const onTouchStart = (e: TouchEvent) => {
+      e.preventDefault()
+      if (e.touches.length > 0) {
+        startDrawing(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      if (!drawingRef.current) return
+      e.preventDefault()
+      if (e.touches.length > 0) {
+        moveDrawing(e.touches[0].clientX, e.touches[0].clientY)
+      }
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      if (e.cancelable) e.preventDefault()
+      stopDrawing()
+    }
+
+    canvas.addEventListener('mousedown', onMouseDown)
+    canvas.addEventListener('mousemove', onMouseMove)
+    canvas.addEventListener('mouseup', onMouseUp)
+    canvas.addEventListener('mouseleave', onMouseLeave)
+    canvas.addEventListener('touchstart', onTouchStart, { passive: false })
+    canvas.addEventListener('touchmove', onTouchMove, { passive: false })
+    canvas.addEventListener('touchend', onTouchEnd, { passive: false })
+
+    return () => {
+      canvas.removeEventListener('mousedown', onMouseDown)
+      canvas.removeEventListener('mousemove', onMouseMove)
+      canvas.removeEventListener('mouseup', onMouseUp)
+      canvas.removeEventListener('mouseleave', onMouseLeave)
+      canvas.removeEventListener('touchstart', onTouchStart)
+      canvas.removeEventListener('touchmove', onTouchMove)
+      canvas.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [getPos])
 
   const undo = () => setStrokes(prev => prev.slice(0, -1))
   const clear = () => setStrokes([])
@@ -208,8 +257,6 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
           border: '1.5px solid var(--color-border)',
           boxShadow: 'inset 0 2px 6px rgba(30,27,22,0.06)',
         }}
-        onMouseDown={start} onMouseMove={draw} onMouseUp={stop} onMouseLeave={stop}
-        onTouchStart={start} onTouchMove={draw} onTouchEnd={stop}
       />
 
       {/* 버튼 */}
