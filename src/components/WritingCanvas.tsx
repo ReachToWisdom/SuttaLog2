@@ -36,14 +36,13 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
   const width = propWidth ?? 340
   const height = propHeight ?? 160
 
-  // 가이드 그리드 그리기
+  // 안내선 그리기
   const drawGrid = useCallback((ctx: CanvasRenderingContext2D, w: number, h: number) => {
-    const borderColor = getCSSColor('--color-border', '#E4DDD0')
     ctx.save()
-    ctx.strokeStyle = borderColor
-    ctx.lineWidth = 0.5
-    ctx.setLineDash([4, 6])
-    ctx.globalAlpha = 0.4
+    ctx.strokeStyle = '#B0A090'
+    ctx.lineWidth = 1
+    ctx.setLineDash([6, 4])
+    ctx.globalAlpha = 0.5
 
     // 중앙 십자선
     ctx.beginPath()
@@ -52,7 +51,7 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
     ctx.stroke()
 
     // 1/4, 3/4 보조선
-    ctx.globalAlpha = 0.2
+    ctx.globalAlpha = 0.3
     for (const frac of [0.25, 0.75]) {
       ctx.beginPath()
       ctx.moveTo(0, h * frac); ctx.lineTo(w, h * frac)
@@ -243,7 +242,7 @@ export default function WritingCanvas({ width: propWidth, height: propHeight }: 
             color: showGrid ? '#fff' : 'var(--color-text-secondary)',
             border: `1.5px solid ${showGrid ? 'var(--color-primary)' : 'var(--color-border)'}`,
           }}>
-          가이드
+          안내선
         </button>
       </div>
 
