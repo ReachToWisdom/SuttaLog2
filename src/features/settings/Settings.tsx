@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { isSyncConfigured, isSyncLoggedIn, getSyncUser, initSync, syncLogin, syncLogout, pushToCloud, pullFromCloud } from '../../utils/sync'
+import { FONT_SIZES, getSavedFontSize, setFontSize, type FontSizeKey } from '../../utils/font-size'
 
 /** 애니메이션 토글 스위치 */
 function Toggle({ value, onChange }: { value: boolean; onChange: () => void }) {
@@ -93,6 +94,7 @@ export default function Settings() {
   const nav = useNavigate()
   const [writing, setWriting] = useState(localStorage.getItem('pali-primer-writing') !== 'off')
   const [sound, setSound] = useState(localStorage.getItem('suttalog2-sound') !== 'off')
+  const [fontSize, setFontSizeState] = useState<FontSizeKey>(getSavedFontSize())
   const [syncLoggedIn, setSyncLoggedIn] = useState(isSyncLoggedIn())
   const [syncLoading, setSyncLoading] = useState(false)
   const [syncMessage, setSyncMessage] = useState('')
@@ -116,6 +118,11 @@ export default function Settings() {
     const next = !sound
     setSound(next)
     localStorage.setItem('suttalog2-sound', next ? 'on' : 'off')
+  }
+
+  const changeFontSize = (key: FontSizeKey) => {
+    setFontSizeState(key)
+    setFontSize(key)
   }
 
   // 동기화 로그인/로그아웃
@@ -206,6 +213,55 @@ export default function Settings() {
               desc="TTS 발음 재생"
               right={<Toggle value={sound} onChange={toggleSound} />}
             />
+          </div>
+        </section>
+
+        {/* ── 글씨 크기 ── */}
+        <section>
+          <SectionHeader>글씨 크기</SectionHeader>
+          <div
+            className="p-4 rounded-2xl space-y-3"
+            style={{
+              backgroundColor: 'var(--color-surface)',
+              border: '1px solid var(--color-border)',
+            }}
+          >
+            {/* 미리보기 */}
+            <div className="text-center py-2 rounded-xl"
+              style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
+              <p className="pali-text font-bold" style={{ color: 'var(--color-primary)' }}>
+                Dhammaṃ care sucaritaṃ
+              </p>
+              <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
+                법을 잘 실천하라
+              </p>
+            </div>
+            {/* 크기 선택 버튼 */}
+            <div className="flex gap-2">
+              {FONT_SIZES.map(s => {
+                const isActive = fontSize === s.key
+                return (
+                  <button
+                    key={s.key}
+                    onClick={() => changeFontSize(s.key)}
+                    className="flex-1 py-2.5 rounded-xl text-center font-semibold
+                               transition-all duration-200 active:scale-[0.96]"
+                    style={{
+                      fontSize: `${s.px - 4}px`,
+                      backgroundColor: isActive
+                        ? 'var(--color-primary)'
+                        : 'var(--color-surface-elevated)',
+                      color: isActive ? 'white' : 'var(--color-text)',
+                      border: isActive
+                        ? '1.5px solid var(--color-primary)'
+                        : '1.5px solid var(--color-border)',
+                    }}
+                  >
+                    {s.label}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </section>
 
