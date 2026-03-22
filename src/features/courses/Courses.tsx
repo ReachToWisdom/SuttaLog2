@@ -92,16 +92,14 @@ export default function Courses() {
     })
   }, [search])
 
-  // 과 상태 판별
+  // 과 상태 판별 (잠금 해제 — 모든 과목 자유 접근)
   const getLessonState = (idx: number) => {
     const lesson = LESSONS[idx]
     const prog = getProgress(lesson.id, lesson.steps.length)
     const isCompleted = prog >= lesson.steps.length
-    const isLocked = idx > 0 &&
-      getProgress(LESSONS[idx - 1].id, LESSONS[idx - 1].steps.length) < LESSONS[idx - 1].steps.length
     const isCurrent = idx === currentLessonIdx
     const pct = Math.round((prog / lesson.steps.length) * 100)
-    return { isCompleted, isLocked, isCurrent, pct }
+    return { isCompleted, isLocked: false, isCurrent, pct }
   }
 
   // 섹션별 완료율
@@ -231,18 +229,15 @@ export default function Courses() {
                 <div className="px-3 pb-3 space-y-2">
                   {visibleLessons.map(lesson => {
                     const globalIdx = LESSONS.findIndex(l => l.id === lesson.id)
-                    const { isCompleted, isLocked, isCurrent, pct } = getLessonState(globalIdx)
+                    const { isCompleted, isCurrent, pct } = getLessonState(globalIdx)
 
                     return (
                       <button
                         key={lesson.id}
                         onClick={() => {
-                          if (!isLocked) {
-                            recordStudy()
-                            nav(`/learn/${lesson.id}`)
-                          }
+                          recordStudy()
+                          nav(`/learn/${lesson.id}`)
                         }}
-                        disabled={isLocked}
                         className="w-full flex items-center gap-3 rounded-xl px-3.5 py-3 text-left
                           transition-all duration-300
                           hover:shadow-md hover:-translate-y-px
@@ -252,11 +247,10 @@ export default function Courses() {
                             ? 'color-mix(in srgb, var(--color-primary) 5%, var(--color-surface-elevated))'
                             : 'var(--color-surface-elevated)',
                           border: isCurrent ? '1.5px solid var(--color-primary-light)' : '1px solid transparent',
-                          opacity: isLocked ? 0.4 : 1,
                           minHeight: '48px',
                         }}>
 
-                        {/* 원형 진도 or 완료 체크 or 잠금 */}
+                        {/* 원형 진도 or 완료 체크 */}
                         <div className="shrink-0 relative">
                           {isCompleted ? (
                             <div className="w-9 h-9 rounded-full flex items-center justify-center"
@@ -265,16 +259,6 @@ export default function Courses() {
                                 stroke="var(--color-accent)" strokeWidth="2.5"
                                 strokeLinecap="round" strokeLinejoin="round">
                                 <polyline points="20 6 9 17 4 12" />
-                              </svg>
-                            </div>
-                          ) : isLocked ? (
-                            <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                              style={{ backgroundColor: 'var(--color-surface-hover)' }}>
-                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                                stroke="var(--color-text-tertiary)" strokeWidth="2"
-                                strokeLinecap="round" strokeLinejoin="round">
-                                <rect x="3" y="11" width="18" height="11" rx="2" />
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                               </svg>
                             </div>
                           ) : (
