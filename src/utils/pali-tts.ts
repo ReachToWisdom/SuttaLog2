@@ -1,4 +1,44 @@
-// 빠알리어 로마자 → 데바나가리 변환 + 힌디어 TTS
+// 빠알리어 TTS — mp3 오디오 우선 재생 + Web Speech API 폴백
+// mp3가 있으면 고품질 산스크리트어 TTS, 없으면 힌디어 합성음
+
+const BASE = import.meta.env.BASE_URL || '/'
+const AUDIO_DIR = `${BASE}audio/`
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+let manifest: Record<string, string> | null = null
+let manifestLoaded = false
+
+// 매니페스트 로드 (텍스트 → 파일명 매핑)
+async function loadManifest() {
+  if (manifestLoaded) return
+  manifestLoaded = true
+  try {
+    const res = await fetch(`${AUDIO_DIR}manifest.json`, { cache: 'no-store' })
+    if (res.ok) manifest = await res.json()
+  } catch { /* manifest 없으면 Web Speech API 폴백 */ }
+}
+
+// 앱 시작 시 매니페스트 로드
+loadManifest()
+
+// 현재 재생 중인 Audio 인스턴스
+let currentAudio: HTMLAudioElement | null = null
+
+/** mp3 파일로 재생 시도 → 성공 시 true */
+function tryPlayMp3(text: string): boolean {
+  if (!manifest) return false
+  const filename = manifest[text]
+  if (!filename) return false
+  try {
+    if (currentAudio) { currentAudio.pause(); currentAudio = null }
+    currentAudio = new Audio(`${AUDIO_DIR}${filename}`)
+    currentAudio.play()
+    return true
+  } catch { return false }
+}
+
+// === Web Speech API 폴백 (기존 코드) ===
+
 const CONSONANTS: Record<string, string> = {
   'kh': 'ख', 'k': 'क', 'gh': 'घ', 'g': 'ग', 'ṅ': 'ङ',
   'ch': 'छ', 'c': 'च', 'jh': 'झ', 'j': 'ज', 'ñ': 'ञ',
@@ -47,16 +87,14 @@ export function paliToDevanagari(roman: string): string {
 
 function findBestVoice(): SpeechSynthesisVoice | null {
   const voices = speechSynthesis.getVoices()
-  for (const lang of ['hi-IN', 'hi', 'sa', 'en-IN', 'it-IT', 'en-US']) {
+  for (const lang of ['hi-IN', 'hi', 'sa', 'si', 'en-IN', 'it-IT', 'en-US']) {
     const found = voices.find(v => v.lang.startsWith(lang))
     if (found) return found
   }
   return voices[0] || null
 }
 
-export function speakPali(text: string) {
-  speechSynthesis.cancel()
-  if (localStorage.getItem('suttalog2-sound') === 'off') return
+function speakWithWebAPI(text: string) {
   const trySpeak = () => {
     const voice = findBestVoice()
     const useDevanagari = voice && (voice.lang.startsWith('hi') || voice.lang.startsWith('sa'))
@@ -74,4 +112,18 @@ export function speakPali(text: string) {
       u.lang = 'hi-IN'; u.rate = 0.6; speechSynthesis.speak(u)
     }, 500)
   } else { trySpeak() }
+}
+
+/** 메인 TTS 함수 — mp3 우선, 없으면 Web Speech API 폴백 */
+export function speakPali(text: string) {
+  // 기존 재생 중지
+  speechSynthesis.cancel()
+  if (currentAudio) { currentAudio.pause(); currentAudio = null }
+  if (localStorage.getItem('suttalog2-sound') === 'off') return
+
+  // mp3 먼저 시도
+  if (tryPlayMp3(text)) return
+
+  // 폴백: Web Speech API
+  speakWithWebAPI(text)
 }
