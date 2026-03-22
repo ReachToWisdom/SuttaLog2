@@ -727,27 +727,24 @@ export default function GrammarLearn() {
               )}
             </div>
 
-            {/* 원형/형태 정보 (접이식) */}
+            {/* 원형/형태 정보 (바로 표시) */}
             {(step.baseForm || step.formNote) && (
-              <details
+              <div
                 className="mt-3 rounded-2xl overflow-hidden"
                 style={{
                   backgroundColor: '#E3F2FD',
                   border: '1px solid #BBDEFB',
                 }}
               >
-                <summary
-                  className="px-4 py-3 text-xs font-bold cursor-pointer
-                             select-none flex items-center gap-1"
-                >
-                  📐 문법 상세
-                  {step.baseForm && (
-                    <span className="font-normal ml-1">
-                      (원형: {step.baseForm})
-                    </span>
-                  )}
-                </summary>
-                <div className="px-4 pb-3">
+                <div className="px-4 py-3">
+                  <p className="text-xs font-bold flex items-center gap-1 mb-1">
+                    📐 문법 상세
+                    {step.baseForm && (
+                      <span className="font-normal ml-1">
+                        (원형: {step.baseForm})
+                      </span>
+                    )}
+                  </p>
                   {step.formNote && (
                     <p
                       className="text-xs whitespace-pre-line leading-relaxed"
@@ -757,7 +754,7 @@ export default function GrammarLearn() {
                     </p>
                   )}
                 </div>
-              </details>
+              </div>
             )}
 
             {/* 불교 맥락 */}
