@@ -1,5 +1,6 @@
-// 빠알리어 TTS — mp3 오디오 우선 재생 + Web Speech API 폴백
-// mp3가 있으면 고품질 산스크리트어 TTS, 없으면 힌디어 합성음
+// 빠알리어 TTS — Web Speech API (힌디어 데바나가리 변환)
+// mp3 비활성화: MMS 모델 발음 품질 부족 (음절 수 불일치 등)
+// 향후 고품질 TTS 모델 확보 시 mp3 재활성화 가능
 
 const BASE = import.meta.env.BASE_URL || '/'
 const AUDIO_DIR = `${BASE}audio/`
@@ -33,8 +34,9 @@ loadManifest()
 // 현재 재생 중인 Audio 인스턴스
 let currentAudio: HTMLAudioElement | null = null
 
-/** mp3 파일로 재생 시도 → 성공 시 true (대소문자 무시) */
-function tryPlayMp3(text: string): boolean {
+/** mp3 파일로 재생 시도 → 성공 시 true (현재 비활성화, 향후 재활성화용) */
+/* @ts-ignore: 향후 재활성화용 */
+function _tryPlayMp3(text: string): boolean {
   if (!manifest) return false
   const filename = manifest[text] || manifest[text.toLowerCase()] || manifest[text.trim()]
   if (!filename) return false
@@ -123,16 +125,16 @@ function speakWithWebAPI(text: string) {
   } else { trySpeak() }
 }
 
-/** 메인 TTS 함수 — mp3 우선, 없으면 Web Speech API 폴백 */
+/** 메인 TTS 함수 — Web Speech API (mp3 비활성화) */
 export function speakPali(text: string) {
   // 기존 재생 중지
   speechSynthesis.cancel()
   if (currentAudio) { currentAudio.pause(); currentAudio = null }
   if (localStorage.getItem('suttalog2-sound') === 'off') return
 
-  // mp3 먼저 시도
-  if (tryPlayMp3(text)) return
+  // mp3 비활성화 — MMS 모델 발음 품질 부족
+  // TODO: 고품질 TTS 확보 후 재활성화
+  // if (tryPlayMp3(text)) return
 
-  // 폴백: Web Speech API
   speakWithWebAPI(text)
 }
