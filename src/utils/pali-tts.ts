@@ -76,7 +76,7 @@ export function paliToDevanagari(roman: string): string {
   const s = roman.toLowerCase()
   while (i < s.length) {
     const ch = s[i]
-    if (/[\s,.;:!?\-—–"'()""'']/.test(ch)) { result += ch; i++; continue }
+    if (/[\s,.;:!?\-—–/"'()""'']/.test(ch)) { result += ch === '/' ? ',' : ch; i++; continue }
     if (ch === 'ṃ') { result += 'ं'; i++; continue }
     const two = s.slice(i, i + 2)
     let consonant: string | undefined, consumed = 0
