@@ -52,13 +52,22 @@
 - [x] 격변화 도표 오버레이 — PDF 기반 19개 표 (`declension-tables.ts`)
 - [x] 명사/대명사/형용사 8격 × 단수/복수
 
-## 2026-03-22: TTS 고품질화 (Colab)
+## 2026-03-22~23: TTS 음성
 
-- [x] mp3 우선 재생 구조 — `pali-tts.ts` (mp3 → Web Speech API 폴백)
-- [x] TTS 텍스트 추출 스크립트 — `extract-tts-texts.mjs` (528개 추출)
-- [x] Colab 노트북 생성 — `colab-tts-generator.ipynb` (3중 검증)
-- [ ] Colab에서 mp3 일괄 생성 실행 (528개)
-- [ ] `public/audio/` 에 mp3 + manifest.json 배치
+- [x] Web Speech API (hi-IN) 데바나가리 변환 재생 — 현재 사용 중
+- [x] teach/teach-grammar/verse 단어 클릭 → 음성 재생
+- [x] TTS 텍스트 추출 스크립트 — `extract-tts-texts.mjs` (854개 추출)
+
+### ❌ 실패: Facebook MMS-TTS mp3 생성 (폐기)
+- [x] Colab 노트북 생성 + 818개 mp3 생성 완료
+- [x] **폐기 사유**: 발음 품질 부족 — 음절 수 불일치 (3음절→2음절), 속도 불균형
+- [x] mms-tts-san: 비공개 전환으로 접근 불가 → mms-tts-hin으로 대체했으나 품질 부족
+- [x] mp3 + Colab 노트북 전체 삭제 (커밋 60a747b)
+- **교훈**: 무료 TTS는 샘플 검증 먼저, 배치 생성은 나중에
+
+### 향후: 고품질 TTS 재도전
+- [ ] AI4Bharat Indic Parler-TTS 테스트 (산스크리트어 네이티브, 무료)
+- [ ] 품질 확인 후 배치 생성 → mp3 재활성화
 
 ## 명세서 구축
 
@@ -67,11 +76,18 @@
 - [x] TaskExecution.md 작성
 - [x] CLAUDE.md 갱신
 
+## 2026-03-23: 학습 기록 + PWA + UX
+
+- [x] 학습 캘린더 — 홈 화면 월별 달력, 날짜 클릭 → 상세 기록
+- [x] study-log.ts — 날짜별 학습 시간/과목/점수/횟수/하트 저장
+- [x] GrammarLearn 완료 시 학습 기록 자동 저장
+- [x] 상단 브레드크럼 — 과 제목 + 현재 스텝 유형 표시
+- [x] PWA 서비스워커 (`sw.js`) + 매니페스트 (`manifest.json`)
+- [x] 진도 초기화에 연속학습일 + 학습기록 포함
+
 ## 미완료 / 향후 작업
 
 - [ ] 다크 모드 전환 UI (현재 CSS만 준비, 토글 없음)
-- [ ] 오늘 학습 시간 측정 기능 (현재 표시만, 기록 미구현)
 - [ ] Zustand 상태 관리 활용 (설치됨, 미사용)
-- [ ] PWA 매니페스트 + 오프라인 지원
 - [ ] 교재 내용 검증 — 32과 데이터 정확성 확인
 - [ ] 접근성 개선 — 키보드 탐색, 스크린리더 지원

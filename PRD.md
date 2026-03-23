@@ -54,11 +54,23 @@ GitHub Pages 배포, Firebase 클라우드 동기화 지원.
 - `pali-primer-*` + 학습 통계 키 동기화
 - 디바운스 push (학습 중 자동)
 
-### 7. TTS 고품질 음성 (Colab 생성)
-- Google Colab 노트북으로 빠알리어 mp3 일괄 생성 (`colab-tts-generator.ipynb`)
-- 텍스트 추출 스크립트 (`extract-tts-texts.mjs`) → 528개 텍스트 → `tts-texts.json`
-- 재생 우선순위: mp3 파일 → Web Speech API 폴백 (힌디어 합성음)
-- 매니페스트 (`public/audio/manifest.json`) 기반 텍스트→파일명 매핑
+### 7. TTS 음성
+- **현재**: Web Speech API (힌디어 hi-IN) — 로마자→데바나가리 변환 후 발음
+- 단어/문법 예문/경전 구절 클릭 시 발음 재생
+- 설정에서 소리 on/off 가능
+
+#### TTS 실패 기록 (반복 방지용)
+- **Facebook MMS-TTS-SAN** (산스크리트어): 2026-03 시점 비공개/인증 필요로 접근 불가
+- **Facebook MMS-TTS-HIN** (힌디어): 접근은 가능하나 **발음 품질 부족**
+  - 음절 수 불일치 (3음절 "앙굴리" → 2음절로 출력)
+  - 단어별 속도 불균형
+  - Colab에서 818개 mp3 생성 후 전수 폐기
+- **교훈**: 무료 오픈소스 TTS는 반드시 샘플 검증 후 배치 생성할 것
+
+#### TTS 향후 대안 (조사 완료)
+1. **AI4Bharat Indic Parler-TTS** — 산스크리트어 네이티브 (품질 99.79), 무료
+2. **Google Cloud TTS (WaveNet hi-IN)** — 월 100만자 무료, 고품질
+3. **현행 유지 (Web Speech API)** — 비용 없음, 기기 의존적
 
 ### 8. 심화 자료 — 격변화 도표
 - PDF 기반 19개 격변화 표 오버레이 (`declension-tables.ts`)
@@ -95,9 +107,9 @@ src/
 │       └── declension-tables.ts # 격변화 도표 19개
 ├── utils/
 │   ├── sync.ts            # Firebase 동기화
-│   └── pali-tts.ts        # 빠알리 TTS (mp3 우선 + Web Speech 폴백)
-colab-tts-generator.ipynb      # Colab TTS 생성 노트북
-extract-tts-texts.mjs          # TTS 텍스트 추출 (528개)
+│   ├── pali-tts.ts        # 빠알리 TTS (Web Speech API)
+│   └── study-log.ts       # 학습 기록 (날짜별 시간/과목/점수/횟수)
+extract-tts-texts.mjs          # TTS 텍스트 추출 (854개)
 ```
 
 ## 캐시 방지 전략
