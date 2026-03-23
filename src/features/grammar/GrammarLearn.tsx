@@ -7,6 +7,7 @@ import { getLessonById } from './lessons'
 import type { StepType } from './types'
 import { debouncedPush, isSyncLoggedIn } from '../../utils/sync'
 import { getTablesForLesson, type DeclensionTable } from './declension-tables'
+import { addStudyEntry } from '../../utils/study-log'
 
 // 스텝 전환 상태
 type TransitionPhase = 'enter' | 'stable' | 'exit'
@@ -132,6 +133,16 @@ export default function GrammarLearn() {
     if (stepIdx + 1 >= STEPS.length) {
       // 완료 화면 표시
       localStorage.setItem(`pali-primer-${lid}`, String(STEPS.length))
+      // 학습 기록 저장
+      addStudyEntry({
+        lessonId: lid,
+        lessonTitle: lesson?.title || lid,
+        minutes: getElapsedMin(),
+        score: correctCount,
+        totalSteps: STEPS.length,
+        hearts,
+        timestamp: Date.now(),
+      })
       setShowCompletion(true)
       return
     }
@@ -904,7 +915,15 @@ export default function GrammarLearn() {
                 className="pali-text text-lg font-bold text-center whitespace-pre-line"
                 style={{ color: 'var(--color-primary)' }}
               >
-                {step.example}
+                {step.example.split(/(\s+)/).map((token, i) =>
+                  /^\s+$/.test(token) ? token : (
+                    <span key={i}
+                      onClick={() => speak(token.replace(/[,.;:!?"'()]/g, ''))}
+                      className="cursor-pointer hover:underline active:opacity-60 transition-opacity">
+                      {token}
+                    </span>
+                  )
+                )}
               </p>
               <p className="text-center mt-2 font-semibold text-sm whitespace-pre-line">
                 {step.exampleKo}

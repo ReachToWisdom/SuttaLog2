@@ -161,11 +161,11 @@ export default function Settings() {
   }
 
   const resetProgress = () => {
-    if (!confirm('모든 진도를 초기화하시겠습니까?')) return
+    if (!confirm('모든 진도를 초기화하시겠습니까?\n(연속 학습일, 학습 기록도 함께 초기화됩니다)')) return
     const keysToRemove: string[] = []
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)
-      if (key?.startsWith('pali-primer-')) {
+      if (key?.startsWith('pali-primer-') || key?.startsWith('pali-study-')) {
         keysToRemove.push(key)
       }
     }
