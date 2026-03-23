@@ -14,7 +14,16 @@ async function loadManifest() {
   manifestLoaded = true
   try {
     const res = await fetch(`${AUDIO_DIR}manifest.json`, { cache: 'no-store' })
-    if (res.ok) manifest = await res.json()
+    if (res.ok) {
+      const raw = await res.json()
+      // 원본 키 + 소문자 키 모두 등록 (대소문자 무시 매칭)
+      manifest = {}
+      for (const [key, val] of Object.entries(raw)) {
+        manifest[key] = val as string
+        const lower = key.toLowerCase()
+        if (!manifest[lower]) manifest[lower] = val as string
+      }
+    }
   } catch { /* manifest 없으면 Web Speech API 폴백 */ }
 }
 
@@ -24,10 +33,10 @@ loadManifest()
 // 현재 재생 중인 Audio 인스턴스
 let currentAudio: HTMLAudioElement | null = null
 
-/** mp3 파일로 재생 시도 → 성공 시 true */
+/** mp3 파일로 재생 시도 → 성공 시 true (대소문자 무시) */
 function tryPlayMp3(text: string): boolean {
   if (!manifest) return false
-  const filename = manifest[text]
+  const filename = manifest[text] || manifest[text.toLowerCase()] || manifest[text.trim()]
   if (!filename) return false
   try {
     if (currentAudio) { currentAudio.pause(); currentAudio = null }

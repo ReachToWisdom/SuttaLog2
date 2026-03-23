@@ -28,9 +28,17 @@ for (const file of lessonFiles) {
     const speakMatches = content.matchAll(/type:\s*'speak'[^}]*?pali:\s*'([^']+)'/g)
     for (const m of speakMatches) texts.add(m[1])
 
-    // verse 스텝: pali 필드 (여러 줄 가능)
+    // verse 스텝: pali 필드 (여러 줄 가능) + 개별 토큰
     const verseMatches = content.matchAll(/type:\s*'verse'[^}]*?pali:\s*'([^']+)'/g)
-    for (const m of verseMatches) texts.add(m[1])
+    for (const m of verseMatches) {
+      texts.add(m[1])
+      // verse 개별 단어 클릭 시 speakPali(token) 호출됨
+      const tokens = m[1].replace(/\\n/g, ' ').split(/\s+/)
+      for (const token of tokens) {
+        const clean = token.trim().replace(/[,.;:!?"'()""'']/g, '')
+        if (clean.length > 0) texts.add(clean)
+      }
+    }
 
     // match-listen 스텝: word 필드
     const listenMatches = content.matchAll(/type:\s*'match-listen'[^}]*?word:\s*'([^']+)'/g)
