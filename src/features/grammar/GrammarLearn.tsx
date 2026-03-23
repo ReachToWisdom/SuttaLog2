@@ -796,13 +796,14 @@ export default function GrammarLearn() {
             >
               <span className="text-4xl block">{step.icon}</span>
               <p
-                className="pali-text text-3xl font-bold mt-3"
+                className="pali-text text-3xl font-bold mt-3 cursor-pointer active:opacity-60 transition-opacity"
                 style={{
                   fontFamily: 'var(--font-pali)',
                   color: 'var(--color-primary)',
                 }}
+                onClick={() => speak(step.word)}
               >
-                {step.word}
+                {step.word} <span className="text-base align-middle opacity-40">🔊</span>
               </p>
               {/* 발음 필 배지 */}
               <span
@@ -814,20 +815,6 @@ export default function GrammarLearn() {
               >
                 {step.pronKo}
               </span>
-
-              {/* 오디오 버튼 */}
-              {step.audio && (
-                <div className="mt-3">
-                  <button
-                    onClick={() => speak(step.word)}
-                    className="audio-ripple px-5 py-2 rounded-full text-white text-sm
-                               font-medium active:scale-95 transition-transform"
-                    style={{ backgroundColor: 'var(--color-accent)' }}
-                  >
-                    🔊 발음 듣기
-                  </button>
-                </div>
-              )}
 
               <hr
                 className="my-4"
