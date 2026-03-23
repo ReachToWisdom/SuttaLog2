@@ -42,6 +42,24 @@
 - [x] 캐시 방지 — index.html no-cache 메타태그
 - [x] 캐시 방지 — vite 빌드 파일명 콘텐츠 해시 명시
 
+## 2026-03-22: 학습 UX 개선 (추가)
+
+- [x] 글씨 크기 조절 — 4단계 (작게/보통/크게/아주크게), 기본값 '크게'
+- [x] 문법 상세 바로 표시 — 접이식(details) 제거, 즉시 노출
+
+## 2026-03-22: 심화 자료
+
+- [x] 격변화 도표 오버레이 — PDF 기반 19개 표 (`declension-tables.ts`)
+- [x] 명사/대명사/형용사 8격 × 단수/복수
+
+## 2026-03-22: TTS 고품질화 (Colab)
+
+- [x] mp3 우선 재생 구조 — `pali-tts.ts` (mp3 → Web Speech API 폴백)
+- [x] TTS 텍스트 추출 스크립트 — `extract-tts-texts.mjs` (528개 추출)
+- [x] Colab 노트북 생성 — `colab-tts-generator.ipynb` (3중 검증)
+- [ ] Colab에서 mp3 일괄 생성 실행 (528개)
+- [ ] `public/audio/` 에 mp3 + manifest.json 배치
+
 ## 명세서 구축
 
 - [x] PRD.md 작성

@@ -45,7 +45,7 @@ GitHub Pages 배포, Firebase 클라우드 동기화 지원.
 - 랜덤 복습 시작 버튼 + 완료 과 목록
 
 ### 5. 설정 (`/profile`)
-- 쓰기 모드 on/off, 소리 on/off
+- 쓰기 모드 on/off, 소리 on/off, 글씨 크기 4단계 (작게/보통/크게/아주크게, 기본: 크게)
 - Firebase 동기화 (Google 로그인, 업로드/다운로드)
 - 진도 초기화
 
@@ -53,6 +53,16 @@ GitHub Pages 배포, Firebase 클라우드 동기화 지원.
 - panditarama-video 프로젝트 공유 (컬렉션 분리)
 - `pali-primer-*` + 학습 통계 키 동기화
 - 디바운스 push (학습 중 자동)
+
+### 7. TTS 고품질 음성 (Colab 생성)
+- Google Colab 노트북으로 빠알리어 mp3 일괄 생성 (`colab-tts-generator.ipynb`)
+- 텍스트 추출 스크립트 (`extract-tts-texts.mjs`) → 528개 텍스트 → `tts-texts.json`
+- 재생 우선순위: mp3 파일 → Web Speech API 폴백 (힌디어 합성음)
+- 매니페스트 (`public/audio/manifest.json`) 기반 텍스트→파일명 매핑
+
+### 8. 심화 자료 — 격변화 도표
+- PDF 기반 19개 격변화 표 오버레이 (`declension-tables.ts`)
+- 명사/대명사/형용사 격변화 8격 × 단수/복수 표시
 
 ## 사용자 시나리오
 
@@ -81,10 +91,13 @@ src/
 │       ├── types.ts           # StepType, LessonInfo
 │       ├── lessons.ts         # LESSONS 배열 (32과)
 │       ├── GrammarLearn.tsx   # 학습 UI 엔진
-│       └── lesson-*.ts        # 과별 데이터 (30개)
-└── utils/
-    ├── sync.ts            # Firebase 동기화
-    └── pali-tts.ts        # 빠알리 TTS
+│       ├── lesson-*.ts        # 과별 데이터 (30개)
+│       └── declension-tables.ts # 격변화 도표 19개
+├── utils/
+│   ├── sync.ts            # Firebase 동기화
+│   └── pali-tts.ts        # 빠알리 TTS (mp3 우선 + Web Speech 폴백)
+colab-tts-generator.ipynb      # Colab TTS 생성 노트북
+extract-tts-texts.mjs          # TTS 텍스트 추출 (528개)
 ```
 
 ## 캐시 방지 전략
