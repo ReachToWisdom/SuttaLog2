@@ -55,22 +55,10 @@ GitHub Pages 배포, Firebase 클라우드 동기화 지원.
 - 디바운스 push (학습 중 자동)
 
 ### 7. TTS 음성
-- **현재**: Web Speech API (힌디어 hi-IN) — 로마자→데바나가리 변환 후 발음
+- **edge-tts** mp3 853개 (hi-IN-MadhurNeural, 30% 감속) + Web Speech API 폴백
 - 단어/문법 예문/경전 구절 클릭 시 발음 재생
 - 설정에서 소리 on/off 가능
-
-#### TTS 실패 기록 (반복 방지용)
-- **Facebook MMS-TTS-SAN** (산스크리트어): 2026-03 시점 비공개/인증 필요로 접근 불가
-- **Facebook MMS-TTS-HIN** (힌디어): 접근은 가능하나 **발음 품질 부족**
-  - 음절 수 불일치 (3음절 "앙굴리" → 2음절로 출력)
-  - 단어별 속도 불균형
-  - Colab에서 818개 mp3 생성 후 전수 폐기
-- **교훈**: 무료 오픈소스 TTS는 반드시 샘플 검증 후 배치 생성할 것
-
-#### TTS 향후 대안 (조사 완료)
-1. **AI4Bharat Indic Parler-TTS** — 산스크리트어 네이티브 (품질 99.79), 무료
-2. **Google Cloud TTS (WaveNet hi-IN)** — 월 100만자 무료, 고품질
-3. **현행 유지 (Web Speech API)** — 비용 없음, 기기 의존적
+- 상세: [docs/PALI-TTS-AUDIO.md](docs/PALI-TTS-AUDIO.md)
 
 ### 8. 심화 자료 — 격변화 도표
 - PDF 기반 19개 격변화 표 오버레이 (`declension-tables.ts`)

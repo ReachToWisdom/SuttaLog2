@@ -52,22 +52,17 @@
 - [x] 격변화 도표 오버레이 — PDF 기반 19개 표 (`declension-tables.ts`)
 - [x] 명사/대명사/형용사 8격 × 단수/복수
 
-## 2026-03-22~23: TTS 음성
+## 2026-03-22~23: TTS 음성 — 상세: [docs/PALI-TTS-AUDIO.md](docs/PALI-TTS-AUDIO.md)
 
-- [x] Web Speech API (hi-IN) 데바나가리 변환 재생 — 현재 사용 중
-- [x] teach/teach-grammar/verse 단어 클릭 → 음성 재생
-- [x] TTS 텍스트 추출 스크립트 — `extract-tts-texts.mjs` (854개 추출)
+- [x] edge-tts mp3 853개 생성 (hi-IN-MadhurNeural, 30% 감속)
+- [x] manifest.json 1037엔트리 (대소문자 변형 포함)
+- [x] teach/teach-grammar/verse 단어 클릭 → mp3 우선 + Web Speech API 폴백
+- [x] TTS 텍스트 추출 스크립트 — `extract-tts-texts.mjs` (854개)
+- [x] 슬래시(/) 수정 — 32개 재생성 (/ → 쉼표 치환)
 
-### ❌ 실패: Facebook MMS-TTS mp3 생성 (폐기)
-- [x] Colab 노트북 생성 + 818개 mp3 생성 완료
-- [x] **폐기 사유**: 발음 품질 부족 — 음절 수 불일치 (3음절→2음절), 속도 불균형
-- [x] mms-tts-san: 비공개 전환으로 접근 불가 → mms-tts-hin으로 대체했으나 품질 부족
-- [x] mp3 + Colab 노트북 전체 삭제 (커밋 60a747b)
-- **교훈**: 무료 TTS는 샘플 검증 먼저, 배치 생성은 나중에
-
-### 향후: 고품질 TTS 재도전
-- [ ] AI4Bharat Indic Parler-TTS 테스트 (산스크리트어 네이티브, 무료)
-- [ ] 품질 확인 후 배치 생성 → mp3 재활성화
+### ❌ 실패 기록 (반복 방지)
+- MMS-TTS-SAN: 비공개 전환 | MMS-TTS-HIN: 음절 불일치 | AI4Bharat: 인증 필요
+- **교훈**: 샘플 검증 먼저, 배치 생성은 나중에
 
 ## 명세서 구축
 
