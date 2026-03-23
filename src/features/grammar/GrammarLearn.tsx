@@ -524,6 +524,28 @@ export default function GrammarLearn() {
             ))}
           </div>
         </div>
+
+        {/* 과 제목 + 현재 스텝 브레드크럼 */}
+        <div className="flex items-center gap-2 px-1 mt-1 text-[11px] leading-tight"
+          style={{ color: 'var(--color-text-secondary)' }}>
+          <span className="font-semibold truncate" style={{ color: 'var(--color-primary)', maxWidth: '40%' }}>
+            {lesson?.title || lid}
+          </span>
+          <span style={{ color: 'var(--color-border)' }}>›</span>
+          <span className="truncate">
+            {step.type === 'intro' ? '소개'
+              : step.type === 'teach' ? `단어: ${step.word}`
+              : step.type === 'teach-grammar' ? `문법: ${step.title}`
+              : step.type === 'quiz' ? '퀴즈'
+              : step.type === 'match-listen' ? '듣기'
+              : step.type === 'match-reverse' ? '뜻맞추기'
+              : step.type === 'writing' ? '쓰기'
+              : step.type === 'speak' ? '따라읽기'
+              : step.type === 'arrange' ? '배열'
+              : step.type === 'verse' ? '경전'
+              : `스텝 ${stepIdx + 1}`}
+          </span>
+        </div>
       </div>
 
       {/* === 목차 오버레이 === */}
