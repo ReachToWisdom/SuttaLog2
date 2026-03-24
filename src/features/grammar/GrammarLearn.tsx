@@ -19,19 +19,18 @@ export default function GrammarLearn() {
   const lesson = getLessonById(lid)
   const STEPS = lesson?.steps || []
 
-  // 이어 학습
+  // 이어 학습 — savedStep이 범위 초과 시 0으로 리셋 (과 구조 변경 대응)
   const savedStep = Number(localStorage.getItem(`pali-primer-${lid}`) || '0')
-  const [stepIdx, setStepIdxRaw] = useState(
-    Math.min(savedStep, Math.max(0, STEPS.length - 1))
-  )
+  const clampedStep = savedStep >= STEPS.length ? 0 : Math.max(0, savedStep)
+  const [stepIdx, setStepIdxRaw] = useState(clampedStep)
 
   const setStepIdx = (updater: number | ((prev: number) => number)) => {
     setStepIdxRaw(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater
-      localStorage.setItem(`pali-primer-${lid}`, String(next))
-      // 로그인 상태면 클라우드 동기화 (디바운스)
+      const clamped = Math.max(0, Math.min(next, STEPS.length - 1))
+      localStorage.setItem(`pali-primer-${lid}`, String(clamped))
       if (isSyncLoggedIn()) debouncedPush()
-      return next
+      return clamped
     })
   }
 
@@ -130,6 +129,7 @@ export default function GrammarLearn() {
 
   const handleNext = () => {
     speechSynthesis.cancel()
+    if (phase !== 'stable') return
     if (stepIdx + 1 >= STEPS.length) {
       // 완료 화면 표시
       localStorage.setItem(`pali-primer-${lid}`, String(STEPS.length))
@@ -151,7 +151,7 @@ export default function GrammarLearn() {
 
   const handlePrev = () => {
     speechSynthesis.cancel()
-    if (stepIdx > 0) {
+    if (stepIdx > 0 && phase === 'stable') {
       transitionTo(() => setStepIdx(i => i - 1))
     }
   }
