@@ -91,7 +91,23 @@ export function paliToDevanagari(roman: string): string {
     if (isVowel(ch)) { result += VOWELS_IND[ch]; i++; continue }
     result += ch; i++
   }
+  // 힌디어 schwa deletion 방지: 단어 끝 자음의 내재 'a'를 명시적으로 표기
+  // 빠알리어는 모든 'a'를 발음해야 함 (힌디어와 다름)
+  result = preventSchwa(result)
   return result
+}
+
+/** 힌디어 schwa deletion 방지 — 단어 끝 자음에 ा 추가 */
+function preventSchwa(deva: string): string {
+  return deva.split(/(\s+|,)/).map(word => {
+    if (!word.trim() || word === ',') return word
+    const code = word.charCodeAt(word.length - 1)
+    // 데바나가리 자음 범위 (क=0x0915 ~ ह=0x0939): 내재 'a'가 묵음 처리됨
+    if (code >= 0x0915 && code <= 0x0939) {
+      return word + 'ा'
+    }
+    return word
+  }).join('')
 }
 
 function findBestVoice(): SpeechSynthesisVoice | null {
