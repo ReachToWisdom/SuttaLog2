@@ -317,48 +317,6 @@ export const LESSON_00: StepType[] = [
     hint: '중간 정도 길이로 발음하는 모음 2개',
   },
 
-  // ── 퀴즈: 자음 ──
-  {
-    type: 'quiz',
-    question:
-      '점(.)이 아래 붙은 글자(ṭ, ḍ, ṇ)는 어떤 종류의 자음인가요?',
-    options: [
-      '후음 (목구멍소리)',
-      '구개음 (입천장)',
-      '반설음 (혀 말아서)',
-      '순음 (입술)',
-    ],
-    answer: 2,
-  },
-  {
-    type: 'quiz',
-    question: '빠알리어 자음은 총 몇 개인가요?',
-    options: ['25개', '28개', '33개', '41개'],
-    answer: 2,
-    hint: '5×5(25) + 기타 8 = 33',
-  },
-  {
-    type: 'quiz',
-    question: '"ña"는 어떤 계열의 자음인가요?',
-    options: ['후음의 비음', '구개음의 비음', '반설음의 비음', '순음의 비음'],
-    answer: 1,
-    hint: 'ca, cha, ja, jha, ña — 입천장소리',
-  },
-  {
-    type: 'quiz',
-    question: '"ṃ"(억제음, Anusvāra)의 발음은?',
-    options: ['싸', '하', '비음 (ㅁ/응)', '야'],
-    answer: 2,
-    hint: 'dhammaṃ의 마지막 음',
-  },
-  {
-    type: 'quiz',
-    question: '순음(입술소리)에 해당하지 않는 것은?',
-    options: ['pa(빠)', 'ba(바)', 'ma(마)', 'na(나)'],
-    answer: 3,
-    hint: 'na는 치음의 비음입니다',
-  },
-
   // ── 퀴즈: 발음규칙 ──
   {
     type: 'quiz',
