@@ -175,6 +175,7 @@ export default function Settings() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}>
+     <div className="max-w-lg mx-auto">
       {/* ── 상단 헤더 ── */}
       <div
         className="flex items-center gap-3 px-4 pt-4 pb-3 sticky top-0 z-10"
@@ -383,6 +384,7 @@ export default function Settings() {
           </div>
         </section>
       </div>
+     </div>
     </div>
   )
 }

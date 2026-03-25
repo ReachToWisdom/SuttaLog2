@@ -21,9 +21,10 @@ export default function Review() {
   return (
     <div className="min-h-screen pb-24"
       style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}>
+     <div className="max-w-lg mx-auto px-4">
 
       {/* 헤더 */}
-      <div className="px-5 pt-[max(env(safe-area-inset-top),20px)] pb-4 animate-fadeIn">
+      <div className="pt-[max(env(safe-area-inset-top),20px)] pb-4 animate-fadeIn">
         <h1 className="text-2xl font-bold tracking-tight">복습</h1>
         <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
           완료한 과에서 랜덤 퀴즈
@@ -131,6 +132,7 @@ export default function Review() {
           </button>
         </div>
       )}
+     </div>
     </div>
   )
 }

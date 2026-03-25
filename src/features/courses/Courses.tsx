@@ -124,9 +124,10 @@ export default function Courses() {
   return (
     <div className="min-h-screen pb-24"
       style={{ backgroundColor: 'var(--color-bg)', color: 'var(--color-text)' }}>
+     <div className="max-w-lg mx-auto px-4">
 
       {/* 헤더 */}
-      <div className="px-5 pt-[max(env(safe-area-inset-top),20px)] pb-4 animate-fadeIn">
+      <div className="pt-[max(env(safe-area-inset-top),20px)] pb-4 animate-fadeIn">
         <h1 className="text-2xl font-bold tracking-tight">과목</h1>
         <p className="text-sm mt-1" style={{ color: 'var(--color-text-secondary)' }}>
           {stats.completed}/{stats.total}과 완료
@@ -302,6 +303,7 @@ export default function Courses() {
           )
         })}
       </div>
+     </div>
     </div>
   )
 }

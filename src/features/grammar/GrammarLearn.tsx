@@ -443,6 +443,7 @@ export default function GrammarLearn() {
         color: 'var(--color-text)',
       }}
     >
+     <div className="max-w-lg mx-auto w-full flex flex-col flex-1">
       {/* === 상단 바: 프로그레스 + 하트 === */}
       <div className="shrink-0 px-4 pt-3 pb-1">
         <div className="flex items-center gap-3">
@@ -1456,6 +1457,7 @@ export default function GrammarLearn() {
           </button>
         )}
       </div>
+     </div>
     </div>
   )
 }
