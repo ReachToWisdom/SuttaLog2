@@ -362,7 +362,7 @@ export default function Settings() {
                 📿
               </span>
               <div>
-                <p className="font-bold text-sm">빠알리 프라이머</p>
+                <p className="font-bold text-sm">빠알리어 공부2</p>
                 <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>v1.0.0</p>
               </div>
             </div>

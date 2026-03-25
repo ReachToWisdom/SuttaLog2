@@ -1,6 +1,6 @@
 {
-  "name": "빠알리 프라이머",
-  "short_name": "빠알리",
+  "name": "빠알리어 공부2",
+  "short_name": "빠알리어 공부2",
   "description": "De Silva's Pali Primer 기반 빠알리어 문법 학습앱",
   "start_url": "/SuttaLog2/",
   "scope": "/SuttaLog2/",
