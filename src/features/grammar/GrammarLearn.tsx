@@ -1384,12 +1384,12 @@ export default function GrammarLearn() {
 
       {/* === 하단 바 (프로스트 글래스) === */}
       <div
-        className="fixed bottom-0 left-0 right-0 px-4 pt-3 pb-3 flex items-center gap-3
-                   bottom-bar-frost"
+        className="fixed bottom-0 left-0 right-0 bottom-bar-frost"
         style={{
           borderTop: '1px solid color-mix(in srgb, var(--color-border) 50%, transparent)',
         }}
       >
+       <div className="max-w-lg mx-auto px-4 pt-3 pb-3 flex items-center gap-3">
         {/* 뒤로 */}
         {stepIdx > 0 && (
           <button
@@ -1456,6 +1456,7 @@ export default function GrammarLearn() {
             건너뛰기
           </button>
         )}
+       </div>
       </div>
      </div>
     </div>
