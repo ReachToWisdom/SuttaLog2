@@ -3,7 +3,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { saveMemo, getMyMemos, updateMemo, fileToDataUrl } from '../utils/memo'
+import { saveMemo, getMemos, updateMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
 import type { Memo, MemoImage } from '../utils/memo'
 
 // 페이지 경로 → 한글 이름
@@ -53,7 +53,7 @@ export default function MemoFab() {
   // 내 메모 불러오기
   const loadMemos = useCallback(async () => {
     setLoading(true)
-    const list = await getMyMemos()
+    const list = await getMemos()
     setMemos(list)
     setLoading(false)
   }, [])
@@ -233,7 +233,7 @@ export default function MemoFab() {
                       ? 'border-amber-600 text-amber-600'
                       : 'border-transparent text-neutral-400'
                   }`}>
-                  내 메모
+                  전체 메모
                 </button>
               </div>
             </div>
@@ -340,7 +340,7 @@ export default function MemoFab() {
                   <p className="text-center text-neutral-400 py-8">불러오는 중...</p>
                 ) : memos.length === 0 ? (
                   <p className="text-center text-neutral-400 py-8">
-                    작성한 메모가 없습니다.
+                    아직 메모가 없습니다.
                   </p>
                 ) : (
                   <div className="space-y-3">
@@ -354,12 +354,14 @@ export default function MemoFab() {
                             {formatDate(memo.createdAt)} · {memo.page}
                             {memo.updatedAt && ' (수정됨)'}
                           </span>
-                          <button onClick={() => startEdit(memo)}
-                            className="text-xs text-amber-600 hover:text-amber-700
-                              font-medium px-2 py-1 rounded-md
-                              hover:bg-amber-50 dark:hover:bg-amber-900/20">
-                            수정
-                          </button>
+                          {memo.deviceId === getDeviceId() && (
+                            <button onClick={() => startEdit(memo)}
+                              className="text-xs text-amber-600 hover:text-amber-700
+                                font-medium px-2 py-1 rounded-md
+                                hover:bg-amber-50 dark:hover:bg-amber-900/20">
+                              수정
+                            </button>
+                          )}
                         </div>
                         {/* 텍스트 */}
                         {memo.text && (

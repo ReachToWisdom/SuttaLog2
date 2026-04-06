@@ -133,18 +133,12 @@ export async function updateMemo(
   }
 }
 
-// 내 메모 조회 (현재 기기)
+// 내 메모 조회 (현재 기기 — 클라이언트 필터링)
 export async function getMyMemos(): Promise<Memo[]> {
   try {
-    await ensureFirebase()
-    const q = fb.query(
-      fb.collection(db, COLLECTION),
-      fb.where('deviceId', '==', getDeviceId()),
-      fb.orderBy('createdAt', 'desc'),
-    )
-    const snap = await fb.getDocs(q)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return snap.docs.map((d: any) => ({ id: d.id, ...d.data() }))
+    const all = await getMemos()
+    const myId = getDeviceId()
+    return all.filter(m => m.deviceId === myId)
   } catch (e) {
     console.error('메모 조회 실패:', e)
     return []
