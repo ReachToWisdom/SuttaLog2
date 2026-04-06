@@ -1,7 +1,8 @@
 // 메모 시스템 — Firestore에 base64 이미지 저장
-// 익명 인증으로 누구나 메모 작성 가능
+// 기기별 ID로 "내 메모" 구분, 수정 가능
 
 const COLLECTION = 'pali-primer-memos'
+const DEVICE_ID_KEY = 'pali-memo-device-id'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let db: any = null
@@ -17,7 +18,6 @@ const FIREBASE_CONFIG = {
   appId: '1:504794613271:web:ac565d6c6e82d9b72c7e52',
 }
 
-// 이미지 최대 폭 (리사이즈용)
 const MAX_IMAGE_WIDTH = 800
 
 export interface MemoImage {
@@ -32,31 +32,42 @@ export interface Memo {
   text: string
   images: MemoImage[]
   createdAt: string
+  updatedAt?: string
+  deviceId: string
   userAgent: string
 }
 
-// Firebase 초기화 (기존 앱 재사용)
+// 기기 고유 ID (localStorage 기반)
+export function getDeviceId(): string {
+  let id = localStorage.getItem(DEVICE_ID_KEY)
+  if (!id) {
+    id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8)
+    localStorage.setItem(DEVICE_ID_KEY, id)
+  }
+  return id
+}
+
+// Firebase 초기화
 async function ensureFirebase() {
   if (db) return
 
   const { initializeApp, getApps, getApp } = await import('firebase/app')
-  const { getFirestore, collection, addDoc, getDocs, query, orderBy } =
-    await import('firebase/firestore')
+  const { getFirestore, collection, addDoc, getDocs, doc, updateDoc,
+    query, orderBy, where } = await import('firebase/firestore')
 
-  fb = { collection, addDoc, getDocs, query, orderBy }
+  fb = { collection, addDoc, getDocs, doc, updateDoc, query, orderBy, where }
 
   const app = getApps().length > 0 ? getApp() : initializeApp(FIREBASE_CONFIG)
   db = getFirestore(app)
 }
 
 // 이미지 → 리사이즈 → base64 data URL
-function fileToDataUrl(file: File): Promise<string> {
+export function fileToDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image()
     img.onload = () => {
       const canvas = document.createElement('canvas')
       let { width, height } = img
-      // 최대 폭 제한 (비율 유지)
       if (width > MAX_IMAGE_WIDTH) {
         height = Math.round(height * (MAX_IMAGE_WIDTH / width))
         width = MAX_IMAGE_WIDTH
@@ -65,7 +76,6 @@ function fileToDataUrl(file: File): Promise<string> {
       canvas.height = height
       const ctx = canvas.getContext('2d')!
       ctx.drawImage(img, 0, 0, width, height)
-      // JPEG 80% 품질로 압축
       resolve(canvas.toDataURL('image/jpeg', 0.8))
     }
     img.onerror = reject
@@ -81,22 +91,19 @@ export async function saveMemo(
 ): Promise<boolean> {
   try {
     await ensureFirebase()
-
-    // 이미지 리사이즈 + base64 변환 (순서 보존)
     const images: MemoImage[] = []
     for (let i = 0; i < imageFiles.length; i++) {
       const dataUrl = await fileToDataUrl(imageFiles[i])
       images.push({ order: i + 1, dataUrl, name: imageFiles[i].name })
     }
-
-    const memo: Memo = {
+    const memo: Omit<Memo, 'id'> = {
       page,
       text,
       images,
       createdAt: new Date().toISOString(),
+      deviceId: getDeviceId(),
       userAgent: navigator.userAgent.slice(0, 150),
     }
-
     await fb.addDoc(fb.collection(db, COLLECTION), memo)
     return true
   } catch (e) {
@@ -105,7 +112,46 @@ export async function saveMemo(
   }
 }
 
-// 메모 목록 조회
+// 메모 수정
+export async function updateMemo(
+  memoId: string,
+  text: string,
+  images: MemoImage[],
+): Promise<boolean> {
+  try {
+    await ensureFirebase()
+    const ref = fb.doc(db, COLLECTION, memoId)
+    await fb.updateDoc(ref, {
+      text,
+      images,
+      updatedAt: new Date().toISOString(),
+    })
+    return true
+  } catch (e) {
+    console.error('메모 수정 실패:', e)
+    return false
+  }
+}
+
+// 내 메모 조회 (현재 기기)
+export async function getMyMemos(): Promise<Memo[]> {
+  try {
+    await ensureFirebase()
+    const q = fb.query(
+      fb.collection(db, COLLECTION),
+      fb.where('deviceId', '==', getDeviceId()),
+      fb.orderBy('createdAt', 'desc'),
+    )
+    const snap = await fb.getDocs(q)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return snap.docs.map((d: any) => ({ id: d.id, ...d.data() }))
+  } catch (e) {
+    console.error('메모 조회 실패:', e)
+    return []
+  }
+}
+
+// 전체 메모 조회 (스크립트용)
 export async function getMemos(): Promise<Memo[]> {
   try {
     await ensureFirebase()
