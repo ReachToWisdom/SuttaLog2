@@ -200,9 +200,9 @@ export default function MemoFab() {
           justify-center bg-black/50"
           onClick={(e) => e.target === e.currentTarget && handleClose()}
         >
-          <div className="bg-white dark:bg-neutral-800 w-full max-w-lg
-            rounded-t-2xl sm:rounded-2xl max-h-[85vh] flex flex-col
-            animate-[slideUp_0.2s_ease-out]">
+          <div className="bg-white dark:bg-neutral-800 text-neutral-900
+            dark:text-neutral-100 w-full max-w-lg rounded-t-2xl sm:rounded-2xl
+            max-h-[85vh] flex flex-col animate-[slideUp_0.2s_ease-out]">
 
             {/* 헤더 + 탭 */}
             <div className="border-b border-neutral-200 dark:border-neutral-700">
@@ -365,7 +365,8 @@ export default function MemoFab() {
                         </div>
                         {/* 텍스트 */}
                         {memo.text && (
-                          <p className="text-sm whitespace-pre-wrap">{memo.text}</p>
+                          <p className="text-sm whitespace-pre-wrap text-neutral-900
+                            dark:text-neutral-100">{memo.text}</p>
                         )}
                         {/* 이미지 썸네일 */}
                         {memo.images?.length > 0 && (
