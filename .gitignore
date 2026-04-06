@@ -29,3 +29,6 @@ korean-textbook.txt
 english-textbook.txt
 pdf-images/
 extract-pdf.mjs
+
+# 메모 이미지 추출 폴더
+memo-images/

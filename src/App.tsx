@@ -7,6 +7,7 @@ import Review from './features/review/Review'
 import GrammarLearn from './features/grammar/GrammarLearn'
 import Settings from './features/settings/Settings'
 import BottomNav from './components/BottomNav'
+import MemoFab from './components/MemoFab'
 import { initSync, isSyncConfigured } from './utils/sync'
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/settings" element={<Settings />} />
       </Routes>
       <BottomNav />
+      <MemoFab />
     </>
   )
 }
