@@ -46,6 +46,7 @@ export default function MemoFab() {
   const [memos, setMemos] = useState<Memo[]>([])
   const [loading, setLoading] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
+  const [showAll, setShowAll] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const location = useLocation()
   const orderCounter = useRef(0)
@@ -333,18 +334,45 @@ export default function MemoFab() {
               </>
             )}
 
-            {/* === 내 메모 목록 탭 === */}
+            {/* === 메모 목록 탭 === */}
             {tab === 'list' && (
               <div className="flex-1 overflow-y-auto p-4">
+                {/* 현재 페이지 / 전체 보기 토글 */}
+                <div className="flex items-center gap-2 mb-3">
+                  <button onClick={() => setShowAll(false)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                      !showAll
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
+                    }`}>
+                    이 페이지
+                  </button>
+                  <button onClick={() => setShowAll(true)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                      showAll
+                        ? 'bg-amber-600 text-white'
+                        : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
+                    }`}>
+                    전체
+                  </button>
+                  <span className="text-xs text-neutral-400 ml-auto">
+                    {getPageName(location.pathname)}
+                  </span>
+                </div>
                 {loading ? (
                   <p className="text-center text-neutral-400 py-8">불러오는 중...</p>
-                ) : memos.length === 0 ? (
+                ) : (() => {
+                  const currentPage = getPageName(location.pathname)
+                  const filtered = showAll
+                    ? memos
+                    : memos.filter(m => m.page === currentPage)
+                  return filtered.length === 0 ? (
                   <p className="text-center text-neutral-400 py-8">
-                    아직 메모가 없습니다.
+                    {showAll ? '아직 메모가 없습니다.' : `이 페이지(${currentPage})에 메모가 없습니다.`}
                   </p>
                 ) : (
                   <div className="space-y-3">
-                    {memos.map(memo => (
+                    {filtered.map(memo => (
                       <div key={memo.id}
                         className="rounded-xl border border-neutral-200
                           dark:border-neutral-700 p-3 space-y-2">
@@ -385,7 +413,8 @@ export default function MemoFab() {
                       </div>
                     ))}
                   </div>
-                )}
+                )
+                  })()}
               </div>
             )}
           </div>
