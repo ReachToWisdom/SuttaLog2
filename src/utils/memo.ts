@@ -53,9 +53,9 @@ async function ensureFirebase() {
 
   const { initializeApp, getApps, getApp } = await import('firebase/app')
   const { getFirestore, collection, addDoc, getDocs, doc, updateDoc,
-    query, orderBy, where } = await import('firebase/firestore')
+    deleteDoc, query, orderBy, where } = await import('firebase/firestore')
 
-  fb = { collection, addDoc, getDocs, doc, updateDoc, query, orderBy, where }
+  fb = { collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy, where }
 
   const app = getApps().length > 0 ? getApp() : initializeApp(FIREBASE_CONFIG)
   db = getFirestore(app)
@@ -129,6 +129,18 @@ export async function updateMemo(
     return true
   } catch (e) {
     console.error('메모 수정 실패:', e)
+    return false
+  }
+}
+
+// 메모 삭제
+export async function deleteMemo(memoId: string): Promise<boolean> {
+  try {
+    await ensureFirebase()
+    await fb.deleteDoc(fb.doc(db, COLLECTION, memoId))
+    return true
+  } catch (e) {
+    console.error('메모 삭제 실패:', e)
     return false
   }
 }

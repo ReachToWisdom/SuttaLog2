@@ -3,7 +3,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { saveMemo, getMemos, updateMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
+import { saveMemo, getMemos, updateMemo, deleteMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
 import type { Memo, MemoImage } from '../utils/memo'
 
 // 페이지 경로 → 한글 이름
@@ -383,12 +383,24 @@ export default function MemoFab() {
                             {memo.updatedAt && ' (수정됨)'}
                           </span>
                           {memo.deviceId === getDeviceId() && (
-                            <button onClick={() => startEdit(memo)}
-                              className="text-xs text-amber-600 hover:text-amber-700
-                                font-medium px-2 py-1 rounded-md
-                                hover:bg-amber-50 dark:hover:bg-amber-900/20">
-                              수정
-                            </button>
+                            <div className="flex gap-1">
+                              <button onClick={() => startEdit(memo)}
+                                className="text-xs text-amber-600 hover:text-amber-700
+                                  font-medium px-2 py-1 rounded-md
+                                  hover:bg-amber-50 dark:hover:bg-amber-900/20">
+                                수정
+                              </button>
+                              <button onClick={async () => {
+                                if (!confirm('이 메모를 삭제할까요?')) return
+                                await deleteMemo(memo.id!)
+                                loadMemos()
+                              }}
+                                className="text-xs text-red-500 hover:text-red-600
+                                  font-medium px-2 py-1 rounded-md
+                                  hover:bg-red-50 dark:hover:bg-red-900/20">
+                                삭제
+                              </button>
+                            </div>
                           )}
                         </div>
                         {/* 텍스트 */}
