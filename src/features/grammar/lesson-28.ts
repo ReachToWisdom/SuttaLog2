@@ -1,7 +1,7 @@
 // 31과: 대명사 1인칭/2인칭 (ma-, amh-, tva-, tumh-)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_28: StepType[] = [
+export const LESSON_28: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '31과: 대명사 1인칭/2인칭', subtitle: 'Sabbanāma — ahaṃ / tvaṃ', description: '1인칭 대명사 (ahaṃ = 나)\n2인칭 대명사 (tvaṃ = 너)\n\n어간: ma-/amh- (1인칭), tva-/tumh- (2인칭)\n단수·복수 8격 변화 학습', icon: '🗣️' },
 

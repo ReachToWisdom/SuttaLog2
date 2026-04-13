@@ -1,11 +1,11 @@
 // 7과: 처소격 (Locative) - 교재 7과 완전 수록
 // 경전: 초전법륜경 도입부 "bārāṇasiyaṃ viharati isipatane migadāye"
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_EKAM = 'Ekaṃ samayaṃ bhagavā bārāṇasiyaṃ viharati isipatane migadāye.'
 const V_EKAM_K = '한때 세존께서 바라나시 이시빠따나의 녹야원에 머물고 계셨다.'
 
-export const LESSON_07: StepType[] = [
+export const LESSON_07: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '7과: 남성명사 처소격', subtitle: 'Sattamī vibhatti (Locative)', description: '처소격은 장소·시간·대상을 나타냅니다.\n~에, ~에서, ~에 관하여, ~가운데\n\n단수: -e/-mhi/-smiṃ\n복수: -esu\n\n경전: "bārāṇasiyaṃ viharati\n(바라나시에 머물다)"', icon: '📍' },
 

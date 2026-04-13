@@ -1,7 +1,7 @@
 // 22과: 미래수동분사 -(i/e)tabba/-anīya
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_21: StepType[] = [
+export const LESSON_21: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '22과: 미래수동분사', subtitle: 'Kicca (Future Passive Participle)', description: '~해야 할, ~될 수 있는\n\n-tabba/-itabba/-etabba 형태\n-anīya 형태\n\n의무·가능·적합의 의미', icon: '📋' },
 

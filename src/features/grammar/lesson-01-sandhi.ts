@@ -1,7 +1,7 @@
 // 연성법 (빠알리 프라이머 2장) — 경전 실례 포함
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_01_SANDHI: StepType[] = [
+export const LESSON_01_SANDHI: StepWithoutId[] = [
   // ─── 도입 ───
   {
     type: 'intro',

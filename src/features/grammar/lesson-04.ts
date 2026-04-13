@@ -1,11 +1,11 @@
 // 4과: -a 남성명사 탈격 (교재 4과 완전 수록)
 // 경전: 중도 — 양극단으로부터 떠나다 (탈격 개념)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_MAJJHIMA = 'Pānātipātā veramaṇī sikkhāpadaṃ samādiyāmi.\nAdinnādānā veramaṇī sikkhāpadaṃ samādiyāmi.\nKāmesumicchācārā veramaṇī sikkhāpadaṃ samādiyāmi.'
 const V_MAJJHIMA_K = '살아있는 생명을 죽이는 것으로부터 떠나는 학습계를 받아지닙니다.\n주지 않은 것을 가지는 것으로부터 떠나는 학습계를 받아지닙니다.\n욕망에 있어 삿된 행위로부터 떠나는 학습계를 받아지닙니다.'
 
-export const LESSON_04: StepType[] = [
+export const LESSON_04: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '4과: 남성명사 탈격 (Ablative)', subtitle: 'Pañcamī vibhatti (Ablative)', description: '탈격은 분리·출발·원인을 나타냅니다.\n~로부터, ~에게서, ~때문에\n\n경전: "pānātipātā veramaṇī"\n(살생으로부터 멀어짐)', icon: '🔙' },
 

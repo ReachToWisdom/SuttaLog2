@@ -1,8 +1,8 @@
 // 9과: 절대분사 (Absolutive) — ~하고서, ~한 뒤에
 // -(i)tvā / -ya 형태, 불규칙 동사 절대분사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_09: StepType[] = [
+export const LESSON_09: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '9과: 절대분사 (Absolutive)', subtitle: 'Tvā-paccaya / Ya-paccaya', description: '절대분사: ~하고서, ~한 뒤에\n-(i)tvā 규칙과 -ya 형태\n불규칙 동사 절대분사\n\n"먼저 하고 → 다음 동작"\n경전에서 매우 자주 등장!', icon: '🔗' },
 

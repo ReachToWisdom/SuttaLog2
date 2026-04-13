@@ -1,11 +1,11 @@
 // 6과: 소유격 (Genitive) - 교재 6과 완전 수록
 // 경전: Namo tassa bhagavato arahato sammāsambuddhassa
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_NAMO = 'Esa bhagavato sāvakasaṅgho, ujupaṭipanno bhagavato sāvakasaṅgho.'
 const V_NAMO_K = '이 세존의 제자 승가는 바르게 행하는 이들이며, 이 세존의 제자 승가는 올바르게 행하는 이들입니다.'
 
-export const LESSON_06: StepType[] = [
+export const LESSON_06: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '6과: 남성명사 소유격', subtitle: 'Chaṭṭhī vibhatti (Genitive)', description: '소유격은 소유·관계를 나타냅니다.\n~의, ~에게, ~를 위하여\n\n단수: -ssa / 복수: -ānaṃ\n(여격과 형태 유사)\n\n경전: "bhagavato sāvakasaṅgho\n(세존의 제자 승가)"', icon: '👑' },
 

@@ -1,7 +1,7 @@
 // 20과: -i/-ī 여성명사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_19: StepType[] = [
+export const LESSON_19: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '20과: -i/-ī 여성명사', subtitle: 'Itthiliṅga -i/-ī nāma', description: '-i 여성명사 격변화 (bhūmi 기준)\n-ī 여성명사 격변화 (nadī 기준)\n새 동사 학습', icon: '👩' },
 

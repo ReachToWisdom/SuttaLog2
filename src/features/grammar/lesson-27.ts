@@ -1,7 +1,7 @@
 // 30과: -vantu/-mantu 소유 형용사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_27: StepType[] = [
+export const LESSON_27: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '30과: -vantu/-mantu 소유 형용사', subtitle: '-vantu/-mantu Kitaka', description: '-vantu: "~을 가진" (guṇavantu = 덕을 가진)\n-mantu: "~을 가진" (satimantu = 마음챙김을 가진)\n\nBhagavā는 Bhagavantu의 주격!', icon: '👑' },
 

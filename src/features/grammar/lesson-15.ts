@@ -1,11 +1,11 @@
 // 16과: 명령형 (Imperative) — 명령 + 금지(mā)
 // 교재 16과 완전 수록
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_IMP = 'Caratha bhikkhave cārikaṃ bahujanahitāya.'
 const V_IMP_K = '비구들이여, 많은 사람의 이익을 위해 편력하라.'
 
-export const LESSON_15: StepType[] = [
+export const LESSON_15: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '16과: 명령형', subtitle: 'Pañcamī vibhatti (Imperative)', description: '명령형: ~하라, ~하시오\n금지형: mā + 명령형 = ~하지 마라\n\n3인칭: pacatu / pacantu\n2인칭: paca(pacāhi) / pacatha\n1인칭: pacāmi / pacāma\n\n경전: "Caratha bhikkhave!\n(비구들이여, 행하라!)"', icon: '📣' },
 

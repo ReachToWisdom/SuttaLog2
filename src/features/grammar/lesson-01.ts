@@ -1,13 +1,13 @@
 // 1과: -a 남성명사 주격 + 현재 3인칭 동사 (교재 1과 완전 수록)
 // 경전 구절: 전법륜경(SN 56.11)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V1 = 'Ekaṃ samayaṃ bhagavā bārāṇasiyaṃ viharati isipatane migadāye.'
 const V1K = '한 때 세존께서 바라나시의 녹야원, 이시빠따나에 머무셨다.'
 const V2 = 'Tatra kho bhagavā pañcavaggiye bhikkhū āmantesi:'
 const V2K = '거기서 세존께서 다섯 비구에게 말씀하셨다:'
 
-export const LESSON_01: StepType[] = [
+export const LESSON_01: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '1과: 남성명사 주격 + 동사', subtitle: '-a puliṅga paṭhamā vibhatti', description: '-a로 끝나는 남성명사의 주격과\n현재 3인칭 동사를 배웁니다.\n\n전법륜경의 첫 구절에서 직접 확인합니다.', icon: '📿' },
 

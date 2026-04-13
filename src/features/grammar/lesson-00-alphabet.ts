@@ -1,8 +1,8 @@
 // 0과: 자모와 발음 (빠알리 프라이머 1장, p.4~7)
 // 8개 모음 + 33개 자음 = 41개 자모 + 발음규칙 + 8격 개요
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_00: StepType[] = [
+export const LESSON_00: StepWithoutId[] = [
   // ── 도입 ──
   {
     type: 'intro',

@@ -1,7 +1,7 @@
 // 28과: -u/-ar 남성명사 + 친족명사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_25: StepType[] = [
+export const LESSON_25: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '28과: -u/-ar 남성 + 친족명사', subtitle: 'Puliṅga -u/-ar nāma + ñātināma', description: 'satthu/satthar(스승) 격변화\npitu/pitar(아버지) 격변화\nbhātu/bhātar(형제) 격변화\nmātu/mātar(어머니) 여성 격변화\ndhītu(딸) 격변화', icon: '👨‍👩‍👧‍👦' },
 

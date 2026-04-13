@@ -1,11 +1,11 @@
 // 15과: 원망형 (Optative / Conditional) — -eyya
 // 조건문 + 부사: sace, yadi, ca, pi, na, viya
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_OPT = 'Sace bhikkhu sīlaṃ rakkheyya, sukhī assa.'
 const V_OPT_K = '만약 비구가 계를 지킨다면, 행복할 것이다.'
 
-export const LESSON_14: StepType[] = [
+export const LESSON_14: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '15과: 원망형', subtitle: 'Sattamī (Optative / Conditional)', description: '원망형: ~할 수 있다, ~해야 한다, ~한다면\n동사어근 + eyya\n\n• paceyya = 요리할 수 있다/해야 한다\n• sace paceyya = 만약 요리한다면\n\n부사: sace(만약), ca(그리고), pi(또한)', icon: '🌙' },
 

@@ -1,11 +1,11 @@
 // 14과: 미래형 (Future Tense) — -(i/e)ssa + 현재어미
 // 어간별 미래형 활용 + 불규칙 미래형
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_FUTURE = 'Buddho lokaṃ vicessati.'
 const V_FUTURE_K = '붓다께서 세상을 알게 될 것이다.'
 
-export const LESSON_13: StepType[] = [
+export const LESSON_13: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '14과: 미래형', subtitle: 'Anāgatakāla (Future Tense)', description: '동사 미래형: 어간 + -(i)ssa + 현재어미\n\n• -a어간: pac + issa + ti = pacissati\n• -e어간: cor + essa + ti = coressati\n• -nā어간: kiṇ + issa + ti = kiṇissati\n\n불규칙: gacchati→gamissati 등', icon: '🔮' },
 

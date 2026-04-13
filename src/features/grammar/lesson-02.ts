@@ -1,13 +1,13 @@
 // 2과: -a 남성명사 목적격 (교재 2과 완전 수록)
 // 경전: 전법륜경 + 무아경에서 목적격 실례
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_DHAMMA = 'Tathāgato dhammaṃ bhāsati.'
 const V_DHAMMA_K = '여래는 법을 말씀하신다.'
 const V_DUKKHA = 'Idaṃ kho pana, bhikkhave, dukkhaṃ ariyasaccaṃ—'
 const V_DUKKHA_K = '비구들이여, 이것이 괴로움의 성스러운 진리이다—'
 
-export const LESSON_02: StepType[] = [
+export const LESSON_02: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '2과: 남성명사 목적격', subtitle: 'Dutiyā vibhatti (Accusative)', description: '목적격은 동작의 대상(~을, ~를)과\n방향(~로, ~에게로)을 나타냅니다.\n\n경전에서 dhammaṃ(법을)이 바로 목적격입니다!', icon: '🎯' },
 

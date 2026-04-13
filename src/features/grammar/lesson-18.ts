@@ -1,7 +1,7 @@
 // 19과: 과거분사 -(i)ta/-na
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_18: StepType[] = [
+export const LESSON_18: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '19과: 과거분사', subtitle: 'Atīta kicca (Past Participle)', description: '과거분사 -(i)ta / -na 형태\n타동사 → 수동 의미 (된, 받은)\n자동사 → 능동 의미 (간, 앉은)\n불규칙 과거분사 학습', icon: '⏪' },
 

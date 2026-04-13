@@ -1,13 +1,13 @@
 // 3과: -a 남성명사 도구격/도도구격 (교재 3과 완전 수록)
 // 경전: saddhiṃ(함께) 구문, 팔정도, 중도
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_MAGGA = 'Ayameva ariyo aṭṭhaṅgiko maggo, seyyathidaṃ—sammādiṭṭhi sammāsaṅkappo sammāvācā sammākammanto sammāājīvo sammāvāyāmo sammāsati sammāsamādhi.'
 const V_MAGGA_K = '이것이 바로 성스러운 팔정도이니—바른 견해, 바른 사유, 바른 말, 바른 행위, 바른 생계, 바른 정진, 바른 마음챙김, 바른 삼매이다.'
 const V_MAJJHIMA = 'Ete kho, bhikkhave, ubho ante anupagamma majjhimā paṭipadā tathāgatena abhisambuddhā'
 const V_MAJJHIMA_K = '비구들이여, 이 양극단에 다가가지 않고, 여래에 의해 깨달아진 중도가 있으니'
 
-export const LESSON_03: StepType[] = [
+export const LESSON_03: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '3과: 남성명사 도구격 (도도구격)', subtitle: 'Tatiyā vibhatti (Instrumental)', description: '도구격은 수단·도구·동행을 나타냅니다.\n~에 의해서, ~와 함께, ~(으)로\n\n경전: "tathāgatena(여래에 의해)"\n"sāvakehi saddhiṃ(제자들과 함께)"', icon: '🤝' },
 

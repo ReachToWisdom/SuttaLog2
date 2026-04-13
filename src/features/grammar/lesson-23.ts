@@ -1,7 +1,7 @@
 // 24-26과: -u/-i/-ī 남성명사 + -u 여성명사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_23: StepType[] = [
+export const LESSON_23: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '24-26과: -u/-i/-ī 남성명사 + -u 여성명사', subtitle: 'Puliṅga -i/-ī/-u + Itthiliṅga -u nāma', description: '-u 여성명사 (dhenu 기준)\n-i 남성명사 (aggi 기준)\n-ī 남성명사 (pakkhī 기준)\n\n3과 통합 학습', icon: '📚' },
 

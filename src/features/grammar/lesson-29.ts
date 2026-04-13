@@ -1,7 +1,7 @@
 // 32과: 관계·지시·의문 대명사 + 대명사적 부사
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_29: StepType[] = [
+export const LESSON_29: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '32과: 관계·지시·의문 대명사', subtitle: 'yo / so / ko + sabbanāma-kiriyāvisesana', description: '관계대명사: yo (…하는 자)\n지시대명사: so (그)\n의문대명사: ko (누구)\n\n+ 불변화사 ci (어떤~)\n+ 대명사적 부사 대조표', icon: '🔗' },
 

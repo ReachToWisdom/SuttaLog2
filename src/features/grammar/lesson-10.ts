@@ -1,8 +1,8 @@
 // 10과: 부정사 -(i)tuṃ + 현재분사 -nta/-māna + 중성명사 새 단어
 // 교재 10과(부정사) + 11과(현재분사+중성명사) 통합
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_10: StepType[] = [
+export const LESSON_10: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '10과: 부정사 + 현재분사', subtitle: 'Tuṃ-paccaya / Nta-māna-paccaya', description: '부정사: ~하기 위해, ~할 (-(i)tuṃ)\n현재분사: ~하면서, ~하는 (-nta/-māna)\n새 단어: 중성명사 + 동사\n\n경전: "Dānaṃ dadāmānā sagge uppajjanti"', icon: '📚' },
 

@@ -1,11 +1,11 @@
 // 18과: -ā 여성명사 격변화 (vanitā 기준)
 // 여성명사 어휘 + 동사 + 경전 용례(parisā)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_PARISA = 'Cattasso imā bhikkhave parisā.'
 const V_PARISA_K = '비구들이여, 이 네 가지 수행원이 있다.'
 
-export const LESSON_17: StepType[] = [
+export const LESSON_17: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '18과: -ā 여성명사', subtitle: 'Itthiliṅga -ā (Feminine Nouns in -ā)', description: '여성명사 -ā형 격변화:\nvanitā(여인)를 기준으로 8격 학습\n\n여성명사: kaññā(소녀), gaṅgā(갠지스강),\nnāvā(배), ammā(어머니), paññā(지혜)...\n\n경전: "parisā" (수행원/모임)', icon: '👩' },
 

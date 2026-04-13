@@ -1,7 +1,7 @@
 // 23과: 사역형 -e/-aya/-āpe/-āpaya
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_22: StepType[] = [
+export const LESSON_22: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '23과: 사역형', subtitle: 'Kārita (Causative)', description: '~시키다, ~하게 하다\n\n-e/-aya: \n-āpe/-āpaya: \n\n예: pacati(요리한다) → pāceti(요리시킨다)', icon: '👨‍💼' },
 

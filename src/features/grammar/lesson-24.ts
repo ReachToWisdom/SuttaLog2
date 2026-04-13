@@ -1,7 +1,7 @@
 // 27과: -u/-ū 남성명사 격변화
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_24: StepType[] = [
+export const LESSON_24: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '27과: -u/-ū 남성명사', subtitle: 'Puliṅga -u/-ū nāma', description: '-u 남성명사 (garu 기준) 격변화\n-ū 남성명사 (vidū 기준) 격변화\n\nbhikkhu 호격 특수형 학습', icon: '📖' },
 

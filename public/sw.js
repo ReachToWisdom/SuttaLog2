@@ -1,7 +1,7 @@
 // 서비스워커 — 오프라인 지원 (앱 셸 + 오디오 캐싱)
-// 버전: 2026-04-13-04 (백업 복구 - 안정 버전)
-const CACHE_NAME = 'pali-primer-v4'
-const AUDIO_CACHE = 'pali-audio-v4'
+// 버전: 2026-04-13-05 (메모 stepId 시스템 적용)
+const CACHE_NAME = 'pali-primer-v5'
+const AUDIO_CACHE = 'pali-audio-v5'
 
 // 앱 셸: 핵심 파일 (빌드 시 해시 포함되므로 index만 사전 캐싱)
 const APP_SHELL = [

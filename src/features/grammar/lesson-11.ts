@@ -1,8 +1,8 @@
 // 12과: 동사 인칭변화 (현재형) — 전 인칭 활용
 // 인칭대명사 + 현재형 어미 + atthi/karoti 활용
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_11: StepType[] = [
+export const LESSON_11: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '11과: 동사 인칭변화 (현재형)', subtitle: 'Vattamānā-vibhatti (Present Tense Conjugation)', description: '현재형 전 인칭 어미:\n3인칭: -ti/-nti\n2인칭: -si/-tha\n1인칭: -āmi/-āma\n\n인칭대명사: So, Tvaṃ, Ahaṃ...\n경전: "Buddhaṃ saraṇaṃ gacchāmi"', icon: '🗣️' },
 

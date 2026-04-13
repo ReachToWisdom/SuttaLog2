@@ -1,7 +1,7 @@
 // 21과: 현재분사 여성형 -ntī/-mānā
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_20: StepType[] = [
+export const LESSON_20: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '21과: 현재분사 여성형', subtitle: 'Itthiliṅga vattamāna kicca', description: '현재분사 여성형:\n-ntī (능동): pacantī = 요리하는 (여자)\n-mānā (중간): pacamānā = 요리하는 (여자)\n\npacantī 격변화표 학습', icon: '👩‍🍳' },
 

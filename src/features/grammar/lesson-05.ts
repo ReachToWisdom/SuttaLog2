@@ -1,11 +1,11 @@
 // 5과: -a 남성명사 여격 (교재 5과 완전 수록)
 // 경전: 삼귀의 — 붓다·담마·상가에게 귀의하다 (여격 개념)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_SARANA = 'Namo tassa bhagavato arahato sammāsambuddhassa.'
 const V_SARANA_K = '저 세존이시며, 아라한이시며, 정등각이신 분께 경배합니다.'
 
-export const LESSON_05: StepType[] = [
+export const LESSON_05: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '5과: 남성명사 여격 (Dative)', subtitle: 'Catutthī vibhatti (Dative)', description: '여격은 수여·목적·대상을 나타냅니다.\n~에게, ~를 위하여, ~를 목적으로\n\n경전: "Namo tassa bhagavato"\n(저 세존께 경배합니다)', icon: '🎁' },
 

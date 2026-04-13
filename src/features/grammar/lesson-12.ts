@@ -1,8 +1,8 @@
 // 13과: -e어간 동사 + -nā어간 동사 + 특수 동사 활용
 // deseti, cinteti, kiṇāti, suṇāti, bhavati/hoti, karoti
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_12: StepType[] = [
+export const LESSON_12: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '12과: -e어간 + -nā어간 동사', subtitle: 'Causative(-e) / Nā-dhātu verbs', description: '-e어간: deseti, cinteti, pūjeti...\n-nā어간: kiṇāti, suṇāti, jānāti...\n특수 동사: bhavati/hoti, karoti\n\n경전: "Buddho dhammaṃ deseti"', icon: '📖' },
 

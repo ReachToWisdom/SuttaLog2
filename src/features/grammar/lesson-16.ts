@@ -1,11 +1,11 @@
 // 17과: 과거형 (Aorist) — a어간 + e어간 과거 활용
 // 어두첨자 a- 과거표시
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_AORI = 'Bhagavā evaṃ avoca.'
 const V_AORI_K = '세존께서 이와 같이 말씀하셨다.'
 
-export const LESSON_16: StepType[] = [
+export const LESSON_16: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '17과: 과거형 (Aorist)', subtitle: 'Ajjatanī (Aorist / Past Tense)', description: '과거형: 이미 일어난 사건\n\n• -a어간: apaci / paci (요리했다)\n• -e어간: coresi / corayi (훔쳤다)\n• 어두첨자 a-: 과거 표시 (선택적)\n\n경전: "Bhagavā evaṃ avoca\n(세존께서 이와 같이 말씀하셨다)"', icon: '⏳' },
 

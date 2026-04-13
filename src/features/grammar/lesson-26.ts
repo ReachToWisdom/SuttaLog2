@@ -1,7 +1,7 @@
 // 29과: -i/-u 중성명사 격변화
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
-export const LESSON_26: StepType[] = [
+export const LESSON_26: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '29과: -i/-u 중성명사', subtitle: 'Napuṃsakaliṅga -i/-u nāma', description: '-i 중성명사 (aṭṭhi 기준)\n-u 중성명사 (cakkhu 기준)\n\n중성명사는 주격=목적격이 핵심!', icon: '🦴' },
 

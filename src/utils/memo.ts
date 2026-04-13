@@ -29,6 +29,7 @@ export interface MemoImage {
 export interface Memo {
   id?: string
   page: string
+  stepId?: string  // 고유 스텝 ID (페이지 추가/삭제에도 안정적)
   text: string
   images: MemoImage[]
   createdAt: string
@@ -88,6 +89,7 @@ export async function saveMemo(
   page: string,
   text: string,
   imageFiles: File[],
+  stepId?: string,  // 고유 스텝 ID
 ): Promise<boolean> {
   try {
     await ensureFirebase()
@@ -98,6 +100,7 @@ export async function saveMemo(
     }
     const memo: Omit<Memo, 'id'> = {
       page,
+      stepId,  // 추가
       text,
       images,
       createdAt: new Date().toISOString(),
@@ -117,15 +120,20 @@ export async function updateMemo(
   memoId: string,
   text: string,
   images: MemoImage[],
+  stepId?: string,  // 고유 스텝 ID (옵션)
 ): Promise<boolean> {
   try {
     await ensureFirebase()
     const ref = fb.doc(db, COLLECTION, memoId)
-    await fb.updateDoc(ref, {
+    const updateData: Record<string, unknown> = {
       text,
       images,
       updatedAt: new Date().toISOString(),
-    })
+    }
+    if (stepId !== undefined) {
+      updateData.stepId = stepId
+    }
+    await fb.updateDoc(ref, updateData)
     return true
   } catch (e) {
     console.error('메모 수정 실패:', e)

@@ -1,12 +1,12 @@
 // 8과: 호격 + 남성명사 격변화 총정리 + 중성명사 도입
 // 경전: "bhikkhave!" (호격), "Rūpaṃ bhikkhave anattā" (SN 22.59)
-import type { StepType } from './types'
+import type { StepWithoutId } from './types'
 
 const V_RUPA = 'Rūpaṃ bhikkhave anattā.'
 const V_RUPA_K = '비구들이여, 물질은 무아이다.'
 // bhikkhave 호격은 V_RUPA 안에서 사용
 
-export const LESSON_08: StepType[] = [
+export const LESSON_08: StepWithoutId[] = [
   // === 도입 ===
   { type: 'intro', title: '8과: 호격 + 남성 총정리 + 중성명사', subtitle: 'Ālapana vibhatti (Vocative) + Napuṃsakaliṅga', description: '호격: ~여, ~이여 (부름)\n남성명사 전체 격변화 총정리\n중성명사(-a) 도입\n\n경전: "Bhikkhave!(비구들이여!)"\n"Rūpaṃ anattā(색은 무아이다)"', icon: '📢' },
 

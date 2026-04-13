@@ -5,6 +5,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { saveMemo, getMemos, updateMemo, deleteMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
 import type { Memo, MemoImage } from '../utils/memo'
+import { getLessonById } from '../features/grammar/lessons'
 
 // 페이지 경로 → 한글 이름
 const PAGE_NAMES: Record<string, string> = {
@@ -133,10 +134,26 @@ export default function MemoFab() {
     setEditingId(null)
   }
 
+  // 현재 스텝 ID 가져오기 (고유 ID 기반 메모 위치 저장)
+  const getCurrentStepId = (): string | undefined => {
+    if (location.pathname.startsWith('/learn/')) {
+      const lessonId = location.pathname.replace('/learn/', '').split('?')[0]
+      const currentInfo = (window as any).currentLessonInfo
+      if (currentInfo && currentInfo.lessonId === lessonId) {
+        const lesson = getLessonById(lessonId)
+        const step = lesson?.steps[currentInfo.stepIndex]
+        return step?.id
+      }
+    }
+    return undefined
+  }
+
   // 새 메모 전송 또는 수정 저장
   const handleSubmit = async () => {
     if (!text.trim() && images.length === 0) return
     setSending(true)
+
+    const stepId = getCurrentStepId()  // 현재 스텝 ID 가져오기
 
     let ok: boolean
     if (editingId) {
@@ -152,10 +169,10 @@ export default function MemoFab() {
           finalImages.push({ order: i + 1, dataUrl: img.dataUrl, name: img.name })
         }
       }
-      ok = await updateMemo(editingId, text, finalImages)
+      ok = await updateMemo(editingId, text, finalImages, stepId)
     } else {
       const files = images.sort((a, b) => a.order - b.order).map(i => i.file!)
-      ok = await saveMemo(getPageName(location.pathname), text, files)
+      ok = await saveMemo(getPageName(location.pathname), text, files, stepId)
     }
 
     setSending(false)
@@ -197,11 +214,25 @@ export default function MemoFab() {
 
   // 메모 클릭 → 해당 위치로 이동
   const handleMemoClick = (memo: Memo) => {
-    // "학습: lesson-XX#스텝" 또는 "학습: lesson-XX" 형식에서 lessonId와 스텝 추출
+    // 1순위: stepId로 정확한 위치 찾기 (고유 ID 기반)
+    if (memo.stepId) {
+      // stepId: "lesson-05-quiz-3" → lessonId: "lesson-05"
+      const lessonId = memo.stepId.split('-').slice(0, 2).join('-')
+      const lesson = getLessonById(lessonId)
+      const stepIndex = lesson?.steps.findIndex(s => s.id === memo.stepId)
+
+      if (stepIndex !== undefined && stepIndex >= 0) {
+        navigate(`/learn/${lessonId}?step=${stepIndex}`)
+        handleClose()
+        return
+      }
+    }
+
+    // 2순위: page 파싱 (구 메모 지원, fallback)
     const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
     if (match) {
       const lessonId = match[1].trim()
-      const stepIdx = match[2] // 스텝 인덱스 (있으면)
+      const stepIdx = match[2]
       if (stepIdx) {
         navigate(`/learn/${lessonId}?step=${stepIdx}`)
       } else {
