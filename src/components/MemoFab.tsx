@@ -5,7 +5,6 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { saveMemo, getMemos, updateMemo, deleteMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
 import type { Memo, MemoImage } from '../utils/memo'
-import { findAccurateStep } from '../utils/find-step-by-content'
 
 // 페이지 경로 → 한글 이름
 const PAGE_NAMES: Record<string, string> = {
@@ -17,27 +16,24 @@ const PAGE_NAMES: Record<string, string> = {
 }
 
 function getPageName(path: string): string {
-  // HashRouter 사용 시 실제 경로는 hash에 있음
-  const actualPath = path.startsWith('#') ? path.slice(1) : path
-
-  if (actualPath.startsWith('/learn/')) {
-    const lessonId = actualPath.replace('/learn/', '').split('?')[0]  // query string 제거
+  if (path.startsWith('/learn/')) {
+    const lessonId = path.replace('/learn/', '')
 
     // GrammarLearn에서 설정한 정확한 현재 위치 사용
-    const currentInfo = window.currentLessonInfo
+    const currentInfo = (window as any).currentLessonInfo
     if (currentInfo && currentInfo.lessonId === lessonId) {
       return `학습: ${lessonId}#${currentInfo.stepIndex}`
     }
 
     // fallback: localStorage 사용 (하위 호환성)
     const stepIdx = localStorage.getItem(`pali-primer-${lessonId}`)
-    if (stepIdx !== null) {
+    if (stepIdx) {
       return `학습: ${lessonId}#${stepIdx}`
     }
 
     return `학습: ${lessonId}`
   }
-  return PAGE_NAMES[actualPath] || actualPath
+  return PAGE_NAMES[path] || path
 }
 
 function formatDate(iso: string): string {
@@ -199,27 +195,19 @@ export default function MemoFab() {
     setTab('write')
   }
 
-  // 메모 클릭 → 해당 위치로 이동 (메모 내용으로 정확한 스텝 찾기)
+  // 메모 클릭 → 해당 위치로 이동
   const handleMemoClick = (memo: Memo) => {
-    // 메모 텍스트와 저장된 page 정보로 정확한 스텝 찾기
-    const location = findAccurateStep(memo.page, memo.text)
-
-    if (location) {
-      navigate(`/learn/${location.lessonId}?step=${location.stepIndex}`)
-      handleClose()
-    } else {
-      // fallback: 기존 방식
-      const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
-      if (match) {
-        const lessonId = match[1].trim()
-        const stepIdx = match[2]
-        if (stepIdx) {
-          navigate(`/learn/${lessonId}?step=${stepIdx}`)
-        } else {
-          navigate(`/learn/${lessonId}`)
-        }
-        handleClose()
+    // "학습: lesson-XX#스텝" 또는 "학습: lesson-XX" 형식에서 lessonId와 스텝 추출
+    const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
+    if (match) {
+      const lessonId = match[1].trim()
+      const stepIdx = match[2] // 스텝 인덱스 (있으면)
+      if (stepIdx) {
+        navigate(`/learn/${lessonId}?step=${stepIdx}`)
+      } else {
+        navigate(`/learn/${lessonId}`)
       }
+      handleClose()
     }
   }
 
@@ -408,17 +396,12 @@ export default function MemoFab() {
                   <p className="text-center text-neutral-400 py-8">불러오는 중...</p>
                 ) : (() => {
                   const currentPage = getPageName(location.pathname)
-                  // 스텝 번호(#0, #1 등)를 제거하여 lesson ID만 비교
-                  const currentLesson = currentPage.replace(/#\d+$/, '')
                   const filtered = showAll
                     ? memos
-                    : memos.filter(m => {
-                        const memoLesson = m.page.replace(/#\d+$/, '')
-                        return memoLesson === currentLesson
-                      })
+                    : memos.filter(m => m.page === currentPage)
                   return filtered.length === 0 ? (
                   <p className="text-center text-neutral-400 py-8">
-                    {showAll ? '아직 메모가 없습니다.' : `이 페이지(${currentLesson})에 메모가 없습니다.`}
+                    {showAll ? '아직 메모가 없습니다.' : `이 페이지(${currentPage})에 메모가 없습니다.`}
                   </p>
                 ) : (
                   <div className="space-y-3">
