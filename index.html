@@ -19,7 +19,22 @@
     <script type="module" src="/src/main.tsx"></script>
     <script>
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/SuttaLog2/sw.js')
+        navigator.serviceWorker.register('/SuttaLog2/sw.js').then(reg => {
+          // 즉시 업데이트 확인
+          reg.update()
+          // 새 서비스워커 발견 시 즉시 활성화
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  // 새 버전 사용 가능, 페이지 새로고침
+                  window.location.reload()
+                }
+              })
+            }
+          })
+        })
       }
     </script>
   </body>

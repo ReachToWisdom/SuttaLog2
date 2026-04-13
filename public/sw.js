@@ -1,4 +1,5 @@
 // 서비스워커 — 오프라인 지원 (앱 셸 + 오디오 캐싱)
+// 버전: 2026-04-13-02 (캐시 강제 갱신)
 const CACHE_NAME = 'pali-primer-v2'
 const AUDIO_CACHE = 'pali-audio-v2'
 
