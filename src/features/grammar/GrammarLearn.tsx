@@ -29,11 +29,26 @@ export default function GrammarLearn() {
   const clampedStep = initialStep >= STEPS.length ? 0 : Math.max(0, initialStep)
   const [stepIdx, setStepIdxRaw] = useState(clampedStep)
 
+  // 초기 로드 시에도 현재 위치 저장
+  useEffect(() => {
+    window.currentLessonInfo = {
+      lessonId: lid,
+      stepIndex: stepIdx
+    }
+  }, [lid, stepIdx])
+
   const setStepIdx = (updater: number | ((prev: number) => number)) => {
     setStepIdxRaw(prev => {
       const next = typeof updater === 'function' ? updater(prev) : updater
       const clamped = Math.max(0, Math.min(next, STEPS.length - 1))
       localStorage.setItem(`pali-primer-${lid}`, String(clamped))
+
+      // 메모 기능을 위해 현재 위치를 window 객체에 저장
+      window.currentLessonInfo = {
+        lessonId: lid,
+        stepIndex: clamped
+      }
+
       if (isSyncLoggedIn()) debouncedPush()
       return clamped
     })

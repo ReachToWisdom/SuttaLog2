@@ -18,11 +18,19 @@ const PAGE_NAMES: Record<string, string> = {
 function getPageName(path: string): string {
   if (path.startsWith('/learn/')) {
     const lessonId = path.replace('/learn/', '')
-    // 현재 스텝 정보 포함 (localStorage에서 읽기)
+
+    // GrammarLearn에서 설정한 정확한 현재 위치 사용
+    const currentInfo = (window as any).currentLessonInfo
+    if (currentInfo && currentInfo.lessonId === lessonId) {
+      return `학습: ${lessonId}#${currentInfo.stepIndex}`
+    }
+
+    // fallback: localStorage 사용 (하위 호환성)
     const stepIdx = localStorage.getItem(`pali-primer-${lessonId}`)
     if (stepIdx) {
       return `학습: ${lessonId}#${stepIdx}`
     }
+
     return `학습: ${lessonId}`
   }
   return PAGE_NAMES[path] || path
