@@ -54,8 +54,8 @@ export default function GrammarLearn() {
     })
   }
 
-  const [hearts, setHearts] = useState(3)
-  const [prevHearts, setPrevHearts] = useState(3)
+  const [hearts, setHearts] = useState(5)
+  const [prevHearts, setPrevHearts] = useState(5)
   const [selected, setSelected] = useState<number | null>(null)
   const [showResult, setShowResult] = useState(false)
   const [writingChecked, setWritingChecked] = useState(false)
@@ -242,7 +242,7 @@ export default function GrammarLearn() {
             />
             <div>
               <p className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>
-                {hearts}/3
+                {hearts}/5
               </p>
               <p className="text-xs mt-1" style={{ color: 'var(--color-text-secondary)' }}>
                 연꽃잎
@@ -275,7 +275,7 @@ export default function GrammarLearn() {
         <button
           onClick={() => {
             setShowCompletion(false)
-            setHearts(3)
+            setHearts(5)
             setCorrectCount(0)
             setStepIdx(0)
             startTimeRef.current = Date.now()
@@ -295,6 +295,11 @@ export default function GrammarLearn() {
 
   // === 체력 0 게임오버 ===
   if (hearts <= 0) {
+    // 첫 번째 퀴즈 스텝 찾기
+    const firstQuizIdx = STEPS.findIndex(s =>
+      s.type === 'quiz' || s.type === 'match-listen' || s.type === 'match-reverse'
+    )
+
     return (
       <div
         className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
@@ -323,7 +328,7 @@ export default function GrammarLearn() {
         </p>
         <button
           onClick={() => {
-            setHearts(3)
+            setHearts(5)
             setStepIdx(0)
             setCorrectCount(0)
           }}
@@ -333,6 +338,23 @@ export default function GrammarLearn() {
         >
           처음부터 다시
         </button>
+        {firstQuizIdx >= 0 && firstQuizIdx !== 0 && (
+          <button
+            onClick={() => {
+              setHearts(5)
+              setStepIdx(firstQuizIdx)
+              setCorrectCount(0)
+            }}
+            className="mt-3 w-60 py-3.5 rounded-2xl font-bold text-sm
+                       active:scale-[0.97] transition-transform"
+            style={{
+              color: 'var(--color-primary)',
+              border: '1.5px solid var(--color-primary)',
+            }}
+          >
+            첫 퀴즈부터 다시
+          </button>
+        )}
         <button
           onClick={() => nav('/')}
           className="mt-3 text-sm font-medium"
@@ -540,7 +562,7 @@ export default function GrammarLearn() {
 
           {/* 하트 (연꽃) */}
           <div className="flex gap-1 shrink-0 ml-1">
-            {[0, 1, 2].map(i => (
+            {[0, 1, 2, 3, 4].map(i => (
               <span
                 key={i}
                 className={`text-lg transition-all duration-300

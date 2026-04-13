@@ -35,7 +35,6 @@ import { LESSON_29 } from './lesson-29'
 export const LESSONS: LessonInfo[] = [
   // 기초
   { id: 'lesson-00', title: '자모와 발음', subtitle: '모음 8 · 자음 33 · 발음규칙 · 8격', icon: '🔤', steps: LESSON_00 },
-  { id: 'lesson-sandhi', title: '연성법', subtitle: 'Sandhi ①~⑬ · 억제음 변화', icon: '🔗', steps: LESSON_01_SANDHI },
   // 남성 -a 8격
   { id: 'lesson-01', title: '1과: 주격 + 동사', subtitle: '-o/-ā · -ti/-nti', icon: '📿', steps: LESSON_01 },
   { id: 'lesson-02', title: '2과: 목적격', subtitle: '-ṃ/-e · ~을/를', icon: '🎯', steps: LESSON_02 },
@@ -69,6 +68,8 @@ export const LESSONS: LessonInfo[] = [
   { id: 'lesson-27', title: '30과: -vantu/-mantu', subtitle: 'Bhagavā · 소유형용사', icon: '🏔️', steps: LESSON_27 },
   { id: 'lesson-28', title: '31과: 인칭대명사', subtitle: 'ahaṃ/tvaṃ/mayaṃ/tumhe', icon: '🫵', steps: LESSON_28 },
   { id: 'lesson-29', title: '32과: 관계·지시·의문대명사', subtitle: 'yo/so/ko · yattha/tattha', icon: '❓', steps: LESSON_29 },
+  // 연성법 (마지막)
+  { id: 'lesson-sandhi', title: '연성법', subtitle: 'Sandhi ①~⑬ · 억제음 변화', icon: '🔗', steps: LESSON_01_SANDHI },
 ]
 
 export function getLessonById(id: string) {
