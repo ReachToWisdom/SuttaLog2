@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LESSONS } from '../grammar/lessons'
 import { getMonthStudyDates, getDayLog, type DayLog } from '../../utils/study-log'
+import { APP_NAME } from '../../config/constants'
 
 // ── 명언 ──
 const QUOTES = [
@@ -110,7 +111,7 @@ export default function Home() {
           <span className="text-3xl">{greeting.emoji}</span>
           <div>
             <p className="text-sm opacity-80 font-medium">{greeting.text}</p>
-            <h1 className="text-xl font-bold tracking-tight">빠알리어 공부2</h1>
+            <h1 className="text-xl font-bold tracking-tight">{APP_NAME}</h1>
           </div>
           {/* 설정 버튼 */}
           <button onClick={() => nav('/profile')} className="ml-auto w-9 h-9 rounded-full flex items-center justify-center

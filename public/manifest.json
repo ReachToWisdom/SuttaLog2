@@ -1,8 +1,9 @@
 {
+  "_comment": "SSOT: src/config/constants.ts 참조",
   "name": "빠알리 프라이머",
   "short_name": "빠알리 프라이머",
   "description": "De Silva's Pali Primer 기반 빠알리어 문법 학습앱",
-  "start_url": "/SuttaLog2/",
+  "start_url": "/SuttaLog2/?v=2026-04-13",
   "scope": "/SuttaLog2/",
   "display": "standalone",
   "background_color": "#f8fafc",

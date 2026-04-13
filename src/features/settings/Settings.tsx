@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { isSyncConfigured, isSyncLoggedIn, getSyncUser, initSync, syncLogin, syncLogout, pushToCloud, pullFromCloud } from '../../utils/sync'
 import { FONT_SIZES, getSavedFontSize, setFontSize, type FontSizeKey } from '../../utils/font-size'
+import { APP_NAME, APP_VERSION } from '../../config/constants'
 
 /** 애니메이션 토글 스위치 */
 function Toggle({ value, onChange }: { value: boolean; onChange: () => void }) {
@@ -363,8 +364,8 @@ export default function Settings() {
                 📿
               </span>
               <div>
-                <p className="font-bold text-sm">빠알리어 공부2</p>
-                <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>v1.0.0</p>
+                <p className="font-bold text-sm">{APP_NAME}</p>
+                <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>{APP_VERSION}</p>
               </div>
             </div>
 
