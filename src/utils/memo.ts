@@ -181,3 +181,19 @@ export async function getMemos(): Promise<Memo[]> {
     return []
   }
 }
+
+// 단일 메모 stepId 업데이트 (마이그레이션용)
+export async function updateMemoStepId(
+  memoId: string,
+  stepId: string,
+): Promise<boolean> {
+  try {
+    await ensureFirebase()
+    const ref = fb.doc(db, COLLECTION, memoId)
+    await fb.updateDoc(ref, { stepId })
+    return true
+  } catch (e) {
+    console.error('stepId 업데이트 실패:', e)
+    return false
+  }
+}

@@ -579,7 +579,7 @@ export default function GrammarLearn() {
           </div>
         </div>
 
-        {/* 과 제목 + 현재 스텝 브레드크럼 */}
+        {/* 과 제목 + 현재 스텝 브레드크럼 + 페이지 ID */}
         <div className="flex items-center gap-2 px-1 mt-1 text-[11px] leading-tight"
           style={{ color: 'var(--color-text-secondary)' }}>
           <span className="font-semibold truncate" style={{ color: 'var(--color-primary)', maxWidth: '40%' }}>
@@ -599,6 +599,12 @@ export default function GrammarLearn() {
               : step.type === 'verse' ? '경전'
               : `스텝 ${stepIdx + 1}`}
           </span>
+          {/* 페이지 ID 표시 */}
+          {step.id && (
+            <span className="ml-auto font-mono text-[9px] opacity-40 shrink-0">
+              {step.id}
+            </span>
+          )}
         </div>
       </div>
 
