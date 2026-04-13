@@ -396,12 +396,17 @@ export default function MemoFab() {
                   <p className="text-center text-neutral-400 py-8">불러오는 중...</p>
                 ) : (() => {
                   const currentPage = getPageName(location.pathname)
+                  // 스텝 번호(#0, #1 등)를 제거하여 lesson ID만 비교
+                  const currentLesson = currentPage.replace(/#\d+$/, '')
                   const filtered = showAll
                     ? memos
-                    : memos.filter(m => m.page === currentPage)
+                    : memos.filter(m => {
+                        const memoLesson = m.page.replace(/#\d+$/, '')
+                        return memoLesson === currentLesson
+                      })
                   return filtered.length === 0 ? (
                   <p className="text-center text-neutral-400 py-8">
-                    {showAll ? '아직 메모가 없습니다.' : `이 페이지(${currentPage})에 메모가 없습니다.`}
+                    {showAll ? '아직 메모가 없습니다.' : `이 페이지(${currentLesson})에 메모가 없습니다.`}
                   </p>
                 ) : (
                   <div className="space-y-3">
