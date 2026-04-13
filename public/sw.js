@@ -1,6 +1,6 @@
 // 서비스워커 — 오프라인 지원 (앱 셸 + 오디오 캐싱)
-const CACHE_NAME = 'pali-primer-v1'
-const AUDIO_CACHE = 'pali-audio-v1'
+const CACHE_NAME = 'pali-primer-v2'
+const AUDIO_CACHE = 'pali-audio-v2'
 
 // 앱 셸: 핵심 파일 (빌드 시 해시 포함되므로 index만 사전 캐싱)
 const APP_SHELL = [

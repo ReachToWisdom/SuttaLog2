@@ -19,9 +19,14 @@ export default function GrammarLearn() {
   const lesson = getLessonById(lid)
   const STEPS = lesson?.steps || []
 
-  // 이어 학습 — savedStep이 범위 초과 시 0으로 리셋 (과 구조 변경 대응)
+  // URL 파라미터에서 스텝 읽기 (메모 클릭 시 전달됨)
+  const [searchParams] = useState(() => new URLSearchParams(window.location.search))
+  const urlStep = searchParams.get('step')
+
+  // 이어 학습 — URL 파라미터 우선, 없으면 localStorage (savedStep이 범위 초과 시 0으로 리셋)
   const savedStep = Number(localStorage.getItem(`pali-primer-${lid}`) || '0')
-  const clampedStep = savedStep >= STEPS.length ? 0 : Math.max(0, savedStep)
+  const initialStep = urlStep ? Number(urlStep) : savedStep
+  const clampedStep = initialStep >= STEPS.length ? 0 : Math.max(0, initialStep)
   const [stepIdx, setStepIdxRaw] = useState(clampedStep)
 
   const setStepIdx = (updater: number | ((prev: number) => number)) => {

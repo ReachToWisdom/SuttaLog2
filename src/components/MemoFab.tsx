@@ -16,7 +16,15 @@ const PAGE_NAMES: Record<string, string> = {
 }
 
 function getPageName(path: string): string {
-  if (path.startsWith('/learn/')) return `학습: ${path.replace('/learn/', '')}`
+  if (path.startsWith('/learn/')) {
+    const lessonId = path.replace('/learn/', '')
+    // 현재 스텝 정보 포함 (localStorage에서 읽기)
+    const stepIdx = localStorage.getItem(`pali-primer-${lessonId}`)
+    if (stepIdx) {
+      return `학습: ${lessonId}#${stepIdx}`
+    }
+    return `학습: ${lessonId}`
+  }
   return PAGE_NAMES[path] || path
 }
 
@@ -181,11 +189,16 @@ export default function MemoFab() {
 
   // 메모 클릭 → 해당 위치로 이동
   const handleMemoClick = (memo: Memo) => {
-    // "학습: lesson-XX" 형식에서 lessonId 추출
-    const match = memo.page.match(/학습:\s*(.+)/)
+    // "학습: lesson-XX#스텝" 또는 "학습: lesson-XX" 형식에서 lessonId와 스텝 추출
+    const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
     if (match) {
-      const lessonId = match[1]
-      navigate(`/learn/${lessonId}`)
+      const lessonId = match[1].trim()
+      const stepIdx = match[2] // 스텝 인덱스 (있으면)
+      if (stepIdx) {
+        navigate(`/learn/${lessonId}?step=${stepIdx}`)
+      } else {
+        navigate(`/learn/${lessonId}`)
+      }
       handleClose()
     }
   }
