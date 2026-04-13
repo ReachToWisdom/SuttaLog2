@@ -5,6 +5,7 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { saveMemo, getMemos, updateMemo, deleteMemo, fileToDataUrl, getDeviceId } from '../utils/memo'
 import type { Memo, MemoImage } from '../utils/memo'
+import { findAccurateStep } from '../utils/find-step-by-content'
 
 // 페이지 경로 → 한글 이름
 const PAGE_NAMES: Record<string, string> = {
@@ -16,8 +17,11 @@ const PAGE_NAMES: Record<string, string> = {
 }
 
 function getPageName(path: string): string {
-  if (path.startsWith('/learn/')) {
-    const lessonId = path.replace('/learn/', '')
+  // HashRouter 사용 시 실제 경로는 hash에 있음
+  const actualPath = path.startsWith('#') ? path.slice(1) : path
+
+  if (actualPath.startsWith('/learn/')) {
+    const lessonId = actualPath.replace('/learn/', '').split('?')[0]  // query string 제거
 
     // GrammarLearn에서 설정한 정확한 현재 위치 사용
     const currentInfo = window.currentLessonInfo
@@ -33,7 +37,7 @@ function getPageName(path: string): string {
 
     return `학습: ${lessonId}`
   }
-  return PAGE_NAMES[path] || path
+  return PAGE_NAMES[actualPath] || actualPath
 }
 
 function formatDate(iso: string): string {
@@ -195,19 +199,27 @@ export default function MemoFab() {
     setTab('write')
   }
 
-  // 메모 클릭 → 해당 위치로 이동
+  // 메모 클릭 → 해당 위치로 이동 (메모 내용으로 정확한 스텝 찾기)
   const handleMemoClick = (memo: Memo) => {
-    // "학습: lesson-XX#스텝" 또는 "학습: lesson-XX" 형식에서 lessonId와 스텝 추출
-    const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
-    if (match) {
-      const lessonId = match[1].trim()
-      const stepIdx = match[2] // 스텝 인덱스 (있으면)
-      if (stepIdx) {
-        navigate(`/learn/${lessonId}?step=${stepIdx}`)
-      } else {
-        navigate(`/learn/${lessonId}`)
-      }
+    // 메모 텍스트와 저장된 page 정보로 정확한 스텝 찾기
+    const location = findAccurateStep(memo.page, memo.text)
+
+    if (location) {
+      navigate(`/learn/${location.lessonId}?step=${location.stepIndex}`)
       handleClose()
+    } else {
+      // fallback: 기존 방식
+      const match = memo.page.match(/학습:\s*([^#]+)(?:#(\d+))?/)
+      if (match) {
+        const lessonId = match[1].trim()
+        const stepIdx = match[2]
+        if (stepIdx) {
+          navigate(`/learn/${lessonId}?step=${stepIdx}`)
+        } else {
+          navigate(`/learn/${lessonId}`)
+        }
+        handleClose()
+      }
     }
   }
 
