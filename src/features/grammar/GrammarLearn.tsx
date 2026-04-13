@@ -29,6 +29,21 @@ export default function GrammarLearn() {
   const clampedStep = initialStep >= STEPS.length ? 0 : Math.max(0, initialStep)
   const [stepIdx, setStepIdxRaw] = useState(clampedStep)
 
+  // URL 파라미터 변경 시 stepIdx 업데이트 (메모 클릭 시 이동)
+  useEffect(() => {
+    if (urlStep !== null) {
+      const targetStep = Number(urlStep)
+      if (targetStep !== stepIdx && targetStep >= 0 && targetStep < STEPS.length) {
+        setStepIdxRaw(targetStep)
+        localStorage.setItem(`pali-primer-${lid}`, String(targetStep))
+        window.currentLessonInfo = {
+          lessonId: lid,
+          stepIndex: targetStep
+        }
+      }
+    }
+  }, [urlStep, lid, STEPS.length])
+
   // 초기 로드 시에도 현재 위치 저장
   useEffect(() => {
     window.currentLessonInfo = {
