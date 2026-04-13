@@ -49,6 +49,7 @@ function getStepTexts(step: StepType): string[] {
 
 /**
  * 메모 텍스트로 정확한 스텝 위치 찾기
+ * 가장 긴 문장 매칭을 우선하여 단어 수준 매칭 방지
  */
 export function findStepByContent(
   lessonId: string,
@@ -58,28 +59,54 @@ export function findStepByContent(
   if (!lesson) return null
 
   const searchTexts = extractTexts(memoText)
+    // 최소 길이 필터: 공백 제외 5자 이상만 검색 (단어 수준 배제)
+    .filter(text => text.replace(/\s+/g, '').length >= 5)
+    // 긴 텍스트부터 검색 (정확도 우선)
+    .sort((a, b) => b.length - a.length)
 
-  // 각 스텝을 순회하면서 매칭 확인
+  if (searchTexts.length === 0) return null
+
+  // 모든 매칭 후보 수집
+  const matches: Array<{ stepIndex: number; matchedText: string; searchLength: number }> = []
+
   for (let i = 0; i < lesson.steps.length; i++) {
     const step = lesson.steps[i]
     const stepTexts = getStepTexts(step)
 
-    // 메모의 텍스트가 스텝의 텍스트에 포함되어 있는지 확인
     for (const searchText of searchTexts) {
-      for (const stepText of stepTexts) {
-        // 공백 정규화 후 비교
-        const normalizedSearch = searchText.replace(/\s+/g, ' ').toLowerCase()
-        const normalizedStep = stepText.replace(/\s+/g, ' ').toLowerCase()
+      const normalizedSearch = searchText.replace(/\s+/g, ' ').trim().toLowerCase()
 
-        if (normalizedStep.includes(normalizedSearch) ||
-            normalizedSearch.includes(normalizedStep)) {
+      for (const stepText of stepTexts) {
+        const normalizedStep = stepText.replace(/\s+/g, ' ').trim().toLowerCase()
+
+        // 완전 일치 우선
+        if (normalizedSearch === normalizedStep) {
           return {
             lessonId,
             stepIndex: i,
             matchedText: stepText
           }
         }
+
+        // 스텝 텍스트에 검색 텍스트가 포함되는 경우만 (단방향)
+        if (normalizedStep.includes(normalizedSearch)) {
+          matches.push({
+            stepIndex: i,
+            matchedText: stepText,
+            searchLength: normalizedSearch.length
+          })
+        }
       }
+    }
+  }
+
+  // 가장 긴 검색 텍스트로 매칭된 것 반환 (정확도 우선)
+  if (matches.length > 0) {
+    matches.sort((a, b) => b.searchLength - a.searchLength)
+    return {
+      lessonId,
+      stepIndex: matches[0].stepIndex,
+      matchedText: matches[0].matchedText
     }
   }
 
