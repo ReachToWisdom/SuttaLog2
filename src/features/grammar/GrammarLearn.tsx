@@ -1,6 +1,6 @@
 // 문법 학습 UI 엔진 (Duolingo 스타일 - 리디자인)
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { speakPali } from '../../utils/pali-tts'
 import WritingCanvas from '../../components/WritingCanvas'
 import { getLessonById } from './lessons'
@@ -19,8 +19,8 @@ export default function GrammarLearn() {
   const lesson = getLessonById(lid)
   const STEPS = lesson?.steps || []
 
-  // URL 파라미터에서 스텝 읽기 (메모 클릭 시 전달됨)
-  const [searchParams] = useState(() => new URLSearchParams(window.location.search))
+  // URL 파라미터에서 스텝 읽기 (메모 클릭 시 ?step=N 으로 전달됨)
+  const [searchParams] = useSearchParams()
   const urlStep = searchParams.get('step')
 
   // 이어 학습 — URL 파라미터 우선, 없으면 localStorage (savedStep이 범위 초과 시 0으로 리셋)
@@ -28,6 +28,16 @@ export default function GrammarLearn() {
   const initialStep = urlStep ? Number(urlStep) : savedStep
   const clampedStep = initialStep >= STEPS.length ? 0 : Math.max(0, initialStep)
   const [stepIdx, setStepIdxRaw] = useState(clampedStep)
+
+  // URL ?step= 파라미터 변경 시 스텝 이동 (메모 클릭 등 외부 네비게이션)
+  useEffect(() => {
+    if (urlStep !== null) {
+      const target = Number(urlStep)
+      if (!isNaN(target) && target >= 0 && target < STEPS.length) {
+        setStepIdxRaw(target)
+      }
+    }
+  }, [urlStep, STEPS.length])
 
   // 초기 로드 시에도 현재 위치 저장
   useEffect(() => {
