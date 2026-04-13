@@ -1,6 +1,6 @@
 // 문법 학습 UI 엔진 (Duolingo 스타일 - 리디자인)
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { speakPali } from '../../utils/pali-tts'
 import WritingCanvas from '../../components/WritingCanvas'
 import { getLessonById } from './lessons'
@@ -20,7 +20,7 @@ export default function GrammarLearn() {
   const STEPS = lesson?.steps || []
 
   // URL 파라미터에서 스텝 읽기 (메모 클릭 시 전달됨)
-  const [searchParams] = useState(() => new URLSearchParams(window.location.search))
+  const [searchParams] = useSearchParams()
   const urlStep = searchParams.get('step')
 
   // 이어 학습 — URL 파라미터 우선, 없으면 localStorage (savedStep이 범위 초과 시 0으로 리셋)

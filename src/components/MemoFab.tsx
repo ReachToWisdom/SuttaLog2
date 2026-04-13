@@ -20,14 +20,14 @@ function getPageName(path: string): string {
     const lessonId = path.replace('/learn/', '')
 
     // GrammarLearn에서 설정한 정확한 현재 위치 사용
-    const currentInfo = (window as any).currentLessonInfo
+    const currentInfo = window.currentLessonInfo
     if (currentInfo && currentInfo.lessonId === lessonId) {
       return `학습: ${lessonId}#${currentInfo.stepIndex}`
     }
 
     // fallback: localStorage 사용 (하위 호환성)
     const stepIdx = localStorage.getItem(`pali-primer-${lessonId}`)
-    if (stepIdx) {
+    if (stepIdx !== null) {
       return `학습: ${lessonId}#${stepIdx}`
     }
 
