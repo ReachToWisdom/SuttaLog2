@@ -10,10 +10,10 @@ export const LESSON_07: StepWithoutId[] = [
   { type: 'intro', title: '7과: 남성명사 처소격', subtitle: 'Sattamī vibhatti (Locative)', description: '처소격은 장소·시간·대상을 나타냅니다.\n~에, ~에서, ~에 관하여, ~가운데\n\n단수: -e/-mhi/-smiṃ\n복수: -esu\n\n경전: "bārāṇasiyaṃ viharati\n(바라나시에 머물다)"', icon: '📍' },
 
   // === 경전 구절 ===
-  { type: 'verse', pali: V_EKAM, pronKo: '에깜 사마얌 바가와- 바-라-나시양 위하라띠 이시빠따네 미가다-예', translation: V_EKAM_K, highlight: ['bārāṇasiyaṃ', 'isipatane', 'migadāye'], note: 'bārāṇasiyaṃ = 바라나시에 (처소격)\nisipatane = 이시빠따나에 (처소격 -e)\nmigadāye = 녹야원(鹿野苑)에 (처소격 -e)\n경전의 거의 모든 경은 이 구절로 시작!' },
+  { type: 'verse', pali: V_EKAM, pronKo: '에깡 사마양 바가와- 바-라-나시양 위하라띠 이시빠따네 미가다-예', translation: V_EKAM_K, highlight: ['bārāṇasiyaṃ', 'isipatane', 'migadāye'], note: 'bārāṇasiyaṃ = 바라나시에 (처소격)\nisipatane = 이시빠따나에 (처소격 -e)\nmigadāye = 녹야원(鹿野苑)에 (처소격 -e)\n경전의 거의 모든 경은 이 구절로 시작!' },
 
   // === 처소격 문법 ===
-  { type: 'teach-grammar', title: '처소격 (Locative) — ~에/~에서', example: 'nara + e = nare (사람에게서)\nnara + mhi = naramhi (사람에게서)\nnara + smiṃ = narasmiṃ (사람에게서)\nnara + esu = naresu (사람들에게서)', exampleKo: '단수: -e / -mhi / -smiṃ\n복수: -esu', explanation: '처소격의 다양한 의미:\n• 장소: gāme vasati (마을에 산다)\n• 위치: rukkhe nisīdati (나무에 앉다)\n• 대상: Buddhe pasīdati (붓다에 대해 기뻐하다)\n• ~가운데: manussesu (사람들 가운데)\n\n단수 3형태(-e/-mhi/-smiṃ)는 의미 동일\n-e가 가장 보편적' },
+  { type: 'teach-grammar', title: '처소격 (Locative) — ~에/~에서', example: 'nara + e = nare (사람에서/사람에 대해서)\nnara + mhi = naramhi (사람에서/사람에 대해서)\nnara + smiṃ = narasmiṃ (사람에서/사람에 대해서)\nnara + esu = naresu (사람들에서/사람들에 대해서)', exampleKo: '단수: -e / -mhi / -smiṃ\n복수: -esu', explanation: '처소격의 다양한 의미:\n• 장소: gāme vasati (마을에 산다)\n• 위치: rukkhe nisīdati (나무에 앉다)\n• 대상: Buddhe pasīdati (붓다에 대해 기뻐하다)\n• ~가운데: manussesu (사람들 가운데)\n\n단수 3형태(-e/-mhi/-smiṃ)는 의미 동일\n-e가 가장 보편적' },
 
   // === 명사 13개 ===
   { type: 'teach', word: 'nāvika', pronKo: '나-위까', meaning: '선원', icon: '⛵', grammar: '남성명사', baseForm: 'nāvika', formNote: '처소격: nāvike/nāvikamhi\n복수: nāvikesu' },
@@ -62,5 +62,5 @@ export const LESSON_07: StepWithoutId[] = [
   { type: 'quiz', question: '10. Sakuṇā rukkhamhi nisīdanti.', options: ['새들은 나무에 앉는다', '새는 나무에 앉는다', '새들은 나무에서 난다', '새들은 나무들에 앉는다'], answer: 0, hint: 'rukkhamhi=나무에(처소격 -mhi 단수), nisīdanti=앉다(복수)' },
 
   // === 마무리 ===
-  { type: 'speak', pali: V_EKAM, pronKo: '에깜 사마얌 바가와- 바-라-나시양 위하라띠 이시빠따네 미가다-예' },
+  { type: 'speak', pali: V_EKAM, pronKo: '에깡 사마양 바가와- 바-라-나시양 위하라띠 이시빠따네 미가다-예' },
 ]

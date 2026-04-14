@@ -47,7 +47,7 @@ export const LESSON_02: StepWithoutId[] = [
 
   // === 교재 예문 3쌍 ===
   { type: 'verse', pali: 'Putto naraṃ passati / Puttā nare passanti', pronKo: '뿟또 나랑 빳사띠 / 뿟따- 나레 빳산띠', translation: '아들은 사람을 본다 / 아들들은 사람들을 본다', highlight: ['naraṃ', 'nare', 'passati', 'passanti'] },
-  { type: 'verse', pali: 'Brāhmaṇo mātulaṃ rakkhati / Brāhmaṇā mātule rakkhanti', pronKo: '브라-마노 마-뚤랑 락카띠 / 브라-마나- 마-뚤레 락칸띠', translation: '바라문은 삼촌을 보호한다 / 바라문들은 삼촌들을 보호한다', highlight: ['mātulaṃ', 'mātule'] },
+  { type: 'verse', pali: 'Brāhmaṇo mātulaṃ rakkhati / Brāhmaṇā mātule rakkhanti', pronKo: '브라-흐마노 마-뚤랑 락카띠 / 브라-흐마나- 마-뚤레 락칸띠', translation: '바라문은 삼촌을 보호한다 / 바라문들은 삼촌들을 보호한다', highlight: ['mātulaṃ', 'mātule'] },
   { type: 'verse', pali: 'Vāṇijo kassakaṃ paharati / Vāṇijā kassake paharanti', pronKo: '와-니조 깟사깡 빠하라띠 / 와-니자- 깟사게 빠하란띠', translation: '상인은 농부를 때린다 / 상인들은 농부들을 때린다', highlight: ['kassakaṃ', 'kassake'] },
 
   // === 경전 실례 ===
@@ -64,7 +64,7 @@ export const LESSON_02: StepWithoutId[] = [
   { type: 'quiz', question: '8. Bhūpālo manusse rakkhati.', options: ['왕은 사람을 보호한다', '왕들은 사람들을 보호한다', '왕은 사람들을 보호한다', '사람들은 왕을 보호한다'], answer: 2, hint: 'Bhūpālo=왕은(단수), manusse=사람들을(목적격 복수)' },
   { type: 'quiz', question: '9. Puttā pabbataṃ gacchanti.', options: ['아들은 산으로 간다', '아들들은 산으로 간다', '아들들은 마을로 간다', '아들들은 산을 오른다'], answer: 1, hint: 'Puttā=아들들은, pabbataṃ=산으로, gacchanti=가다(복수)' },
   { type: 'quiz', question: '10. Kumāro Buddhaṃ vandati.', options: ['소년은 붓다를 본다', '소년은 붓다에게 경배한다', '소년들은 붓다에게 경배한다', '왕은 붓다에게 경배한다'], answer: 1, hint: 'Kumāro=소년은, Buddhaṃ=붓다에게, vandati=경배하다' },
-  { type: 'quiz', question: '11. Vāṇijā patte āharanti.', options: ['상인들은 발우들을 가져온다', '상인은 발우를 가져온다', '상인들은 그릇을 운반한다', '상인들은 밥을 가져온다'], answer: 0, hint: 'Vāṇijā=상인들은, patte=발우들을(목적격 복수)' },
+  { type: 'quiz', question: '11. Vāṇijā patte āharanti.', options: ['상인들은 그릇들을 가져온다', '상인은 그릇를 가져온다', '상인들은 그릇을 운반한다', '상인들은 밥을 가져온다'], answer: 0, hint: 'Vāṇijā=상인들은, patte=그릇들을(목적격 복수)' },
   { type: 'quiz', question: '12. Puriso vihāraṃ gacchati.', options: ['남자들은 정사로 간다', '남자는 마을로 간다', '남자는 정사로 간다', '남자는 정사를 본다'], answer: 2, hint: 'Puriso=남자는(단수), vihāraṃ=정사로' },
   { type: 'quiz', question: '13. Kukkurā pabbataṃ dhāvanti.', options: ['개는 산으로 달린다', '개들은 마을로 달린다', '개들은 산으로 달린다', '재칼들은 산으로 달린다'], answer: 2, hint: 'Kukkurā=개들은, pabbataṃ=산으로, dhāvanti=달리다(복수)' },
   { type: 'quiz', question: '14. Sigālā gāmaṃ āgacchanti.', options: ['재칼은 마을로 온다', '재칼들은 마을로 간다', '재칼들은 마을로 온다', '개들은 마을로 온다'], answer: 2, hint: 'Sigālā=재칼들은(복수), āgacchanti=오다(복수)' },

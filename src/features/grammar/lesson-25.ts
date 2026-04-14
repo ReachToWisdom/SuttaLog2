@@ -52,7 +52,7 @@ export const LESSON_25: StepWithoutId[] = [
   { type: 'quiz', question: '10. Jetā sattūnaṃ balaṃ jini.', options: ['승리자는 적들의 군대를 이겼다', '승리자들은 적들의 군대를 이겼다', '적들은 승리자의 군대를 이겼다', '승리자는 적의 군대를 이겼다'], answer: 0, hint: 'jetā = 승리자(주격 단수), sattūnaṃ = 적들의' },
 
   // === 경전 구절 ===
-  { type: 'verse', pali: 'Satthā bhikkhūnaṃ dhammaṃ desento anukampaṃ upādāya', pronKo: '삿타- 빅쿠-낭 담망 데센또 아누깜빵 우빠-다-야', translation: '스승은 비구들에게 법을 설하시되 연민에 의지하여', highlight: ['Satthā', 'bhikkhūnaṃ'], note: 'satthā = satthu의 주격 단수. 붓다가 자비심으로 가르치심을 표현' },
+  { type: 'verse', pali: 'Satthā bhikkhūnaṃ dhammaṃ desento anukampaṃ upādāya', pronKo: '삿타- 빅쿠-낭 담망 데센또 아누깜빵 우빠-다-야', translation: '스승은 비구들에게 법을 설하시면서 연민을 지니시고', highlight: ['Satthā', 'bhikkhūnaṃ'], note: 'satthā = satthu의 주격 단수. 붓다가 자비심으로 가르치심을 표현' },
 
   // === 마무리 ===
   { type: 'speak', pali: 'Satthā bhikkhūnaṃ dhammaṃ desesi', pronKo: '삿타- 빅쿠-낭 담망 데세시' },

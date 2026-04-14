@@ -10,7 +10,7 @@ export const LESSON_14: StepWithoutId[] = [
   { type: 'intro', title: '15과: 원망형', subtitle: 'Sattamī (Optative / Conditional)', description: '원망형: ~할 수 있다, ~해야 한다, ~한다면\n동사어근 + eyya\n\n• paceyya = 요리할 수 있다/해야 한다\n• sace paceyya = 만약 요리한다면\n\n부사: sace(만약), ca(그리고), pi(또한)', icon: '🌙' },
 
   // === 경전 구절 ===
-  { type: 'verse', pali: V_OPT, pronKo: '사쩨 빅쿠 시-랑 락케이야, 수키- 앗사', translation: V_OPT_K, highlight: ['Sace', 'rakkheyya', 'assa'], note: 'sace = 만약 (조건 부사)\nrakkheyya = rakkhati(지키다)의 원망형\nassa = atthi(있다)의 원망형\n"만약 ~한다면, ~일 것이다"' },
+  { type: 'verse', pali: V_OPT, pronKo: '사쩨 빅쿠 실-랑 락케이야, 수키- 앗사', translation: V_OPT_K, highlight: ['Sace', 'rakkheyya', 'assa'], note: 'sace = 만약 (조건 부사)\nrakkheyya = rakkhati(지키다)의 원망형\nassa = atthi(있다)의 원망형\n"만약 ~한다면, ~일 것이다"' },
 
   // === 원망형 문법 ===
   { type: 'teach-grammar', title: '원망형 활용 — -eyya', example: '3인칭: paceyya / paceyyuṃ\n2인칭: paceyyāsi / paceyyātha\n1인칭: paceyyāmi / paceyyāma', exampleKo: '단수 / 복수', explanation: '원망형 공식: 어근 + eyya + 인칭어미\n\n인칭 | 단수 | 복수\n3인칭 | -eyya | -eyyuṃ\n2인칭 | -eyyāsi | -eyyātha\n1인칭 | -eyyāmi | -eyyāma\n\n의미:\n① 소원/희망: ~하기를 바란다\n② 가능: ~할 수 있다\n③ 당위: ~해야 한다\n④ 조건: sace/yadi와 함께 "만약 ~한다면"' },

@@ -41,7 +41,7 @@ export const LESSON_29: StepWithoutId[] = [
   { type: 'quiz', question: '9. Yasmā so dhammaṃ jānāti tasmā paṇḍito.', options: ['그가 법을 알기 때문에 현자이다', '현자이므로 법을 안다', '법을 알면 현자가 될 것이다', '현자는 왜 법을 아는가'], answer: 0, hint: 'yasmā…tasmā = …때문에…그러므로' },
   { type: 'quiz', question: '10. Yadā so āgacchati tadā mayaṃ pūjessāma.', options: ['그가 올 때 우리는 공양할 것이다', '우리가 공양할 때 그가 올 것이다', '그가 왔으므로 우리는 공양했다', '언제 그가 오는가 우리가 공양하려 한다'], answer: 0, hint: 'yadā…tadā = …할 때…그때' },
   { type: 'quiz', question: '11. Kassaci dosaṃ na kareyya.', options: ['누구에게도 해를 끼치지 말아야 한다', '어떤 허물도 짓지 말라', '그의 잘못을 하지 마라', '누군가가 해를 끼쳤다'], answer: 0, hint: 'kassaci = 누구에게도(kassa+ci), na = 아니다' },
-  { type: 'quiz', question: '12. Kuto āgato si?', options: ['어디서 왔느냐?', '왜 왔느냐?', '언제 왔느냐?', '누구와 왔느냐?'], answer: 0, hint: 'kuto = 어디로부터, āgato = 온, asi = 너는 ~이다(2인칭)' },
+  { type: 'quiz', question: '12. Kuto āgato asi?', options: ['어디서 왔느냐?', '왜 왔느냐?', '언제 왔느냐?', '누구와 왔느냐?'], answer: 0, hint: 'kuto = 어디로부터, āgato = 온, asi = 너는 ~이다(2인칭)' },
 
   // === 경전 구절 ===
   { type: 'verse', pali: 'Yathā Bhagavā dhammaṃ deseti,\ntathā tumhehi paṭipajjitabbaṃ.', pronKo: '야타- 바가와- 담망 데세띠,\n따타- 뚬헤히 빠띠빳지땁방.', translation: '세존께서 법을 가르치신 대로\n그처럼 당신들은 실천해야 한다.', highlight: ['Yathā', 'tathā', 'tumhehi'], note: 'yathā…tathā = …하는 대로…그렇게\ntumhehi = 너희에 의해 (도구격, 수동문)\npaṭipajjitabbaṃ = 실천되어야 할 것 (미래수동분사)' },

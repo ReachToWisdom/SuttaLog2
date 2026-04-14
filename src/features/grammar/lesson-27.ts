@@ -34,7 +34,7 @@ export const LESSON_27: StepWithoutId[] = [
   { type: 'teach', word: 'buddhimantu', pronKo: '붓디만뚜', meaning: '총명한, 지혜로운', icon: '🎓', grammar: '-mantu 형용사', formNote: '남성 주격: buddhimā' },
 
   // === 연습문제 10개 ===
-  { type: 'quiz', question: '1. Bhagavā Sāvatthiyaṃ viharati.', options: ['세존께서는 사왓티에 머문다', '세존께서는 사왓티로 간다', '세존들은 사왓티에 머문다', '세존께서는 사왓티에서 떠난다'], answer: 0, hint: 'Bhagavā = Bhagavantu 주격, viharati = 머물다' },
+  { type: 'quiz', question: '1. Bhagavā Sāvatthiyaṃ viharati.', options: ['세존께서는 사왓티에 머문다', '세존께서는 사왓티로 간다', '세존들께서는 사왓티에 머문다', '세존께서는 사왓티에서 떠난다'], answer: 0, hint: 'Bhagavā = Bhagavantu 주격, viharati = 머물다' },
   { type: 'quiz', question: '2. Bhagavantu의 도구격 단수는?', options: ['Bhagavatā', 'Bhagavā', 'Bhagavantaṃ', 'Bhagavato'], answer: 0, hint: '-vantu 도구격 단수 = -vatā 또는 -vantena' },
   { type: 'quiz', question: '3. Bhagavatā desitaṃ dhammaṃ.', options: ['세존에 의해 설해진 법', '세존이 설하는 법', '세존에게 설해진 법', '세존의 법을 설한다'], answer: 0, hint: 'Bhagavatā = 세존에 의해(도구격), desitaṃ = 설해진(과거분사)' },
   { type: 'quiz', question: '4. Sīlavā bhikkhu piṇḍāya carati.', options: ['계행있는 비구는 탁발하러 다닌다', '비구는 계행을 위해 다닌다', '계행있는 비구들은 탁발하러 다닌다', '계행있는 비구는 걸식을 받는다'], answer: 0, hint: 'sīlavā = sīlavantu 주격, piṇḍāya = 탁발을 위해' },

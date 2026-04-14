@@ -30,11 +30,11 @@ export const LESSON_24: StepWithoutId[] = [
 
   // === -ū 남성명사 단어 ===
   { type: 'teach', word: 'vidū', pronKo: '위두-', meaning: '현자', icon: '🦉', grammar: '-ū 남성명사', formNote: '주격: vidū / vidū,viduno' },
-  { type: 'teach', word: 'pabhū', pronKo: '빠부-', meaning: ', 군주', icon: '👑', grammar: '-ū 남성명사', formNote: '주격: pabhū / pabhū,pabhuno' },
+  { type: 'teach', word: 'pabhū', pronKo: '빠부-', meaning: '군주', icon: '👑', grammar: '-ū 남성명사', formNote: '주격: pabhū / pabhū,pabhuno' },
   { type: 'teach', word: 'sabbaññū', pronKo: '삽반뉴-', meaning: '일체지자(一切智者)', icon: '☀️', grammar: '-ū 남성명사', formNote: '주격: sabbaññū / sabbaññū', buddhism: '붓다의 칭호. 모든 것을 아는 분' },
   { type: 'teach', word: 'viññū', pronKo: '윈뉴-', meaning: '지혜로운 자', icon: '🧠', grammar: '-ū 남성명사', formNote: '주격: viññū / viññū,viññuno' },
   { type: 'teach', word: 'vadaññū', pronKo: '와단뉴-', meaning: '너그러운 자, 잘 베푸는 자', icon: '🤝', grammar: '-ū 남성명사', formNote: '주격: vadaññū / vadaññū' },
-  { type: 'teach', word: 'atthaññū', pronKo: '앗탄뉴-', meaning: '이득(이치)을 아는 자', icon: '🎯', grammar: '-ū 남성명사', formNote: '주격: atthaññū / atthaññū' },
+  { type: 'teach', word: 'atthaññū', pronKo: '앗탄뉴-', meaning: '이치를 아는 자', icon: '🎯', grammar: '-ū 남성명사', formNote: '주격: atthaññū / atthaññū' },
   { type: 'teach', word: 'mattaññū', pronKo: '맛딴뉴-', meaning: '양(분량)을 아는 자', icon: '⚖️', grammar: '-ū 남성명사', formNote: '주격: mattaññū / mattaññū' },
 
   // === 연습문제 10개 ===
@@ -53,5 +53,5 @@ export const LESSON_24: StepWithoutId[] = [
   { type: 'verse', pali: 'Bhikkhavo Tathāgatassa sāvakā honti', pronKo: '빅카워 따타-가땃사 사-와까- 혼띠', translation: '비구들은 여래의 제자들이다', highlight: ['Bhikkhavo'], note: 'bhikkhu 호격 복수 = bhikkhave / bhikkhavo. 경전에서 붓다가 제자들을 부를 때 사용' },
 
   // === 마무리 ===
-  { type: 'speak', pali: 'Bhikkhave Tathāgatassa sāvakā honti', pronKo: '빅카웨 따타-가땃사 사-와까- 혼띠' },
+  { type: 'speak', pali: 'Bhikkhavo Tathāgatassa sāvakā honti', pronKo: '빅카워 따타-가땃사 사-와까- 혼띠' },
 ]

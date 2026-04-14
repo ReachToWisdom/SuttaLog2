@@ -12,7 +12,7 @@ export const LESSON_26: StepWithoutId[] = [
   { type: 'teach', word: 'aṭṭhi', pronKo: '앗티', meaning: '뼈', icon: '🦴', grammar: '-i 중성명사', formNote: '주격: aṭṭhi / aṭṭhī,aṭṭhīni' },
   { type: 'teach', word: 'vāri', pronKo: '와-리', meaning: '물', icon: '💧', grammar: '-i 중성명사', formNote: '주격: vāri / vārī,vārīni' },
   { type: 'teach', word: 'akkhi', pronKo: '악키', meaning: '눈(目)', icon: '👁️', grammar: '-i 중성명사', formNote: '주격: akkhi / akkhī,akkhīni' },
-  { type: 'teach', word: 'sappi', pronKo: '삽삐', meaning: '버터(숙소)', icon: '🧈', grammar: '-i 중성명사', formNote: '주격: sappi / sappī,sappīni' },
+  { type: 'teach', word: 'sappi', pronKo: '삽삐', meaning: '정제버터', icon: '🧈', grammar: '-i 중성명사', formNote: '주격: sappi / sappī,sappīni' },
   { type: 'teach', word: 'dadhi', pronKo: '다디', meaning: '응유(凝乳)', icon: '🥛', grammar: '-i 중성명사', formNote: '주격: dadhi / dadhī,dadhīni' },
   { type: 'teach', word: 'acci', pronKo: '앗찌', meaning: '불꽃', icon: '🕯️', grammar: '-i 중성명사', formNote: '주격: acci / accī,accīni' },
   { type: 'teach', word: 'satthi', pronKo: '삿티', meaning: '넓적다리', icon: '🦵', grammar: '-i 중성명사', formNote: '주격: satthi / satthī,satthīni' },
@@ -46,14 +46,14 @@ export const LESSON_26: StepWithoutId[] = [
   { type: 'quiz', question: '3. Vārinā khettaṃ siñcati.', options: ['물로 밭에 물을 준다', '물을 밭에서 가져온다', '물이 밭으로 흐른다', '물로 밭을 씻는다'], answer: 0, hint: 'vārinā = 물로(도구격), siñcati = 물을 주다' },
   { type: 'quiz', question: '4. aṭṭhi의 처소격 단수는?', options: ['aṭṭhini 또는 aṭṭhimhi', 'aṭṭhīsu', 'aṭṭhiyā', 'aṭṭhismiṃ'], answer: 0, hint: '-i 중성명사 처소격 단수 = -ini/-imhi' },
   { type: 'quiz', question: '5. Bhikkhu dadhiṃ bhuñjati.', options: ['비구는 응유를 먹는다', '비구들은 응유를 먹는다', '비구는 응유를 만든다', '비구는 우유를 먹는다'], answer: 0, hint: 'dadhiṃ = 응유를(목적격), bhuñjati = 먹다' },
-  { type: 'quiz', question: '6. Sappiṃ madhunā sammisseti.', options: ['버터를 꿀로 섞는다', '꿀을 버터로 섞는다', '버터와 꿀을 먹는다', '버터는 꿀에 있다'], answer: 0, hint: 'sappi = 버터(목적격=주격), madhunā = 꿀로(도구격)' },
+  { type: 'quiz', question: '6. Sappiṃ madhunā sammisseti.', options: ['버터를 꿀과 섞는다', '꿀을 버터로 섞는다', '버터와 꿀을 먹는다', '버터는 꿀에 있다'], answer: 0, hint: 'sappi = 버터(목적격=주격), madhunā = 꿀로(도구격)' },
   { type: 'quiz', question: '7. Kumāro dārunā aggiṃ karoti.', options: ['소년은 장작으로 불을 만든다', '소년은 장작에 불을 놓는다', '소년은 장작을 불에 넣는다', '소년은 장작과 불을 가져온다'], answer: 0, hint: 'dārunā = 장작으로(도구격), aggiṃ = 불을' },
   { type: 'quiz', question: '8. Bhagavā loke anukampati.', options: ['세존은 세상 사람들을 연민한다', '세존은 세상에서 머문다', '세존은 세상을 가르친다', '세존은 세상으로 간다'], answer: 0, hint: 'anukampati = 연민하다' },
   { type: 'quiz', question: '9. Dārako pabbajati.', options: ['소년은 출가한다', '소년은 돌아온다', '소년들은 출가한다', '소년은 도망간다'], answer: 0, hint: 'pabbajati = 출가하다' },
   { type: 'quiz', question: '10. Cakkhuṃ aniccaṃ, cakkhuṃ anattā.', options: ['눈은 무상하고, 눈은 무아이다', '눈은 영원하고, 눈은 자아이다', '눈을 보고, 눈을 감는다', '눈이 아프고, 눈이 닫힌다'], answer: 0, hint: 'aniccaṃ = 무상, anattā = 무아 (SN 35)' },
 
   // === 경전 구절 ===
-  { type: 'verse', pali: 'Cakkhuṃ bhikkhave anattā.\nYadanattā taṃ netaṃ mama,\nnesohamasmi, na meso attāti.', pronKo: '짝쿠ṃ 빅카웨 아낫따-\n야다낫따- 따ṃ 네따ṃ 마마\n네소하맛미 나 메소 앗따-띠', translation: '비구들이여, 눈은 무아이다.\n무아인 것, 그것은 나의 것이 아니고,\n그것은 내가 아니며, 그것은 나의 자아가 아니다.', highlight: ['Cakkhuṃ', 'anattā'], note: 'SN 35.16 — cakkhuṃ은 cakkhu의 목적격. 6근 각각에 삼상(무상·고·무아) 적용' },
+  { type: 'verse', pali: 'Cakkhuṃ bhikkhave anattā.\nYadanattā taṃ netaṃ mama,\nnesohamasmi, na meso attāti.', pronKo: '짝쿠ṃ 빅카웨 아낫따-\n야다낫따- 따ṃ 네따ṃ 마마\n네소하맛미 나 메소 앗따-띠', translation: '비구들이여, 눈은 무아이다.\n무아인 것, 그것은 나의 것이 아니고,\n그것은 내가 아니며, 그것은 나의 자아가 아니다.', highlight: ['Cakkhuṃ', 'anattā'], note: 'cakkhuṃ은 cakkhu의 목적격. 6근 각각에 삼상(무상·고·무아) 적용' },
 
   // === 마무리 ===
   { type: 'speak', pali: 'Cakkhuṃ aniccaṃ, cakkhuṃ anattā', pronKo: '짝쿠ṃ 아닛짱, 짝쿠ṃ 아낫따-' },

@@ -25,7 +25,7 @@ export const LESSON_13: StepWithoutId[] = [
   { type: 'teach-grammar', title: '불규칙 미래형 — 주의!', example: 'gacchati → gamissati\ndadāti → dassati\ntiṭṭhati → ṭhassati\nkaroti → karissati/kāhiti', exampleKo: '가다 → 갈 것이다\n주다 → 줄 것이다\n서다 → 설 것이다\n하다 → 할 것이다', explanation: '불규칙 미래형은 어근이 변합니다:\n\n• gacchati(가다): gam + issa = gamissati\n  — gacch-가 아닌 원래 어근 gam- 사용\n• dadāti(주다): dā → dassati\n  — 어근 축약\n• tiṭṭhati(서다): ṭhā → ṭhassati\n  — 어근 ṭhā 사용\n• karoti(하다): kar + issa = karissati\n  또는 kāhiti (고형)\n\n이 4개는 반드시 암기!' },
 
   // === 단어 학습 ===
-  { type: 'teach', word: 'pacissati', pronKo: '빠짓사띠', meaning: '요리할 것이다', icon: '🍳', grammar: '미래형 3인칭 단수', baseForm: 'pacati', formNote: '현재: pacati\n미래: pacissati\npac + issa + ti' },
+  { type: 'teach', word: 'pacissati', pronKo: '빠찟사띠', meaning: '요리할 것이다', icon: '🍳', grammar: '미래형 3인칭 단수', baseForm: 'pacati', formNote: '현재: pacati\n미래: pacissati\npac + issa + ti' },
   { type: 'teach', word: 'gamissati', pronKo: '가밋사띠', meaning: '갈 것이다', icon: '🚶', grammar: '미래형 3인칭 단수 (불규칙)', baseForm: 'gacchati', formNote: '현재: gacchati\n미래: gamissati\n어근 gam + issa + ti' },
   { type: 'teach', word: 'dassati', pronKo: '닷사띠', meaning: '줄 것이다', icon: '🎁', grammar: '미래형 3인칭 단수 (불규칙)', baseForm: 'dadāti', formNote: '현재: dadāti / deti\n미래: dassati\n어근 dā → dass + ti' },
   { type: 'teach', word: 'ṭhassati', pronKo: '탓사띠', meaning: '설 것이다', icon: '🧍', grammar: '미래형 3인칭 단수 (불규칙)', baseForm: 'tiṭṭhati', formNote: '현재: tiṭṭhati\n미래: ṭhassati\n어근 ṭhā → ṭhass + ti' },

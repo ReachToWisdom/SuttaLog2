@@ -6,17 +6,17 @@ export const LESSON_21: StepWithoutId[] = [
   { type: 'intro', title: '22과: 미래수동분사', subtitle: 'Kicca (Future Passive Participle)', description: '~해야 할, ~될 수 있는\n\n-tabba/-itabba/-etabba 형태\n-anīya 형태\n\n의무·가능·적합의 의미', icon: '📋' },
 
   // === -tabba 형태 ===
-  { type: 'teach-grammar', title: '미래수동분사 -(i/e)tabba', example: 'pac → pacitabba (요리해야 할)\nbhuj → bhuñjitabba (먹어져야 할)\nkar → kātabba (행해져야 할)\ndā → dātabba (주어야 할)\ngam → gantabba (가야 할)', exampleKo: '어근 + (i)tabba = ~해야 할', explanation: '-tabba 미래수동분사:\n• pacitabba = 요리해야 할 (pac + itabba)\n• bhuñjitabba = 먹어져야 할 (bhuj + itabba)\n• kātabba = 행해져야 할 (kar → kā + tabba)\n• dātabba = 주어야 할 (dā + tabba)\n• gantabba = 가야 할 (gam + tabba)\n\n의미: 의무(~해야 할), 가능(~될 수 있는), 적합(~할 만한)' },
+  { type: 'teach-grammar', title: '미래수동분사 -(i/e)tabba', example: 'pac → pacitabba (요리되어야 할)\nbhuj → bhuñjitabba (먹어져야 할)\nkar → kātabba (행해져야 할)\ndā → dātabba (주어져야 할)\ngam → gantabba (가야 할 / 도달되어야 할)', exampleKo: '어근 + (i)tabba = ~해야 할', explanation: '-tabba 미래수동분사:\n• pacitabba = 요리되어야 할 (pac + itabba)\n• bhuñjitabba = 먹어져야 할 (bhuj + itabba)\n• kātabba = 행해져야 할 (kar → kā + tabba)\n• dātabba = 주어져야 할 (dā + tabba)\n• gantabba = 가야 할 / 도달되어야 할 (gam + tabba)\n\n의미: 의무(~해야 할), 가능(~될 수 있는), 적합(~할 만한)' },
 
   // === -anīya 형태 ===
-  { type: 'teach-grammar', title: '미래수동분사 -anīya', example: 'pac → pacanīya (요리해야 할)\nbhuj → bhojanīya (먹어져야 할)\nkar → karaṇīya (행해져야 할)\ndā → dāyanīya (주어야 할)\npūj → pūjanīya (공경해야 할)', exampleKo: '어근 + anīya = ~해야 할', explanation: '-anīya 미래수동분사:\n• pacanīya = 요리해야 할\n• bhojanīya = 먹을 만한, 먹어져야 할\n• karaṇīya = 행해져야 할\n• pūjanīya = 공경받아야 할\n\n-tabba와 -anīya는 의미 동일:\npacitabba = pacanīya\n\n-anīya형이 더 문학적·격식체' },
+  { type: 'teach-grammar', title: '미래수동분사 -anīya', example: 'pac → pacanīya (요리되어야 할)\nbhuj → bhojanīya (먹어져야 할)\nkar → karaṇīya (행해져야 할)\ndā → dānīya (주어져야 할)\npūj → pūjanīya (공경받아야 할)', exampleKo: '어근 + anīya = ~해야 할', explanation: '-anīya 미래수동분사:\n• pacanīya = 요리되어야 할\n• bhojanīya = 먹을 만한, 먹어져야 할\n• karaṇīya = 행해져야 할\n• pūjanīya = 공경받아야 할\n\n-tabba와 -anīya는 의미 동일:\npacitabba = pacanīya\n\n-anīya형이 더 문학적·격식체' },
 
   // === 단어 학습 ===
-  { type: 'teach', word: 'pacitabba / pacanīya', pronKo: '빠찌땁바 / 빠짜니-야', meaning: '요리해야 할', icon: '🍳', grammar: '미래수동분사 (pac)', formNote: '-tabba형 = -anīya형' },
+  { type: 'teach', word: 'pacitabba / pacanīya', pronKo: '빠찌땁바 / 빠짜니-야', meaning: '요리되어야 할', icon: '🍳', grammar: '미래수동분사 (pac)', formNote: '-tabba형 = -anīya형' },
   { type: 'teach', word: 'bhuñjitabba / bhojanīya', pronKo: '분지땁바 / 보자니-야', meaning: '먹어져야 할', icon: '🍽️', grammar: '미래수동분사 (bhuj)', formNote: 'bhojanīya → bhojana(음식)과 관련' },
   { type: 'teach', word: 'kātabba / karaṇīya', pronKo: '까-땁바 / 까라니-야', meaning: '행해져야 할', icon: '✅', grammar: '미래수동분사 (kar)', formNote: 'karaṇīya = 의무, 할 일', buddhism: 'Karaṇīya Mettā Sutta = 자비경' },
-  { type: 'teach', word: 'dātabba', pronKo: '다-땁바', meaning: '주어야 할', icon: '🎁', grammar: '미래수동분사 (dā)', formNote: 'dā + tabba' },
-  { type: 'teach', word: 'gantabba', pronKo: '간땁바', meaning: '가야 할', icon: '🚶', grammar: '미래수동분사 (gam)', formNote: 'gam + tabba' },
+  { type: 'teach', word: 'dātabba', pronKo: '다-땁바', meaning: '주어져야 할', icon: '🎁', grammar: '미래수동분사 (dā)', formNote: 'dā + tabba' },
+  { type: 'teach', word: 'gantabba', pronKo: '간땁바', meaning: '가야 할 / 도달되어야 할', icon: '🚶', grammar: '미래수동분사 (gam)', formNote: 'gam + tabba' },
   { type: 'teach', word: 'pūjanīya', pronKo: '뿌-자니-야', meaning: '공경받아야 할', icon: '🙏', grammar: '미래수동분사 (pūj)', formNote: 'pūj + anīya', buddhism: '부처님 = pūjanīya(공경 받을 분)' },
 
   // === 예문 3개 ===

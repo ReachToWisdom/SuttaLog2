@@ -1,4 +1,4 @@
-// 3과: -a 남성명사 도구격/도도구격 (교재 3과 완전 수록)
+// 3과: -a 남성명사 도구격 (교재 3과 완전 수록)
 // 경전: saddhiṃ(함께) 구문, 팔정도, 중도
 import type { StepWithoutId } from './types'
 
@@ -9,7 +9,7 @@ const V_MAJJHIMA_K = '비구들이여, 이 양극단에 다가가지 않고, 여
 
 export const LESSON_03: StepWithoutId[] = [
   // === 도입 ===
-  { type: 'intro', title: '3과: 남성명사 도구격 (도도구격)', subtitle: 'Tatiyā vibhatti (Instrumental)', description: '도구격은 수단·도구·동행을 나타냅니다.\n~에 의해서, ~와 함께, ~(으)로\n\n경전: "tathāgatena(여래에 의해)"\n"sāvakehi saddhiṃ(제자들과 함께)"', icon: '🤝' },
+  { type: 'intro', title: '3과: 남성명사 도구격', subtitle: 'Tatiyā vibhatti (Instrumental)', description: '도구격은 수단·도구·동행을 나타냅니다.\n~에 의해서, ~와 함께, ~(으)로\n\n경전: "tathāgatena(여래에 의해)"\n"sāvakehi saddhiṃ(제자들과 함께)"', icon: '🤝' },
 
   // === 경전 구절 ===
   { type: 'verse', pali: V_MAJJHIMA, pronKo: '에떼 코 빅카웨 우보 안떼 아누빠감마 맛지마- 빠띠빠다- 따타-가떼나 아비삼붓다-', translation: V_MAJJHIMA_K, highlight: ['tathāgatena'], note: 'tathāgatena = tathāgata(여래) + -ena(도구격 어미)\n"여래에 의해" 깨달아진 — 행위자를 도구격으로 표현!' },
@@ -65,7 +65,7 @@ export const LESSON_03: StepWithoutId[] = [
   { type: 'quiz', question: '15. Brāhmaṇo puttena saha suriyaṃ vandati.', options: ['바라문은 아들과 함께 달에게 경배한다', '바라문들은 아들과 함께 태양에게 경배한다', '바라문은 아들과 함께 태양에게 경배한다', '바라문은 아들에 의해 태양을 본다'], answer: 2, hint: 'puttena saha=아들과 함께, suriyaṃ=태양에게' },
   { type: 'quiz', question: '16. Kassako soṇehi saddhiṃ rukkhe rakkhati.', options: ['농부는 개들과 함께 나무들을 보호한다', '농부들은 개들과 함께 나무를 보호한다', '농부는 개와 함께 나무를 보호한다', '농부는 개들과 함께 산을 보호한다'], answer: 0, hint: 'soṇehi saddhiṃ=개들과 함께, rukkhe=나무들을' },
   { type: 'quiz', question: '17. Sugato sāvakehi saha vihāraṃ āgacchati.', options: ['선서는 제자들과 함께 정사로 간다', '선서는 제자들과 함께 정사로 온다', '선서들은 제자들과 함께 정사로 온다', '여래는 제자들과 함께 마을로 온다'], answer: 1, hint: 'Sugato=선서는, sāvakehi saha=제자들과 함께, āgacchati=오다' },
-  { type: 'quiz', question: '18. Yācako pattena bhattaṃ āharati.', options: ['거지는 그릇로 밥을 가져온다', '거지는 그릇로 쌀을 가져온다', '거지들은 그릇로 쌀을 가져온다', '거지는 그릇으로 밥을 요리한다'], answer: 1, hint: 'pattena=그릇로(도구격), bhattaṃ=쌀을' },
+  { type: 'quiz', question: '18. Yācako pattena bhattaṃ āharati.', options: ['거지는 그릇으로 밥을 가져온다', '거지는 그릇으로 쌀을 가져온다', '거지들은 그릇으로 쌀을 가져온다', '거지는 그릇으로 밥을 요리한다'], answer: 1, hint: 'pattena=그릇으로(도구격), bhattaṃ=쌀을' },
   { type: 'quiz', question: '19. Paṇḍitā saggaṃ gacchanti.', options: ['현자는 하늘로 간다', '현자들은 마을로 간다', '현자들은 하늘로 간다', '현자들은 정사로 간다'], answer: 2, hint: 'Paṇḍitā=현자들은(복수), saggaṃ=하늘로' },
   { type: 'quiz', question: '20. Kumārā assehi saddhiṃ gāmaṃ dhāvanti.', options: ['소년들은 말들과 함께 마을로 달린다', '소년은 말과 함께 마을로 달린다', '소년들은 말들과 함께 산으로 달린다', '소년들은 개들과 함께 마을로 달린다'], answer: 0, hint: 'assehi saddhiṃ=말들과 함께, gāmaṃ=마을로' },
   { type: 'quiz', question: '21. Coro khaggena naraṃ paharati.', options: ['도둑은 칼로 사람을 때린다', '도둑은 돌로 사람을 때린다', '도둑들은 칼로 사람을 때린다', '도둑은 칼로 사람들을 때린다'], answer: 0, hint: 'khaggena=칼로(도구격), naraṃ=사람을' },

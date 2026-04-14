@@ -3,7 +3,7 @@
 import type { StepWithoutId } from './types'
 
 const V_MAJJHIMA = 'Pānātipātā veramaṇī sikkhāpadaṃ samādiyāmi.\nAdinnādānā veramaṇī sikkhāpadaṃ samādiyāmi.\nKāmesumicchācārā veramaṇī sikkhāpadaṃ samādiyāmi.'
-const V_MAJJHIMA_K = '살아있는 생명을 죽이는 것으로부터 떠나는 학습계를 받아지닙니다.\n주지 않은 것을 가지는 것으로부터 떠나는 학습계를 받아지닙니다.\n욕망에 있어 삿된 행위로부터 떠나는 학습계를 받아지닙니다.'
+const V_MAJJHIMA_K = '살아있는 생명을 죽이는 것으로부터 떠나는 학습계를 받아 지닙니다.\n주지 않은 것을 가지는 것으로부터 떠나는 학습계를 받아 지닙니다.\n욕망에 있어 삿된 행위로부터 떠나는 학습계를 받아 지닙니다.'
 
 export const LESSON_04: StepWithoutId[] = [
   // === 도입 ===

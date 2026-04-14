@@ -13,10 +13,10 @@ export const LESSON_10: StepWithoutId[] = [
   { type: 'teach-grammar', title: '부정사 -(i)tuṃ — ~하기 위해, ~할', example: 'pacati → pacituṃ (요리할, 요리하기 위해)\nkhādati → khādituṃ (먹을)\ngacchati → gantuṃ (갈)\ndadāti → dātuṃ (줄)\ntiṭṭhati → ṭhātuṃ (설)\npibati → pātuṃ (마실)', exampleKo: '어간 + (i)tuṃ = ~할, ~하기 위해', explanation: '부정사는 목적이나 의도를 표현합니다.\n\n규칙형: 어간 + ituṃ\n• pacituṃ, khādituṃ, vasituṃ\n\n불규칙형: 어근 + tuṃ\n• gantuṃ (← gam), dātuṃ (← dā)\n• ṭhātuṃ (← ṭhā), pātuṃ (← pā)\n• sotuṃ (← su, 듣다)\n• ñātuṃ (← ñā, 알다)\n\n용법: sakkoti/ussahati + 부정사\n"~할 수 있다/감히 ~하다"' },
 
   // === 부정사 예문 ===
-  { type: 'verse', pali: 'Dārako bhattaṃ bhuñjituṃ icchati.', pronKo: '다-라꼬 밧땅 분지뚬 잇차띠', translation: '아이는 밥을 먹기를(bhuñjituṃ) 원한다.', highlight: ['bhuñjituṃ', 'icchati'], note: 'bhuñjituṃ = 먹을/먹기를 (부정사)\nicchati = 원하다' },
-  { type: 'verse', pali: 'Samaṇo dhammaṃ desetuṃ vihāraṃ gacchati.', pronKo: '사마노 담망 데세뚬 위하-랑 갓차띠', translation: '사문은 법을 가르치기 위해(desetuṃ) 정사에 간다.', highlight: ['desetuṃ', 'dhammaṃ'], note: 'desetuṃ = 가르칠/가르치기 위해 (부정사)' },
-  { type: 'verse', pali: 'Kumāro udakaṃ pātuṃ nadiṃ gacchati.', pronKo: '꾸마-로 우다깡 빠-뚬 나딩 갓차띠', translation: '소년은 물을 마시기 위해(pātuṃ) 강에 간다.', highlight: ['pātuṃ', 'udakaṃ'], note: 'pātuṃ = 마실 (불규칙 부정사: pā + tuṃ)' },
-  { type: 'verse', pali: 'Kassako nagaraṃ gantuṃ ussahati.', pronKo: '깟사꼬 나가랑 간뚬 웃사하띠', translation: '농부는 도시에 가기를(gantuṃ) 감행한다.', highlight: ['gantuṃ', 'ussahati'], note: 'gantuṃ = 갈 (불규칙: gam + tuṃ)\nussahati = 감행하다, 노력하다' },
+  { type: 'verse', pali: 'Dārako bhattaṃ bhuñjituṃ icchati.', pronKo: '다-라꼬 밧땅 분지뚱 잇차띠', translation: '아이는 밥을 먹기를(bhuñjituṃ) 원한다.', highlight: ['bhuñjituṃ', 'icchati'], note: 'bhuñjituṃ = 먹을/먹기를 (부정사)\nicchati = 원하다' },
+  { type: 'verse', pali: 'Samaṇo dhammaṃ desetuṃ vihāraṃ gacchati.', pronKo: '사마노 담망 데세뚱 위하-랑 갓차띠', translation: '사문은 법을 가르치기 위해(desetuṃ) 정사에 간다.', highlight: ['desetuṃ', 'dhammaṃ'], note: 'desetuṃ = 가르칠/가르치기 위해 (부정사)' },
+  { type: 'verse', pali: 'Kumāro udakaṃ pātuṃ nadiṃ gacchati.', pronKo: '꾸마-로 우다깡 빠-뚱 나딩 갓차띠', translation: '소년은 물을 마시기 위해(pātuṃ) 강에 간다.', highlight: ['pātuṃ', 'udakaṃ'], note: 'pātuṃ = 마실 (불규칙 부정사: pā + tuṃ)' },
+  { type: 'verse', pali: 'Kassako nagaraṃ gantuṃ ussahati.', pronKo: '깟사꼬 나가랑 간뚱 웃사하띠', translation: '농부는 도시에 가려고(gantuṃ) 노력한다.', highlight: ['gantuṃ', 'ussahati'], note: 'gantuṃ = 갈 (불규칙: gam + tuṃ)\nussahati = 노력하다' },
 
   // === 현재분사 문법 ===
   { type: 'teach-grammar', title: '현재분사 -nta/-māna — ~하면서, ~하는', example: 'pacati → pacanta / pacamāna (요리하면서)\ngacchati → gacchanta / gacchamāna (가면서)\nvasati → vasanta / vasamāna (살면서)\ndeseti → desenta / desemāna (가르치면서)', exampleKo: '어간 + nta 또는 māna', explanation: '현재분사는 동시 진행 동작을 표현합니다.\n두 형태가 있으며 의미 차이는 거의 없습니다.\n\n-nta형 (능동):\n• pac + anta → pacanta\n• gacch + anta → gacchanta\n\n-māna형 (중간태):\n• pac + amāna → pacamāna\n• gacch + amāna → gacchamāna\n\n현재분사는 형용사처럼 격변화합니다:\n주격 단수: -anto (남성)\n주격 복수: -antā (남성)\n목적격 단수: -antaṃ\n도구격 단수: -antena' },
@@ -25,8 +25,8 @@ export const LESSON_10: StepWithoutId[] = [
   { type: 'teach-grammar', title: '현재분사 격변화 (-nta형)', example: '주격 단: gacchanto (가는 자가)\n주격 복: gacchantā (가는 자들이)\n목적격 단: gacchantaṃ (가는 자를)\n목적격 복: gacchante (가는 자들을)\n도구격 단: gacchantena (가는 자에 의해)', exampleKo: '남성 형용사처럼 격변화', explanation: '현재분사 -nta는 남성 -a형처럼 변화합니다.\n\n• 주격: -anto / -antā\n• 목적격: -antaṃ / -ante\n• 도구격: -antena / -antehi\n• 처소격: -ante / -antesu\n\n-māna형은 일반 -a형과 동일:\n• -māno / -mānā (주격)\n• -mānaṃ / -māne (목적격)\n\n경전 예: "āgacchantaṃ" = 오는 자를' },
 
   // === 현재분사 예문 ===
-  { type: 'verse', pali: 'Magge gacchanto naro rukkhaṃ passati.', pronKo: '맥게 갓찬또 나로 룩캉 빳사띠', translation: '길에서 가고 있는(gacchanto) 사람은 나무를 본다.', highlight: ['gacchanto', 'Magge'], note: 'gacchanto = 가고 있는 (현재분사 주격 단수)\nmagge = 길에서 (처소격)' },
-  { type: 'verse', pali: 'Bhikkhū piṇḍāya carantā gāmaṃ pavisanti.', pronKo: '빅쿠- 삔다-야 짜란따- 가-맹 빠위산띠', translation: '비구들은 탁발하며 다니면서(carantā) 마을에 들어간다.', highlight: ['carantā', 'piṇḍāya'], note: 'carantā = 다니면서 (현재분사 복수 주격)\npiṇḍāya = 탁발을 위해' },
+  { type: 'verse', pali: 'Magge gacchanto naro rukkhaṃ passati.', pronKo: '막게 갓찬또 나로 룩캉 빳사띠', translation: '길에서 가고 있는(gacchanto) 사람은 나무를 본다.', highlight: ['gacchanto', 'Magge'], note: 'gacchanto = 가고 있는 (현재분사 주격 단수)\nmagge = 길에서 (처소격)' },
+  { type: 'verse', pali: 'Bhikkhū piṇḍāya carantā gāmaṃ pavisanti.', pronKo: '빅쿠- 삔다-야 짜란따- 가-망 빠위산띠', translation: '비구들은 탁발하며 다니면서(carantā) 마을에 들어간다.', highlight: ['carantā', 'piṇḍāya'], note: 'carantā = 다니면서 (현재분사 복수 주격)\npiṇḍāya = 탁발을 위해' },
 
   // === 새 단어: 중성명사 (11과) ===
   { type: 'teach', word: 'āpaṇa', pronKo: '아-빠나', meaning: '가게, 상점', icon: '🏪', grammar: '중성명사', baseForm: 'āpaṇa', formNote: '주격: āpaṇaṃ / āpaṇā,āpaṇāni\n처소격: āpaṇe (가게에서)' },
@@ -43,7 +43,7 @@ export const LESSON_10: StepWithoutId[] = [
 
   // === 연습문제 10과 (부정사) ===
   { type: 'quiz', question: '1. Dārako bhattaṃ bhuñjituṃ icchati.', options: ['아이는 밥을 먹기를 원한다', '아이는 밥을 요리하기를 원한다', '아이들은 밥을 먹기를 원한다', '아이는 밥을 먹고서 원한다'], answer: 0, hint: 'bhuñjituṃ=먹기를(부정사), icchati=원하다' },
-  { type: 'quiz', question: '2. Kassako nagaraṃ gantuṃ ussahati.', options: ['농부는 도시에 가기를 감행한다', '농부는 도시에서 오기를 감행한다', '농부들은 도시에 가기를 감행한다', '농부는 마을에 가기를 감행한다'], answer: 0, hint: 'gantuṃ=갈(부정사), ussahati=감행하다' },
+  { type: 'quiz', question: '2. Kassako nagaraṃ gantuṃ ussahati.', options: ['농부는 도시에 가려고 노력한다', '농부는 도시에서 오려고 노력한다', '농부들은 도시에 가려고 노력한다', '농부는 마을에 가려고 노력한다'], answer: 0, hint: 'gantuṃ=갈(부정사), ussahati=노력하다' },
   { type: 'quiz', question: '3. Kumāro udakaṃ pātuṃ nadiṃ gacchati.', options: ['소년은 물을 마시려고 강에 간다', '소년은 물을 마시고 강에 간다', '소년들은 물을 마시려고 강에 간다', '소년은 물을 가져오려고 강에 간다'], answer: 0, hint: 'pātuṃ=마시려고(부정사), nadiṃ=강에(방향)' },
   { type: 'quiz', question: '4. Samaṇo dhammaṃ desetuṃ vihāraṃ gacchati.', options: ['사문은 법을 가르치기 위해 정사에 간다', '사문은 법을 듣기 위해 정사에 간다', '사문들은 법을 가르치기 위해 정사에 간다', '사문은 법을 가르치고서 정사에 간다'], answer: 0, hint: 'desetuṃ=가르치기 위해(부정사)' },
   { type: 'quiz', question: '5. Coro bhaṇḍaṃ corituṃ gehaṃ pavisati.', options: ['도둑은 물건을 훔치려고 집에 들어간다', '도둑은 물건을 훔치고서 집에 들어간다', '도둑들은 물건을 훔치려고 집에 들어간다', '도둑은 물건을 부수려고 집에 들어간다'], answer: 0, hint: 'corituṃ=훔치려고(부정사), pavisati=들어가다' },
@@ -65,7 +65,7 @@ export const LESSON_10: StepWithoutId[] = [
   { type: 'quiz', question: '17. Dārako āpaṇaṃ gantuṃ icchati.', options: ['아이는 가게에 가기를 원한다', '아이는 가게에서 오기를 원한다', '아이들은 가게에 가기를 원한다', '아이는 가게에 가고서 원한다'], answer: 0, hint: 'āpaṇaṃ=가게에(방향), gantuṃ=가기를(부정사)' },
   { type: 'quiz', question: '18. Samaṇo kammaṃ ārabhanto vīriyaṃ karoti.', options: ['사문은 일을 시작하면서 정진한다', '사문은 일을 시작하고서 정진한다', '사문들은 일을 시작하면서 정진한다', '사문은 일을 끝내면서 정진한다'], answer: 0, hint: 'ārabhanto=시작하면서(현재분사), vīriyaṃ=정진을' },
   { type: 'quiz', question: '19. Pāpaṃ akusalaṃ hoti.', options: ['악은 불선하다', '선은 불선하다', '악은 선하다', '공덕은 불선하다'], answer: 0, hint: 'pāpaṃ=악(중성), akusalaṃ=불선한, hoti=~이다' },
-  { type: 'quiz', question: '20. Paṇḍitā saccaṃ jānituṃ ussahanti.', options: ['현자들은 진리를 알려고 노력한다', '현자는 진리를 알려고 노력한다', '현자들은 진리를 알고서 감행한다', '현자들은 진리를 가르치려고 노력한다'], answer: 0, hint: 'jānituṃ=알기를(부정사), ussahanti=감행하다(복수)' },
+  { type: 'quiz', question: '20. Paṇḍitā saccaṃ jānituṃ ussahanti.', options: ['현자들은 진리를 알려고 노력한다', '현자는 진리를 알려고 노력한다', '현자들은 진리를 알고서 노력한다', '현자들은 진리를 가르치려고 노력한다'], answer: 0, hint: 'jānituṃ=알기를(부정사), ussahanti=노력하다(복수)' },
 
   // === 마무리 ===
   { type: 'speak', pali: 'Dānaṃ dadāmānā sagge uppajjanti', pronKo: '다-낭 다다-마-나- 삭게 웁빠잔띠' },

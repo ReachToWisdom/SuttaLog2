@@ -24,12 +24,12 @@ export const LESSON_01: StepWithoutId[] = [
   { type: 'teach', word: 'manusso', pronKo: '마눗소', meaning: '사람은 (주격 단수)', icon: '👤', grammar: '남성명사 · 주격 단수', baseForm: 'manussa (사람, 인간)', formNote: 'manussa → manusso' },
   { type: 'teach', word: 'naro', pronKo: '나로', meaning: '인간은, 남자는 (주격 단수)', icon: '👤', grammar: '남성명사 · 주격 단수', baseForm: 'nara / purisa (인간, 남자)', formNote: 'nara → naro / purisa → puriso' },
   { type: 'teach', word: 'kassako', pronKo: '깟사꼬', meaning: '농부는 (주격 단수)', icon: '🌾', grammar: '남성명사 · 주격 단수', baseForm: 'kassaka (농부)', formNote: 'kassaka → kassako' },
-  { type: 'teach', word: 'brāhmaṇo', pronKo: '브라-마노', meaning: '바라문은 (주격 단수)', icon: '🧘', grammar: '남성명사 · 주격 단수', baseForm: 'brāhmaṇa (바라문)', formNote: 'brāhmaṇa → brāhmaṇo' },
+  { type: 'teach', word: 'brāhmaṇo', pronKo: '브라-흐마노', meaning: '바라문은 (주격 단수)', icon: '🧘', grammar: '남성명사 · 주격 단수', baseForm: 'brāhmaṇa (바라문)', formNote: 'brāhmaṇa → brāhmaṇo' },
   { type: 'teach', word: 'putto', pronKo: '뿟또', meaning: '아들은 (주격 단수)', icon: '👦', grammar: '남성명사 · 주격 단수', baseForm: 'putta (아들)', formNote: 'putta → putto' },
   { type: 'teach', word: 'mātulo', pronKo: '마-뚤로', meaning: '삼촌은 (주격 단수)', icon: '👨', grammar: '남성명사 · 주격 단수', baseForm: 'mātula (삼촌)', formNote: 'mātula → mātulo' },
   { type: 'teach', word: 'kumāro', pronKo: '꾸마-로', meaning: '소년은, 왕자는 (주격 단수)', icon: '👦', grammar: '남성명사 · 주격 단수', baseForm: 'kumāra (소년, 왕자)', formNote: 'kumāra → kumāro' },
   { type: 'teach', word: 'vāṇijo', pronKo: '와-니조', meaning: '상인은 (주격 단수)', icon: '💰', grammar: '남성명사 · 주격 단수', baseForm: 'vāṇija (상인)', formNote: 'vāṇija → vāṇijo' },
-  { type: 'teach', word: 'bhūpālo', pronKo: '부-빠-로', meaning: '왕은 (주격 단수)', icon: '👑', grammar: '남성명사 · 주격 단수', baseForm: 'bhūpāla (왕)', formNote: 'bhūpāla → bhūpālo' },
+  { type: 'teach', word: 'bhūpālo', pronKo: '부-빨-로', meaning: '왕은 (주격 단수)', icon: '👑', grammar: '남성명사 · 주격 단수', baseForm: 'bhūpāla (왕)', formNote: 'bhūpāla → bhūpālo' },
   { type: 'teach', word: 'sahāyako', pronKo: '사하-야꼬', meaning: '친구는 (주격 단수)', icon: '🤝', grammar: '남성명사 · 주격 단수', baseForm: 'sahāya / sahāyaka / mitta (친구, 벗)', formNote: 'sahāyaka → sahāyako / mitta → mitto' },
 
   // === 동사 10개 (교재 전체) ===
