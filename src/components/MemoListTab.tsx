@@ -1,8 +1,8 @@
 // 메모 목록 탭 — 검색, 필터, 매칭, 이동, 수정/삭제
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { deleteMemo, getDeviceId, updateMemoStepId } from '../utils/memo'
-import type { Memo } from '../utils/memo'
+import { deleteMemo, getDeviceId, updateMemoStepId, updateMemoStatus } from '../utils/memo'
+import type { Memo, MemoStatus } from '../utils/memo'
 import {
   getPageLabel, findStepById, searchLessonContent,
   type PageSearchResult,
@@ -20,7 +20,8 @@ interface Props {
 export default function MemoListTab({
   memos, loading, loadMemos, startEdit, onClose,
 }: Props) {
-  const [showAll, setShowAll] = useState(false)
+  // 'lesson' | 'all' | '승인' | '보류' | '미승인'
+  const [filterMode, setFilterMode] = useState<'lesson' | 'all' | MemoStatus>('lesson')
   const [searchText, setSearchText] = useState('')
   const [matchResults, setMatchResults] = useState<{
     memoId: string; results: PageSearchResult[]
@@ -114,7 +115,7 @@ export default function MemoListTab({
 
   // 필터링
   let filtered = memos
-  if (!showAll) {
+  if (filterMode === 'lesson') {
     filtered = filtered.filter(m => {
       if (m.stepId && currentLessonId) {
         return m.stepId.startsWith(currentLessonId + '-') || m.stepId === currentLessonId
@@ -122,7 +123,10 @@ export default function MemoListTab({
       if (currentLessonId) return m.page.includes(currentLessonId)
       return false
     })
+  } else if (filterMode === '승인' || filterMode === '보류' || filterMode === '미승인') {
+    filtered = filtered.filter(m => m.status === filterMode)
   }
+  // filterMode === 'all' 이면 전체 표시
   if (searchText.trim()) {
     const query = searchText.trim().toLowerCase()
     filtered = filtered.filter(m => m.text.toLowerCase().includes(query))
@@ -140,18 +144,23 @@ export default function MemoListTab({
             focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
 
-      {/* 이 레슨 / 전체 토글 */}
-      <div className="flex items-center gap-2 mb-3">
-        <button onClick={() => setShowAll(false)}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-            !showAll ? 'bg-amber-600 text-white'
-              : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
-          }`}>이 레슨</button>
-        <button onClick={() => setShowAll(true)}
-          className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
-            showAll ? 'bg-amber-600 text-white'
-              : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
-          }`}>전체</button>
+      {/* 필터 탭 */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-3">
+        {([
+          ['lesson', '이 레슨', 'bg-amber-600'],
+          ['all',    '전체',   'bg-amber-600'],
+          ['승인',   '승인',   'bg-green-600'],
+          ['보류',   '보류',   'bg-yellow-500'],
+          ['미승인', '미승인', 'bg-red-500'],
+        ] as [string, string, string][]).map(([mode, label, activeColor]) => (
+          <button key={mode}
+            onClick={() => setFilterMode(mode as typeof filterMode)}
+            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+              filterMode === mode
+                ? `${activeColor} text-white`
+                : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-300'
+            }`}>{label}</button>
+        ))}
         <span className="text-xs text-neutral-400 ml-auto">
           {getCurrentPageId(location.pathname)}
         </span>
@@ -163,9 +172,11 @@ export default function MemoListTab({
         <p className="text-center text-neutral-400 py-8">
           {searchText.trim()
             ? `"${searchText}" 검색 결과가 없습니다.`
-            : showAll
-              ? '아직 메모가 없습니다.'
-              : `이 레슨(${currentLessonId || '알 수 없음'})에 메모가 없습니다.`}
+            : filterMode === 'lesson'
+              ? `이 레슨(${currentLessonId || '알 수 없음'})에 메모가 없습니다.`
+              : filterMode === 'all'
+                ? '아직 메모가 없습니다.'
+                : `"${filterMode}" 상태 메모가 없습니다.`}
         </p>
       ) : (
         <div className="space-y-3">
@@ -177,7 +188,11 @@ export default function MemoListTab({
               onFindMatch={handleFindMatch}
               matchResults={matchResults && matchResults.memoId === memo.id ? matchResults.results : null}
               onSelectMatch={handleSelectMatch}
-              onCloseMatch={() => setMatchResults(null)} />
+              onCloseMatch={() => setMatchResults(null)}
+              onStatusChange={async (id, status) => {
+                await updateMemoStatus(id, status)
+                loadMemos()
+              }} />
           ))}
         </div>
       )}
@@ -186,8 +201,18 @@ export default function MemoListTab({
 }
 
 // 개별 메모 카드 (인라인 — 별도 파일 불필요)
+// 상태별 색상 맵
+const STATUS_STYLE: Record<string, { badge: string; btn: string }> = {
+  '승인':   { badge: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300',
+               btn:   'text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20' },
+  '보류':   { badge: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300',
+               btn:   'text-yellow-600 hover:bg-yellow-50 dark:hover:bg-yellow-900/20' },
+  '미승인': { badge: 'bg-red-100 text-red-600 dark:bg-red-900/40 dark:text-red-300',
+               btn:   'text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20' },
+}
+
 function MemoCard({ memo, onMemoClick, onEdit, onDelete,
-  onFindMatch, matchResults, onSelectMatch, onCloseMatch,
+  onFindMatch, matchResults, onSelectMatch, onCloseMatch, onStatusChange,
 }: {
   memo: Memo
   onMemoClick: (m: Memo) => void
@@ -197,6 +222,7 @@ function MemoCard({ memo, onMemoClick, onEdit, onDelete,
   matchResults: PageSearchResult[] | null
   onSelectMatch: (memoId: string, stepId: string) => void
   onCloseMatch: () => void
+  onStatusChange: (id: string, status: MemoStatus | null) => void
 }) {
   return (
     <div className="rounded-xl border border-neutral-200
@@ -219,26 +245,49 @@ function MemoCard({ memo, onMemoClick, onEdit, onDelete,
               {memo.stepId}
             </span>
           )}
+          {/* 현재 상태 배지 */}
+          {memo.status && (
+            <span className={`ml-5 inline-flex w-fit text-[10px] font-semibold
+              px-1.5 py-0.5 rounded-full ${STATUS_STYLE[memo.status]?.badge}`}>
+              {memo.status}
+            </span>
+          )}
         </div>
         {memo.deviceId === getDeviceId() && (
-          <div className="flex gap-1" onClick={e => e.stopPropagation()}>
-            {!memo.stepId && (
-              <button onClick={() => onFindMatch(memo)}
-                className="text-xs text-blue-500 hover:text-blue-600
-                  font-medium px-2 py-1 rounded-md
-                  hover:bg-blue-50 dark:hover:bg-blue-900/20">매칭</button>
-            )}
-            <button onClick={() => onEdit(memo)}
-              className="text-xs text-amber-600 hover:text-amber-700
-                font-medium px-2 py-1 rounded-md
-                hover:bg-amber-50 dark:hover:bg-amber-900/20">수정</button>
-            <button onClick={() => {
-              if (!confirm('이 메모를 삭제할까요?')) return
-              onDelete(memo.id!)
-            }}
-              className="text-xs text-red-500 hover:text-red-600
-                font-medium px-2 py-1 rounded-md
-                hover:bg-red-50 dark:hover:bg-red-900/20">삭제</button>
+          <div className="flex flex-col gap-1 items-end" onClick={e => e.stopPropagation()}>
+            {/* 수정 / 삭제 / 매칭 */}
+            <div className="flex gap-1">
+              {!memo.stepId && (
+                <button onClick={() => onFindMatch(memo)}
+                  className="text-xs text-blue-500 font-medium px-2 py-1 rounded-md
+                    hover:bg-blue-50 dark:hover:bg-blue-900/20">매칭</button>
+              )}
+              <button onClick={() => onEdit(memo)}
+                className="text-xs text-amber-600 font-medium px-2 py-1 rounded-md
+                  hover:bg-amber-50 dark:hover:bg-amber-900/20">수정</button>
+              <button onClick={() => {
+                if (!confirm('이 메모를 삭제할까요?')) return
+                onDelete(memo.id!)
+              }}
+                className="text-xs text-red-500 font-medium px-2 py-1 rounded-md
+                  hover:bg-red-50 dark:hover:bg-red-900/20">삭제</button>
+            </div>
+            {/* 상태 버튼 */}
+            <div className="flex gap-1">
+              {(['승인', '보류', '미승인'] as MemoStatus[]).map(s => (
+                <button key={s}
+                  onClick={() => onStatusChange(memo.id!, memo.status === s ? null : s)}
+                  className={`text-[11px] font-medium px-2 py-0.5 rounded-full border
+                    transition-colors ${
+                    memo.status === s
+                      ? s === '승인' ? 'bg-green-600 text-white border-green-600'
+                        : s === '보류' ? 'bg-yellow-500 text-white border-yellow-500'
+                          : 'bg-red-500 text-white border-red-500'
+                      : `border-neutral-300 dark:border-neutral-600
+                        ${STATUS_STYLE[s]?.btn}`
+                  }`}>{s}</button>
+              ))}
+            </div>
           </div>
         )}
       </div>

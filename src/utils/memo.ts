@@ -26,10 +26,13 @@ export interface MemoImage {
   name: string
 }
 
+export type MemoStatus = '승인' | '보류' | '미승인'
+
 export interface Memo {
   id?: string
   page: string
   stepId?: string  // 고유 스텝 ID (페이지 추가/삭제에도 안정적)
+  status?: MemoStatus  // 검토 상태
   text: string
   images: MemoImage[]
   createdAt: string
@@ -179,6 +182,22 @@ export async function getMemos(): Promise<Memo[]> {
   } catch (e) {
     console.error('메모 조회 실패:', e)
     return []
+  }
+}
+
+// 메모 상태 업데이트 (승인/보류/미승인)
+export async function updateMemoStatus(
+  memoId: string,
+  status: MemoStatus | null,  // null이면 상태 제거
+): Promise<boolean> {
+  try {
+    await ensureFirebase()
+    const ref = fb.doc(db, COLLECTION, memoId)
+    await fb.updateDoc(ref, { status: status ?? null, updatedAt: new Date().toISOString() })
+    return true
+  } catch (e) {
+    console.error('메모 상태 업데이트 실패:', e)
+    return false
   }
 }
 
