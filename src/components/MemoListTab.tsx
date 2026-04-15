@@ -178,6 +178,29 @@ export default function MemoListTab({ memos, loading, loadMemos, startEdit, onCl
           )}
         </div>
 
+        {/* 이미지 — 상단 배치 (본문보다 먼저 노출) */}
+        {memo.images?.filter(i => i.dataUrl).length > 0 && (
+          <div className="space-y-2">
+            {[...memo.images]
+              .filter(i => i.dataUrl)
+              .sort((a, b) => a.order - b.order)
+              .map(img => (
+                <img key={img.order} src={img.dataUrl} alt={`이미지 ${img.order}`}
+                  className="w-full rounded-xl border border-neutral-200
+                    dark:border-neutral-700 object-contain"
+                  onError={e => {
+                    (e.currentTarget as HTMLImageElement).style.display = 'none'
+                  }} />
+              ))}
+          </div>
+        )}
+
+        {/* 본문 */}
+        {memo.text && (
+          <p className="text-sm whitespace-pre-wrap text-neutral-900
+            dark:text-neutral-100 leading-relaxed">{memo.text}</p>
+        )}
+
         {/* 상태 선택 — 모든 메모에 표시 */}
         <div className="space-y-1.5">
           <p className="text-xs font-medium text-neutral-500">검토 상태</p>
@@ -224,23 +247,6 @@ export default function MemoListTab({ memos, loading, loadMemos, startEdit, onCl
                 }
               </div>
             )}
-          </div>
-        )}
-
-        {/* 본문 */}
-        {memo.text && (
-          <p className="text-sm whitespace-pre-wrap text-neutral-900
-            dark:text-neutral-100 leading-relaxed">{memo.text}</p>
-        )}
-
-        {/* 이미지 */}
-        {memo.images?.length > 0 && (
-          <div className="space-y-2">
-            {memo.images.sort((a, b) => a.order - b.order).map(img => (
-              <img key={img.order} src={img.dataUrl} alt={`${img.order}`}
-                className="w-full rounded-xl border border-neutral-200
-                  dark:border-neutral-700 object-contain max-h-64" />
-            ))}
           </div>
         )}
       </div>
@@ -312,9 +318,26 @@ export default function MemoListTab({ memos, loading, loadMemos, startEdit, onCl
                 <p className="text-sm text-neutral-700 dark:text-neutral-300
                   line-clamp-2">{memo.text}</p>
               )}
-              {/* 이미지 수 */}
-              {memo.images?.length > 0 && (
-                <p className="text-[10px] text-neutral-400">이미지 {memo.images.length}장</p>
+              {/* 이미지 썸네일 미리보기 */}
+              {memo.images?.filter(i => i.dataUrl).length > 0 && (
+                <div className="flex gap-1.5 mt-0.5">
+                  {[...memo.images]
+                    .filter(i => i.dataUrl)
+                    .sort((a, b) => a.order - b.order)
+                    .slice(0, 4)
+                    .map(img => (
+                      <img key={img.order} src={img.dataUrl} alt=""
+                        className="w-12 h-12 object-cover rounded-lg border
+                          border-neutral-200 dark:border-neutral-600 flex-shrink-0" />
+                    ))}
+                  {memo.images.filter(i => i.dataUrl).length > 4 && (
+                    <div className="w-12 h-12 rounded-lg border border-neutral-200
+                      dark:border-neutral-600 flex items-center justify-center
+                      bg-neutral-100 dark:bg-neutral-700 text-xs text-neutral-500 flex-shrink-0">
+                      +{memo.images.filter(i => i.dataUrl).length - 4}
+                    </div>
+                  )}
+                </div>
               )}
             </button>
           ))}
