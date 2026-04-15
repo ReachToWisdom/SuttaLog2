@@ -178,29 +178,22 @@ export default function MemoListTab({ memos, loading, loadMemos, startEdit, onCl
           )}
         </div>
 
-        {/* 상태 선택 */}
-        {isMyMemo && (
-          <div className="space-y-1.5">
-            <p className="text-xs font-medium text-neutral-500">검토 상태</p>
-            <div className="flex gap-2">
-              {(['승인', '보류', '미승인'] as MemoStatus[]).map(s => (
-                <button key={s}
-                  onClick={() => handleStatusChange(memo.id!, memo.status === s ? null : s)}
-                  className={`flex-1 py-2 text-sm font-semibold rounded-xl border-2 transition-colors ${
-                    memo.status === s
-                      ? STATUS_STYLE[s].active
-                      : `border-neutral-200 dark:border-neutral-700 text-neutral-500
-                         dark:text-neutral-400 hover:border-current ${STATUS_STYLE[s].btn}`
-                  }`}>{s}</button>
-              ))}
-            </div>
+        {/* 상태 선택 — 모든 메모에 표시 */}
+        <div className="space-y-1.5">
+          <p className="text-xs font-medium text-neutral-500">검토 상태</p>
+          <div className="flex gap-2">
+            {(['승인', '보류', '미승인'] as MemoStatus[]).map(s => (
+              <button key={s}
+                onClick={() => handleStatusChange(memo.id!, memo.status === s ? null : s)}
+                className={`flex-1 py-2 text-sm font-semibold rounded-xl border-2 transition-colors ${
+                  memo.status === s
+                    ? STATUS_STYLE[s].active
+                    : `border-neutral-200 dark:border-neutral-700 text-neutral-500
+                       dark:text-neutral-400 hover:border-current ${STATUS_STYLE[s].btn}`
+                }`}>{s}</button>
+            ))}
           </div>
-        )}
-        {/* 내 메모가 아닐 때도 상태 배지 표시 */}
-        {!isMyMemo && memo.status && (
-          <span className={`inline-flex text-xs font-semibold px-2.5 py-1 rounded-full
-            ${STATUS_STYLE[memo.status]?.badge}`}>{memo.status}</span>
-        )}
+        </div>
 
         {/* 매칭 섹션 (stepId 없을 때) */}
         {isMyMemo && !memo.stepId && (
