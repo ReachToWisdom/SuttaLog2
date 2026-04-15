@@ -5,11 +5,11 @@ import { LESSONS } from '../grammar/lessons'
 
 // 카테고리 정의
 const CATEGORIES = [
-  { key: 'basic', label: '기초', desc: '자모와 발음, 연성법', range: [0, 1] as const },
-  { key: 'masculine', label: '남성명사 -a 격변화', desc: '1~8과', range: [2, 9] as const },
-  { key: 'verb', label: '동사 활용', desc: '9~17과', range: [10, 18] as const },
-  { key: 'feminine', label: '여성명사 + 분사', desc: '18~23과', range: [19, 24] as const },
-  { key: 'advanced', label: '고급 문법', desc: '24~32과', range: [25, 31] as const },
+  { key: 'basic', label: '기초', desc: '자모와 발음, 연성법', range: [0, 2] as const },
+  { key: 'masculine', label: '남성명사 -a 격변화', desc: '1~8과', range: [3, 10] as const },
+  { key: 'verb', label: '동사 활용', desc: '9~17과', range: [11, 19] as const },
+  { key: 'feminine', label: '여성명사 + 분사', desc: '18~23과', range: [20, 25] as const },
+  { key: 'advanced', label: '고급 문법', desc: '24~32과', range: [26, 32] as const },
 ]
 
 // 과별 진행도 조회

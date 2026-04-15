@@ -341,6 +341,9 @@ export default function GrammarLearn() {
             setHearts(5)
             setStepIdx(0)
             setCorrectCount(0)
+            // 퀴즈 선택/결과 상태 초기화 (showResult가 남아있으면 재시작 후 오답/정답 표시 안 됨)
+            setSelected(null)
+            setShowResult(false)
           }}
           className="mt-8 w-60 py-3.5 rounded-2xl text-white font-bold text-sm
                      active:scale-[0.97] transition-transform"
@@ -354,6 +357,9 @@ export default function GrammarLearn() {
               setHearts(5)
               setStepIdx(firstQuizIdx)
               setCorrectCount(0)
+              // 퀴즈 선택/결과 상태 초기화 (showResult가 남아있으면 재시작 후 오답/정답 표시 안 됨)
+              setSelected(null)
+              setShowResult(false)
             }}
             className="mt-3 w-60 py-3.5 rounded-2xl font-bold text-sm
                        active:scale-[0.97] transition-transform"

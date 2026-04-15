@@ -2,6 +2,7 @@
 import type { LessonInfo } from './types'
 import { assignStepIds } from '../../utils/step-id-generator'
 import { LESSON_00 } from './lesson-00-alphabet'
+import { LESSON_ALPHABET_2 } from './lesson-alphabet-2'
 import { LESSON_01_SANDHI } from './lesson-01-sandhi'
 import { LESSON_01 } from './lesson-01'
 import { LESSON_02 } from './lesson-02'
@@ -36,6 +37,7 @@ import { LESSON_29 } from './lesson-29'
 export const LESSONS: LessonInfo[] = [
   // 기초
   { id: 'lesson-00', title: '자모와 발음', subtitle: '모음 8 · 자음 33 · 발음규칙 · 8격', icon: '🔤', steps: assignStepIds('lesson-00', LESSON_00) },
+  { id: 'lesson-alphabet-2', title: '자모와 발음 2', subtitle: '41자 개별 학습 · 행복경 예시', icon: '🔡', steps: assignStepIds('lesson-alphabet-2', LESSON_ALPHABET_2) },
   // 남성 -a 8격
   { id: 'lesson-01', title: '1과: 주격 + 동사', subtitle: '-o/-ā · -ti/-nti', icon: '📿', steps: assignStepIds('lesson-01', LESSON_01) },
   { id: 'lesson-02', title: '2과: 목적격', subtitle: '-ṃ/-e · ~을/를', icon: '🎯', steps: assignStepIds('lesson-02', LESSON_02) },
