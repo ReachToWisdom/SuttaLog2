@@ -35,7 +35,7 @@ export const LESSON_13: StepWithoutId[] = [
   { type: 'teach', word: 'desessati', pronKo: '데셋사띠', meaning: '설할 것이다', icon: '📖', grammar: '미래형 3인칭 단수', baseForm: 'deseti', formNote: '현재: deseti\n미래: desessati\ndes + essa + ti', buddhism: 'dhammaṃ desessati = 법을 설할 것이다' },
 
   // === 예문 ===
-  { type: 'verse', pali: 'Buddho dhammaṃ desessati.\nBuddhā dhammaṃ desessanti.', pronKo: '붓도 담망 데셋사띠\n붓타- 담망 데셋산띠', translation: '붓다께서 법을 설할 것이다.\n붓다들께서 법을 설할 것이다.', highlight: ['desessati', 'desessanti'], note: '미래형: -essati(단수) / -essanti(복수)\n-e어간 동사의 미래형 패턴' },
+  { type: 'verse', pali: 'Buddho dhammaṃ desessati.\nBuddhā dhammaṃ desessanti.', pronKo: '붓도 담망 데셋사띠\n붓다- 담망 데셋산띠', translation: '붓다께서 법을 설할 것이다.\n붓다들께서 법을 설할 것이다.', highlight: ['desessati', 'desessanti'], note: '미래형: -essati(단수) / -essanti(복수)\n-e어간 동사의 미래형 패턴' },
   { type: 'verse', pali: 'Ahaṃ gāmaṃ gamissāmi.\nMayaṃ gāmaṃ gamissāma.', pronKo: '아항 가-망 가밋사-미\n마양 가-망 가밋사-마', translation: '나는 마을에 갈 것이다.\n우리는 마을에 갈 것이다.', highlight: ['gamissāmi', 'gamissāma'], note: '1인칭 미래형: -issāmi(단수) / -issāma(복수)\nahaṃ=나, mayaṃ=우리' },
   { type: 'verse', pali: 'Tvaṃ dānaṃ dassasi.\nTumhe dānaṃ dassatha.', pronKo: '뜨왕 다-낭 닷사시\n뚬헤 다-낭 닷사타', translation: '너는 보시를 줄 것이다.\n너희는 보시를 줄 것이다.', highlight: ['dassasi', 'dassatha'], note: '2인칭 미래형: dassasi(단수) / dassatha(복수)\ndadāti의 불규칙 미래형' },
 

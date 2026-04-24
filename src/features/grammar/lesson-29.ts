@@ -30,7 +30,7 @@ export const LESSON_29: StepWithoutId[] = [
   { type: 'teach-grammar', title: '대명사적 부사 대조표', example: '의미      관계    지시    의문\n어디에:   yattha  tattha  kattha\n어디로부터: yato   tato    kuto\n어떻게:   yathā   tathā   kathaṃ\n왜:      yasmā   tasmā   kasmā\n언제:     yadā    tadā    kadā', exampleKo: '관계(y-) / 지시(t-) / 의문(k-) 규칙 동일', explanation: '부사도 y-/t-/k- 대응:\n• yattha tattha kattha (어디에)\n  → "yattha Bhagavā, tattha gacchāmi"\n  (세존 계신 곳에, 거기로 나는 간다)\n\n• yathā tathā kathaṃ (어떻게)\n• yasmā tasmā kasmā (왜/그러므로)' },
 
   // === 예문 12개 (교재 32과 + quiz 변환) ===
-  { type: 'quiz', question: '1. Yo atthaññū hoti so paṇḍito.', options: ['의미를 아는 자, 그가 현자이다', '현자는 의미를 안다', '그는 의미를 아는 현자이다', '현자가 되고자 하는 자는 의미를 안다'], answer: 0, hint: 'yo…so = …하는 그 자는, atthaññū = 의미를 아는' },
+  { type: 'quiz', question: '1. Yo atthaññū hoti so paṇḍito.', options: ['이치를 아는 자, 그가 현자이다', '현자는 이치를 안다', '그는 이치를 아는 현자이다', '현자가 되고자 하는 자는 이치를 안다'], answer: 0, hint: 'yo…so = …하는 그 자는, atthaññū = 이치를 아는' },
   { type: 'quiz', question: '2. Yaṃ ahaṃ ākaṅkhamāno āsiṃ taṃ me paripūraṃ ahosi.', options: ['내가 소망하고 있었던 것, 그것이 나에게 성취되었다', '나는 소망한 것을 모두 가졌다', '그것을 내가 소망했으므로 성취되었다', '성취된 것이 나의 소망이었다'], answer: 0, hint: 'yaṃ…taṃ = …하는 것, 그것은, ākaṅkhamāno = 소망하면서' },
   { type: 'quiz', question: '3. Yena maggena āgato tena maggena gaccha.', options: ['어떤 길로 왔든, 그 길로 가라', '그 길로 가서 다시 오라', '길을 따라 오고 가라', '왔던 그 길은 가는 길이 아니다'], answer: 0, hint: 'yena…tena = 어떤~으로…그~으로, maggena = 길로' },
   { type: 'quiz', question: '4. Ko taṃ jānāti?', options: ['누가 그것을 아는가?', '그것을 어떻게 아는가?', '무엇을 아는가?', '그는 누구를 아는가?'], answer: 0, hint: 'ko = 누가, taṃ = 그것을, jānāti = 안다' },

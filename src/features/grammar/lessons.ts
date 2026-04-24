@@ -71,7 +71,7 @@ export const LESSONS: LessonInfo[] = [
   { id: 'lesson-27', title: '30과: -vantu/-mantu', subtitle: 'Bhagavā · 소유형용사', icon: '🏔️', steps: assignStepIds('lesson-27', LESSON_27) },
   { id: 'lesson-28', title: '31과: 인칭대명사', subtitle: 'ahaṃ/tvaṃ/mayaṃ/tumhe', icon: '🫵', steps: assignStepIds('lesson-28', LESSON_28) },
   { id: 'lesson-29', title: '32과: 관계·지시·의문대명사', subtitle: 'yo/so/ko · yattha/tattha', icon: '❓', steps: assignStepIds('lesson-29', LESSON_29) },
-  // 연성법 (마지막)
+  // 연성법
   { id: 'lesson-sandhi', title: '연성법', subtitle: 'Sandhi ①~⑬ · 억제음 변화', icon: '🔗', steps: assignStepIds('lesson-sandhi', LESSON_01_SANDHI) },
 ]
 

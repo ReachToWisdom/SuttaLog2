@@ -29,7 +29,7 @@ export const LESSON_08: StepWithoutId[] = [
   { type: 'teach', word: 'puppha / kusuma', pronKo: '뿝파 / 꾸수마', meaning: '꽃', icon: '🌸', grammar: '중성명사', baseForm: 'puppha, kusuma', formNote: '주격: pupphaṃ / pupphā,pupphāni' },
   { type: 'teach', word: 'geha / ghara', pronKo: '게하 / 가라', meaning: '집', icon: '🏘️', grammar: '중성명사', baseForm: 'geha, ghara', formNote: '주격: gehaṃ / gehā\n처소격: gehe (집에서)' },
   { type: 'teach', word: 'āsana', pronKo: '아-사나', meaning: '자리, 좌석', icon: '💺', grammar: '중성명사', baseForm: 'āsana', formNote: '주격: āsanaṃ / āsanā,āsanāni', buddhism: 'āsana = 좌선의 자리\npaññatt-āsana = 마련된 자리' },
-  { type: 'teach', word: 'paṇṇa', pronKo: '빤나', meaning: '나뭇잎', icon: '🍃', grammar: '중성명사', baseForm: 'paṇṇa', formNote: '주격: paṇṇaṃ / paṇṇā,paṇṇāni' },
+  { type: 'teach', word: 'paṇṇa', pronKo: '빤냐', meaning: '나뭇잎', icon: '🍃', grammar: '중성명사', baseForm: 'paṇṇa', formNote: '주격: paṇṇaṃ / paṇṇā,paṇṇāni' },
   { type: 'teach', word: 'tiṇa', pronKo: '띠나', meaning: '풀', icon: '🌿', grammar: '중성명사', baseForm: 'tiṇa', formNote: '주격: tiṇaṃ / tiṇā,tiṇāni' },
   { type: 'teach', word: 'khīra', pronKo: '키-라', meaning: '우유', icon: '🥛', grammar: '중성명사', baseForm: 'khīra', formNote: '주격: khīraṃ\n처소격: khīre' },
   { type: 'teach', word: 'nagara', pronKo: '나가라', meaning: '도시', icon: '🏙️', grammar: '중성명사', baseForm: 'nagara', formNote: '주격: nagaraṃ / nagarā\n처소격: nagare (도시에서)' },

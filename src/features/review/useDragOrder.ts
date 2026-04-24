@@ -1,5 +1,5 @@
 // 드래그앤드롭 순서 관리 훅 (HTML5 Drag and Drop API)
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 
 const STORAGE_KEY = 'pali-review-order'
 
@@ -54,6 +54,13 @@ export function useDragOrder<T extends { id: string }>(
     const sorted = loadOrder(ids)
     return sorted.map(id => items.find(i => i.id === id)!).filter(Boolean)
   })
+
+  // 새로운 항목이 완료되었을 때 목록 갱신
+  useEffect(() => {
+    const ids = items.map(i => i.id)
+    const sorted = loadOrder(ids)
+    setOrderedItems(sorted.map(id => items.find(i => i.id === id)!).filter(Boolean))
+  }, [items])
 
   const [dragState, setDragState] = useState<DragOrderState>({
     dragIndex: null,

@@ -14,6 +14,17 @@ export type StepWithoutId =
 // 문법 학습 스텝 타입 정의 (ID 포함)
 export type StepType = StepWithoutId & { id: string }
 
+export type IntroStep = Extract<StepType, { type: 'intro' }>
+export type TeachStep = Extract<StepType, { type: 'teach' }>
+export type TeachGrammarStep = Extract<StepType, { type: 'teach-grammar' }>
+export type QuizStep = Extract<StepType, { type: 'quiz' }>
+export type MatchListenStep = Extract<StepType, { type: 'match-listen' }>
+export type MatchReverseStep = Extract<StepType, { type: 'match-reverse' }>
+export type WritingStep = Extract<StepType, { type: 'writing' }>
+export type SpeakStep = Extract<StepType, { type: 'speak' }>
+export type ArrangeStep = Extract<StepType, { type: 'arrange' }>
+export type VerseStep = Extract<StepType, { type: 'verse' }>
+
 // 과 정보
 export interface LessonInfo {
   id: string

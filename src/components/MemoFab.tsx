@@ -10,7 +10,7 @@ import MemoListTab from './MemoListTab'
 
 export default function MemoFab() {
   const [open, setOpen] = useState(false)
-  const [tab, setTab] = useState<Tab>('write')
+  const [tab, setTab] = useState<Tab>('list')
   const [text, setText] = useState('')
   const [images, setImages] = useState<ImageItem[]>([])
   const [sending, setSending] = useState(false)
@@ -61,7 +61,7 @@ export default function MemoFab() {
   const handleClose = () => {
     setOpen(false)
     resetForm()
-    setTab('write')
+    setTab('list')
   }
 
   return (

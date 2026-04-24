@@ -23,13 +23,13 @@ export const LESSON_27: StepWithoutId[] = [
   { type: 'teach', word: 'saddhāvantu', pronKo: '삿다-완뚜', meaning: '믿음이 있는', icon: '🕊️', grammar: '-vantu 형용사', formNote: '남성 주격: saddhāvā', buddhism: 'saddhā(믿음) = 오근(五根) 중 하나' },
   { type: 'teach', word: 'balavantu', pronKo: '발라완뚜', meaning: '힘센, 강한', icon: '💪', grammar: '-vantu 형용사', formNote: '남성 주격: balavā' },
   { type: 'teach', word: 'paññavantu', pronKo: '빤냐완뚜', meaning: '현명한', icon: '🧠', grammar: '-vantu 형용사', formNote: '남성 주격: paññavā', buddhism: 'paññā(지혜) = 삼학(三學)의 완성' },
-  { type: 'teach', word: 'himavantu', pronKo: '히마완뚜', meaning: '눈(雪)이 있는 → 히말라야', icon: '🏔️', grammar: '-vantu 형용사 → 고유명사', formNote: '남성 주격: himavā', buddhism: 'Himavā = 히말라야 산' },
+  { type: 'teach', word: 'himavantu', pronKo: '히마완뚜', meaning: '눈(雪)이 있는 → 히말라야', icon: '🏔️', grammar: '-vantu 형용사 → 고유명사', formNote: '남성 주격: himavā', buddhism: 'Himavā = 히말라야 산 (히마와-)' },
 
   // === -mantu 형용사 단어 ===
   { type: 'teach-grammar', title: '-mantu 형용사 (-vantu와 동일 패턴)', example: '남성 주격: satimā (← satimantu)\n도구격: satimatā, satimantena\n여/소유격: satimato, satimantassa\n처소격: satimati, satimantamhi', exampleKo: '-mantu는 -vantu와 완전히 같은 변화', explanation: '-mantu = -vantu와 동일 패턴:\n• v → m 만 다름\n• 주격 -mā, 도구격 -matā/-mantena\n• 여성: -matī/-mantī\n\n-vantu: 주로 명사 + vantu\n-mantu: 주로 명사 + mantu' },
 
-  { type: 'teach', word: 'satimantu', pronKo: '사띠만뚜', meaning: '마음챙김이 있는', icon: '🧘', grammar: '-mantu 형용사', formNote: '남성 주격: satimā', buddhism: 'sati(마음챙김) = 사념처(四念處)의 핵심' },
-  { type: 'teach', word: 'cakkhumantu', pronKo: '짝쿠만뚜', meaning: '눈이 있는 → 통찰력 있는', icon: '👁️', grammar: '-mantu 형용사', formNote: '남성 주격: cakkhumā', buddhism: '붓다의 별칭으로 사용' },
+  { type: 'teach', word: 'satimantu', pronKo: '사띠만뚜', meaning: '마음챙김이 있는', icon: '🧘', grammar: '-mantu 형용사', formNote: '남성 주격: satimā', buddhism: 'sati(마음챙김) = 사념처(四念處)의 핵심. satimā = 사띠마-' },
+  { type: 'teach', word: 'cakkhumantu', pronKo: '짝쿠만뚜', meaning: '눈이 있는 → 통찰력 있는', icon: '👁️', grammar: '-mantu 형용사', formNote: '남성 주격: cakkhumā', buddhism: '붓다의 별칭으로 사용. cakkhumā = 짝쿠마-' },
   { type: 'teach', word: 'bhānumantu', pronKo: '바-누만뚜', meaning: '빛나는 → 태양', icon: '☀️', grammar: '-mantu 형용사', formNote: '남성 주격: bhānumā' },
   { type: 'teach', word: 'buddhimantu', pronKo: '붓디만뚜', meaning: '총명한, 지혜로운', icon: '🎓', grammar: '-mantu 형용사', formNote: '남성 주격: buddhimā' },
 

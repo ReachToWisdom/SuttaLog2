@@ -31,7 +31,7 @@ const STATUS_STYLE: Record<string, { badge: string; active: string; btn: string 
 }
 
 export default function MemoListTab({ memos, loading, loadMemos, startEdit, onClose }: Props) {
-  const [filterMode, setFilterMode] = useState<'lesson' | 'all' | MemoStatus>('lesson')
+  const [filterMode, setFilterMode] = useState<'lesson' | 'all' | MemoStatus>('미승인')
   const [searchText, setSearchText] = useState('')
   const [selectedMemo, setSelectedMemo] = useState<Memo | null>(null)
   const [matchResults, setMatchResults] = useState<{ memoId: string; results: PageSearchResult[] } | null>(null)
