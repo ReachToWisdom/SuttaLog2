@@ -319,8 +319,8 @@ export const LESSON_ALPHABET_2: StepWithoutId[] = [
     "pronKo": "차",
     "meaning": "거센소리 \"차\"",
     "icon": "🔊",
-    "verseLine": "dhammacariyā [담마짜리야-]",
-    "verseLineKo": "법다운 행동 (행복경)"
+    "verseLine": "dhammasākacchā [담마사-깟차-]",
+    "verseLineKo": "법담을 나눔 (행복경)"
   },
   {
     "type": "teach",
@@ -346,7 +346,7 @@ export const LESSON_ALPHABET_2: StepWithoutId[] = [
     "pronKo": "냐",
     "meaning": "\"냐\"",
     "icon": "🔊",
-    "verseLine": "kataññutā [까딴누따-]",
+    "verseLine": "kataññutā [까딴뉴따-]",
     "verseLineKo": "감사함 (행복경)"
   },
   {
@@ -791,8 +791,8 @@ export const LESSON_ALPHABET_2: StepWithoutId[] = [
   {
     "type": "teach",
     "word": "s",
-    "pronKo": "사",
-    "meaning": "\"사\"",
+    "pronKo": "사(싸)",
+    "meaning": "\"사(싸)\"",
     "icon": "🔊",
     "verseLine": "sevanā [세와나-]",
     "verseLineKo": "가까이함 (행복경)"

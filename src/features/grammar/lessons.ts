@@ -41,7 +41,7 @@ export const LESSONS: LessonInfo[] = [
   // 남성 -a 8격
   { id: 'lesson-01', title: '1과: 주격 + 동사', subtitle: '-o/-ā · -ti/-nti', icon: '📿', steps: assignStepIds('lesson-01', LESSON_01) },
   { id: 'lesson-02', title: '2과: 목적격', subtitle: '-ṃ/-e · ~을/를', icon: '🎯', steps: assignStepIds('lesson-02', LESSON_02) },
-  { id: 'lesson-03', title: '3과: 구격', subtitle: '-ena/-ehi · ~으로/함께', icon: '🤝', steps: assignStepIds('lesson-03', LESSON_03) },
+  { id: 'lesson-03', title: '3과: 도구격', subtitle: '-ena/-ehi · ~으로/함께', icon: '🤝', steps: assignStepIds('lesson-03', LESSON_03) },
   { id: 'lesson-04', title: '4과: 탈격', subtitle: '-ā/-mhā/-smā · ~로부터', icon: '↩️', steps: assignStepIds('lesson-04', LESSON_04) },
   { id: 'lesson-05', title: '5과: 여격', subtitle: '-āya/-ssa · ~에게/위해', icon: '🎁', steps: assignStepIds('lesson-05', LESSON_05) },
   { id: 'lesson-06', title: '6과: 소유격', subtitle: '-ssa/-ānaṃ · ~의', icon: '👤', steps: assignStepIds('lesson-06', LESSON_06) },

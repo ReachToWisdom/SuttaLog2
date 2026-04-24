@@ -37,7 +37,7 @@ export default function StepRenderer(props: StepRendererProps) {
     case 'teach':
       return <TeachStep step={step} lid={props.lid} onSpeak={props.onSpeak} />
     case 'teach-grammar':
-      return <TeachGrammarStep step={step} onSpeak={props.onSpeak} />
+      return <TeachGrammarStep step={step} />
     case 'quiz':
       return (
         <QuizStep

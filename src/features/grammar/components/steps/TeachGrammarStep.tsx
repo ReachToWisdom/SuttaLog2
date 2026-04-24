@@ -2,10 +2,9 @@ import type { TeachGrammarStep as TeachGrammarStepType } from '../../types'
 
 interface TeachGrammarStepProps {
   step: TeachGrammarStepType
-  onSpeak: (text: string) => void
 }
 
-export default function TeachGrammarStep({ step, onSpeak }: TeachGrammarStepProps) {
+export default function TeachGrammarStep({ step }: TeachGrammarStepProps) {
   return (
     <div className="flex-1 flex flex-col pt-2">
       <div className="flex items-center gap-2 mb-4">
@@ -25,15 +24,7 @@ export default function TeachGrammarStep({ step, onSpeak }: TeachGrammarStepProp
           className="pali-text text-lg font-bold text-center whitespace-pre-line"
           style={{ color: 'var(--color-primary)' }}
         >
-          {step.example.split(/(\s+)/).map((token, i) =>
-            /^\s+$/.test(token) ? token : (
-              <span key={i}
-                onClick={() => onSpeak(token.replace(/[,.;:!?"'()]/g, ''))}
-                className="cursor-pointer hover:underline active:opacity-60 transition-opacity">
-                {token}
-              </span>
-            )
-          )}
+          {step.example}
         </p>
         <p className="text-center mt-2 font-semibold text-sm whitespace-pre-line">
           {step.exampleKo}
