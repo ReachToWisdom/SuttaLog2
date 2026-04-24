@@ -4,10 +4,10 @@ import { useStore } from '../../../store/useStore'
 
 export const CATEGORIES = [
   { key: 'basic', label: '기초', desc: '자모와 발음', range: [0, 1] as const },
-  { key: 'masculine', label: '남성명사 -a 격변화', desc: '1~9과', range: [2, 10] as const },
-  { key: 'verb', label: '동사 활용', desc: '10~19과', range: [11, 19] as const },
-  { key: 'feminine', label: '여성명사 + 분사', desc: '20~27과', range: [20, 25] as const },
-  { key: 'advanced', label: '고급 문법', desc: '28~32과', range: [25, 30] as const },
+  { key: 'masculine', label: '남성명사 -a 격변화', desc: '1~8과', range: [2, 9] as const },
+  { key: 'verb', label: '동사 활용', desc: '9~17과', range: [10, 17] as const },
+  { key: 'feminine', label: '여성명사 + 분사', desc: '18~23과', range: [18, 23] as const },
+  { key: 'advanced', label: '고급 문법', desc: '24~32과', range: [24, 30] as const },
   { key: 'sandhi', label: '연성법', desc: 'Sandhi', range: [31, 31] as const },
 ] as const
 
